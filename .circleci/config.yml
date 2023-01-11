@@ -15,11 +15,11 @@ jobs:
     steps:
       - checkout
       - python/install-packages:
-        pkg-manager: pip 
+          pkg-manager: pip 
 
       - run: 
-        name: Run tests
-        command: coverage run -m pytest 
+          name: Run tests
+          command: coverage run -m pytest 
 
       - coveralls/upload
 
