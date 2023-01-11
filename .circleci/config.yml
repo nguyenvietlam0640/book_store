@@ -16,17 +16,20 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: pip 
-
+      
       - run: 
-          name: Run tests
+          name: install npm
           command: |
             sudo apt-get update
             sudo apt-get upgrade
             sudo apt-get install npm
-            
-            coverage run -m pytest 
+      
+      - run: 
+          name: Run tests
+          command: coverage run -m pytest 
 
-      - coveralls/upload
+      - coveralls/upload:
+          path_to_lcov: .coveralls.yml
 
 workflows:
   bookstore_workflow:
