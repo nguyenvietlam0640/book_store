@@ -1,0 +1,31 @@
+version: 2.1
+
+
+orbs: 
+  python: circleci/python@1.5.0
+  coveralls: coveralls/coveralls@1.0.6
+
+
+jobs:
+  build_and_test:
+    docker:
+      - image: cimg/python:3.10.2
+    
+    
+    steps:
+      - checkout
+      - python/install-packages:
+        pkg-manager: pip 
+
+      - run: 
+        name: Run tests
+        command: coverage run -m pytest 
+
+      - coveralls/upload
+
+workflows:
+  bookstore_workflow:
+    jobs:
+      - build_and_test
+
+
