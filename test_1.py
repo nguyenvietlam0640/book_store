@@ -4,17 +4,17 @@
 def example():
     return 0
 
-def one():
+def test_one():
     assert example() == 0
 
 
-def two():
+def test_two():
     assert example() == 0
 
 
-def three():
+def test_three():
     assert example() == 0
 
 
-def four():
+def test_four():
     assert example() == 1
