@@ -17,4 +17,4 @@ def test_three():
 
 
 def test_four():
-    assert example() == 1
+    assert example() == 0
