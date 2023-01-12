@@ -30,7 +30,7 @@ jobs:
 
       
       - coveralls/upload:
-          path-to-lcov: ${{ github.workspace }}/coverage/lcov.info
+          path-to-lcov: coverage/lcov.info
           token: repo_token
 
 workflows:
