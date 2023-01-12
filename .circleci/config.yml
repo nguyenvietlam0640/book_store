@@ -29,13 +29,17 @@ jobs:
           command: coverage run -m pytest 
 
       
-      - coveralls/upload:
-          path_to_lcov: .coveralls.yml
-          token: repo_token
+      - coveralls/upload
+          
 
 workflows:
   bookstore_workflow:
     jobs:
       - build_and_test
 
-
+commands:
+  upload:
+    parameters:
+      path_to_lcov:
+        ./coverage/lcov.info
+      token: repo_token
