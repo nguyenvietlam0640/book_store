@@ -3,6 +3,10 @@
 def example():
     return 0
 
+def example_2():
+    return 2
+
+
 def test_one():
     assert example() == 0
 
