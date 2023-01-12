@@ -26,10 +26,14 @@ jobs:
       
       - run: 
           name: Run tests
-          command: coverage run -m pytest 
+          command: |
+            coverage run -m pytest  
 
       
-      - coveralls/upload
+      - coveralls/upload:
+          token: repo_token
+          path_to_lcov: .coverage
+        
           
 
 workflows:
@@ -37,8 +41,3 @@ workflows:
     jobs:
       - build_and_test
 
-commands:
-  upload:
-    parameters:
-      path_to_lcov: .coveralls.yml
-      token: repo_token
