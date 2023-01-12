@@ -40,5 +40,5 @@ workflows:
 commands:
   upload:
     parameters:
-      path_to_lcov: ./coverage/lcov.info
+      path_to_lcov: .coveralls.yml
       token: repo_token
