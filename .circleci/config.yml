@@ -29,7 +29,9 @@ jobs:
           command: coverage run -m pytest 
 
       
-      - coveralls/upload
+      - coveralls/upload:
+          path-to-lcov: ${{ github.workspace }}/coverage/lcov.info
+          token: repo_token
 
 workflows:
   bookstore_workflow:
