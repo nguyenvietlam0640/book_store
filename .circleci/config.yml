@@ -30,7 +30,7 @@ jobs:
 
       
       - coveralls/upload:
-          path-to-lcov: coverage/lcov.info
+          path-to-lcov: .coveralls.yml
           token: repo_token
 
 workflows:
