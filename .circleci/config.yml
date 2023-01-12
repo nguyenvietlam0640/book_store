@@ -28,8 +28,11 @@ jobs:
           name: Run tests
           command: coverage run -m pytest 
 
-      - coveralls/upload:
-          token: repo_token 
+      - name: Coveralls
+          uses: coverallsapp/github-action@master
+          with:
+            github-token: ${{ secrets.github_token }}
+      - coveralls/upload
 
 workflows:
   bookstore_workflow:
