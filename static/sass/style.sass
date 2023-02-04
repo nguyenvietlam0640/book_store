@@ -1,0 +1,259 @@
+
+
+
+
+
+$yellow-color: #ffb700
+$light-grey-color: #f5f1ee
+$grey-color: #625950
+$brown-color: #5b4634
+$black-color: black 
+$white-color: white 
+$basket-color: #05a09A
+$mobile: 500px
+$tablet: 900px
+
+@mixin mobile
+    @media screen and ( max-width: $mobile)
+        @content
+
+@mixin tablet 
+    @media screen and ( max-width: $tablet)
+        @content
+    
+
+
+header
+    position: fixed 
+    width: 100%
+    background-color: $grey-color
+    .header-1
+        width: 100%
+        background-color: $yellow-color
+        display: flex
+        align-items: center
+        justify-content: space-between
+        box-shadow: 0 0 15px $black-color
+        padding:25px 5%
+
+    .label
+        a
+            text-decoration: none
+        h1
+            color: $black-color
+        span
+            color: $white-color
+    
+    .option
+        position: relative
+        button
+            align-items: center
+            background-color: inherit 
+            color: $black-color
+            border-left: none
+            border-top: none
+            border-bottom: none
+            padding-right: 25px  
+
+        .dropdown-menu
+            background-color: $white-color
+            width: 300px
+            height: fit-content
+            padding: 0
+        .upper-form
+            padding: 20px
+        
+            input 
+                border-radius: 0
+                border-width: 1px
+                outline: none
+                width: 100%
+                height: 4vh
+            
+            .confirm-button
+                display: flex
+                justify-content: space-between
+                align-items: center
+                
+                .btn
+                    background-color: $yellow-color
+                    color: $white-color
+                    border-radius: 0
+
+            .login-via-fb-icon
+                display: flex
+                justify-content: center
+
+        .lower-form
+            padding: 0 20px
+            background: $light-grey-color
+            span 
+                color: $yellow-color 
+            p 
+                padding-left: 10px
+            .register-link
+                text-align: end
+                padding-bottom: 15px
+                a
+                    text-decoration: none
+                    color: $yellow-color
+                img
+                    transform: rotate(-0.25turn)
+            
+
+
+
+
+    .header-2
+        margin-top: 3px
+        background-color: $grey-color
+        display: flex
+        align-items: center
+        justify-content: space-between
+        padding: 0 5%
+        @include tablet
+            display: block
+            padding: 0
+        @include mobile
+            display: block
+            padding:0
+        .search
+            padding: 15px 0
+            width: 80%
+            display: flex
+            @include tablet
+                width: 100%
+                display: flex
+                padding: 15px 5%
+            @include mobile
+                width: 100%
+                display: block
+                padding: 0 0
+            .search-option
+                display: flex
+                width: 60% 
+                padding-right: 15px
+                @include tablet
+                    width: 60%
+                @include mobile
+                    width: 100%
+                    padding: 15px 5%
+                .search-bar
+                    background-color: $white-color
+                    display: flex
+                    align-items: center
+                    padding:0 10px
+                    width: 100%
+                    
+                    input
+                        border-radius: 0
+                        border-left: none
+                        border-top: none
+                        border-bottom: none
+                        outline: none
+                        width: 100%
+
+                    .btn
+                        background-color: $white-color
+                        display: flex
+                        align-items: center
+                        justify-content: space-between
+                    img 
+                        padding-left: 10px
+                img
+                    padding-left: 3px
+                    &:hover
+                        cursor: pointer
+                    
+                    
+            .category-option
+                width: 40%
+                background-color: $brown-color
+                @include tablet
+                    width: 40%
+                @include mobile
+                    width: 100%
+                .btn
+                    width: 100%
+                    color: $white-color
+                    display: flex
+                    align-items: center
+                    justify-content: space-between
+                    border: none
+                    border-radius: 0
+                    
+                    &:hover
+                        border: none
+
+            
+        .basket-option
+            background-color: $basket-color
+            width: 30%
+            margin-left: 15px 
+            @include tablet
+                width: 100%
+                margin: 0
+            @include mobile
+                width: 100%  
+                margin: 0
+            .btn
+                @include tablet
+                    height: auto
+                @include mobile
+                    height: auto
+                height: 8vh
+                width: 100%
+                color: $white-color
+                display: flex
+                align-items: center
+                justify-content: space-between
+                border: none
+                border-radius: 0
+                
+                &:hover
+                    border: none
+
+    
+
+
+
+.content
+    padding-top: 10%
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+footer
+    position: relative
+    .footer-1
+        background-color: $grey-color
+        display: flex
+        align-items: center
+        justify-content: space-between
+        padding:25px 5%
+        color: $white-color
+      
+        .footer-social-icon
+            font-size: 28px
+            a
+                text-decoration: none
+                color: $white-color
+
+    .footer-2
+        display: flex
+        align-items: center 
+        padding: 0 5%
+        padding-top: 10px
+        background-color: $brown-color
+        color: $white-color
+        font-size: 12px
+        @include mobile
+            font-size: 9px
+        

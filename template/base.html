@@ -1,1 +1,116 @@
-<h1>Base</h1>
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static './css/style.css' %}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/c8ad53d769.js" crossorigin="anonymous"></script>
+    <title>{% block title %} Base {% endblock %}</title>
+    <style>
+       .quantity{ 
+            background-image: url("{% static 'img/icon/quantity-background.png' %}");
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-1">
+            <div class="label">
+                <a href="/login">
+                    <h1><strong>bookstore<span>.com</span></strong></h1>
+                </a>
+            </div>
+
+            <div class="option">
+                <button data-bs-toggle="dropdown">
+                    login
+                    <img src="{% static 'img/icon/black-dropdown.png' %}">
+                </button>
+                <div class="dropdown-menu">
+                    <div class="upper-form">
+                        <input type="email" placeholder="Email">
+                        <div class="py-2"><input type="password" placeholder="Password"></div>
+                        
+                        <div class="confirm-button">
+                            <a href="#">Forgot Password</a>
+                            <div class="btn">Send</div>
+                        </div>
+                        <hr>
+                        <a class="login-via-fb-icon" href="#"><img src="{% static 'img/icon/login-via-fb.png'%}"></a>
+                    </div>
+                    <div class="lower-form">
+                        <p><span>Are you not registered yet?</span><br>
+                        In just few steps you can have easy
+                        access of unlimited selecction of books</p>
+                        <hr>
+                        <div class="register-link"><a href="#">Register</a><img src="{% static 'img/icon/yellow-dropdown.png' %}"></div>
+                    </div>
+                </div>
+                <a class="px-3 text-decoration-none" style="color: black;" href="#">register</a>
+            </div>
+        </div>
+        <div class="header-2">
+            <div class="search">
+                <div class="search-option">
+                    <div class="search-bar">
+                        <input type="search" placeholder="autor, title">
+                        <div class="btn"><div>all&nbsp;categories</div><img src="{% static 'img/icon/black-dropdown.png' %}"></div>
+                    </div>
+                    <a href="/login"><img src="{% static 'img/icon/search.png' %}"></a>
+                </div>
+
+                <div class="category-option">
+                    <div class="btn">
+                        Category
+                        <img src="{% static 'img/icon/white-dropdown.png' %}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="basket-option">
+                <div class="btn">
+                    <div class="d-flex align-items-center">
+                        <img src="{% static 'img/icon/basket.png' %}">
+                        <h5>basket($0)</h5>
+                        <div class="quantity"><h5>0</h5></div>
+                    </div>
+                    <img src="{% static 'img/icon/white-dropdown.png' %}">
+                </div>
+            </div>
+        </div>
+
+    </header>
+    <div class="content">
+        {% for number in len %}
+        <p>{{number}}</p>
+        {% endfor %}
+    </div>
+<footer>
+    <div class="footer-1">
+        <div>
+            <div><h4><strong>Do you want to sell your books?</strong></h4></div>
+            <div style="padding-top: 15px;"><p>join BookStore.com today!</p></div>
+        </div>
+        <div>
+            <h4><strong>Follow&nbsp;us</strong></h4>
+            <div class="footer-social-icon">
+            <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-square-facebook"></i></a>
+            <a href="https://www.twitter.com" target="_blank"><i class="fa-brands fa-square-twitter"></i></a>
+            <a href="https://www.googleplus.com" target="_blank"><i class="fa-brands fa-square-google-plus"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-2">
+        <p>Copyright @2013 BookStore is a registered trademark of BookStore Pte Ltd</p>
+    </div>
+    </footer>
+    {% block content %}{% endblock %}
+</body>
+</html>
