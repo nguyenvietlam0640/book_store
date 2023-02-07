@@ -1,0 +1,30 @@
+<div class="book-shelf">
+    {% for porduct in len %}
+    <div class="book-card">
+        <img class="book-img" src="{% static 'img/icon/book-example.png' %}">
+        
+        <div class="book-card-header">
+            <h5 class="book-title">The mind of a leader</h5>
+            <h6 class="book-autor">by Kevin Anderson</h6>
+            <p class="book-des">See how the copy addresses the same primary buyer need multiple times? 
+                They’re well aware that my main concern when shopping for a grill is its size, 
+                and that if I’m not convinced that the grill will fit in my space and do a good job, 
+                I won’t buy it<br>
+                <a href="#">more details</a>
+            </p>
+        </div>  
+        <div class="book-card-footer">
+            <h5 class="book-price"><strong>$17.00</strong></h5>
+            <div class="btn"><h5 style="padding-top: 5px;">Add</h5><img src="{% static 'img/icon/basket.png' %}"></div> 
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+
+def home(request):
+    l =[]
+    for i in range(20):
+        l.append(i)
+    return render(request, 'base.html', {'len' : l})

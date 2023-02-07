@@ -23,7 +23,7 @@
     <header>
         <div class="header-1">
             <div class="label">
-                <a href="/login">
+                <a href="/">
                     <h1><strong>bookstore<span>.com</span></strong></h1>
                 </a>
             </div>
@@ -35,10 +35,10 @@
                 </button>
                 <div class="dropdown-menu">
                     <div class="upper-form">
-                        <input type="email" placeholder="Email">
-                        <div class="py-2"><input type="password" placeholder="Password"></div>
+                        <input id="login-email" type="email" placeholder="Email">
+                        <div class="py-2"><input id="login-password" type="password" placeholder="Password"></div>
                         
-                        <div class="confirm-button">
+                        <div class="navigation">
                             <a href="#">Forgot Password</a>
                             <div class="btn">Send</div>
                         </div>
@@ -57,16 +57,16 @@
             </div>
         </div>
         <div class="header-2">
-            <div class="search">
-                <div class="search-option">
+            <div class="search-group">
+                <div class="search-bar-container">
                     <div class="search-bar">
-                        <input type="search" placeholder="autor, title">
+                        <input id="search-input" type="search" placeholder="autor, title">
                         <div class="btn"><div>all&nbsp;categories</div><img src="{% static 'img/icon/black-dropdown.png' %}"></div>
                     </div>
                     <a href="/login"><img src="{% static 'img/icon/search.png' %}"></a>
                 </div>
 
-                <div class="category-option">
+                <div class="category-dropdown">
                     <div class="btn">
                         Category
                         <img src="{% static 'img/icon/white-dropdown.png' %}">
@@ -74,7 +74,7 @@
                 </div>
             </div>
 
-            <div class="basket-option">
+            <div class="basket-dropdown">
                 <div class="btn">
                     <div class="d-flex align-items-center">
                         <img src="{% static 'img/icon/basket.png' %}">
@@ -87,11 +87,47 @@
         </div>
 
     </header>
-    <div class="content">
-        {% for number in len %}
-        <p>{{number}}</p>
+
+
+<div class="shelf-container">
+    <div class="shelf-header">
+        <div><h5 class="shelf-label"><strong>All categories</strong></h5></div>
+        <div class="page-changer">
+            <a class="vertical-right" href="#">&#60;&#60;Previous</a>&nbsp;Page: 1 of 2&nbsp;<a class="vertical-left" href="#">Next&#62;&#62;</a>
+        </div>
+    </div>
+    <div class="book-shelf">
+        {% for porduct in len %}
+        <div class="book-card">
+            <img class="book-img" src="{% static 'img/icon/book-example.png' %}">
+            <div class="book-card-header">
+                <h5 class="book-title">The mind of a leader</h5>
+                <h6 class="book-autor">by Kevin Anderson</h6>
+                <p class="book-des">See how the copy addresses the same primary buyer need multiple times? 
+                    They’re well aware that my main concern when shopping for a grill is its size, 
+                    and that if I’m not convinced that the grill will fit in my space and do a good job, 
+                    I won’t buy it<br>
+                    <a href="#">more details</a>
+                </p>
+            </div>  
+            <div class="book-card-footer">
+                <h5 class="book-price"><strong>$17.00</strong></h5>
+                <div class="btn"><h5 style="padding-top: 5px;">Add</h5><img src="{% static 'img/icon/basket.png' %}"></div> 
+            </div>
+    
+        </div>
         {% endfor %}
     </div>
+    <div class="shelf-footer">
+        
+        <div class="page-changer">
+            <a class="vertical-right" href="#">&#60;&#60;Previous</a>&nbsp;Page: 1 of 2&nbsp;<a class="vertical-left" href="#">Next&#62;&#62;</a>
+        </div>
+    </div>
+</div>
+
+
+    
 <footer>
     <div class="footer-1">
         <div>

@@ -1,17 +1,17 @@
 
 
-
-
-
 $yellow-color: #ffb700
-$light-grey-color: #f5f1ee
-$grey-color: #625950
+$dark-yellow-color: #ff9900
+$light-gray-color: #f5f1eed5
+$gray-color: #625950
 $brown-color: #5b4634
+$vertical-color: #aaa5a4cb
 $black-color: black 
 $white-color: white 
 $basket-color: #05a09A
-$mobile: 500px
-$tablet: 900px
+$mobile: 600px
+$tablet: 1000px
+$large-tablet: 1100px
 
 @mixin mobile
     @media screen and ( max-width: $mobile)
@@ -20,13 +20,21 @@ $tablet: 900px
 @mixin tablet 
     @media screen and ( max-width: $tablet)
         @content
-    
+
+@mixin large-tablet
+    @media screen and (max-width: $large-tablet)
+        @content   
+
+
+body
+    hr
+        border: 1px dashed
 
 
 header
-    position: fixed 
+    position: fixed
     width: 100%
-    background-color: $grey-color
+    background-color: $gray-color
     .header-1
         width: 100%
         background-color: $yellow-color
@@ -45,7 +53,6 @@ header
             color: $white-color
     
     .option
-        position: relative
         button
             align-items: center
             background-color: inherit 
@@ -60,9 +67,9 @@ header
             width: 300px
             height: fit-content
             padding: 0
+            border-radius: 0
         .upper-form
-            padding: 20px
-        
+            padding: 25px 15px 10px 15px
             input 
                 border-radius: 0
                 border-width: 1px
@@ -70,7 +77,7 @@ header
                 width: 100%
                 height: 4vh
             
-            .confirm-button
+            .navigation
                 display: flex
                 justify-content: space-between
                 align-items: center
@@ -85,8 +92,8 @@ header
                 justify-content: center
 
         .lower-form
-            padding: 0 20px
-            background: $light-grey-color
+            padding: 0 15px
+            background: $light-gray-color
             span 
                 color: $yellow-color 
             p 
@@ -106,7 +113,7 @@ header
 
     .header-2
         margin-top: 3px
-        background-color: $grey-color
+        background-color: $gray-color
         display: flex
         align-items: center
         justify-content: space-between
@@ -117,7 +124,7 @@ header
         @include mobile
             display: block
             padding:0
-        .search
+        .search-group
             padding: 15px 0
             width: 80%
             display: flex
@@ -129,7 +136,7 @@ header
                 width: 100%
                 display: block
                 padding: 0 0
-            .search-option
+            .search-bar-container
                 display: flex
                 width: 60% 
                 padding-right: 15px
@@ -166,7 +173,7 @@ header
                         cursor: pointer
                     
                     
-            .category-option
+            .category-dropdown
                 width: 40%
                 background-color: $brown-color
                 @include tablet
@@ -186,7 +193,7 @@ header
                         border: none
 
             
-        .basket-option
+        .basket-dropdown
             background-color: $basket-color
             width: 30%
             margin-left: 15px 
@@ -201,7 +208,7 @@ header
                     height: auto
                 @include mobile
                     height: auto
-                height: 8vh
+                height: 70px
                 width: 100%
                 color: $white-color
                 display: flex
@@ -217,23 +224,74 @@ header
 
 
 
-.content
-    padding-top: 10%
+.shelf-container
+    padding: 0 5%
+    padding-top: 20vh
+.shelf-header
+    padding-top: 25px
+    display: flex
+    justify-content: space-between
+.shelf-label
+    color: $dark-yellow-color
+.page-changer
+    a
+        text-decoration: none
+        padding: 0 10px
+    .vertical-right
+        border-right: 1px solid gray
+        color: gray         
+    .vertical-left
+        border-left: 1px solid gray
+        color: $dark-yellow-color
+    
+.shelf-footer
+    text-align: end
+    margin: 50px 0
 
-
-
+.book-shelf
+    display: flex
+    flex-wrap: wrap
+    width: 100%
+    .book-card
+        margin-top: 5% 
+        padding-left: 5%
+        padding-right: 3%
+        width: 25%
+        border-left: 1px dashed $vertical-color
+        img
+            width: 50%
+            height: auto
 
     
+    .book-card-header
+        margin-top: 20px
+        .book-title
+            color: $dark-yellow-color
+        a
+            color: $basket-color
     
-    
-    
+    .book-card-footer
+        display: flex
+        justify-content: space-between
+        align-items: center
+        padding-right: 15%
+        .book-price
+            color: $dark-yellow-color
+        .btn
+            display: flex
+            align-items: center
+            justify-content: space-between
+            border-radius: 0
+            background-color: $yellow-color
+            color: $white-color
+
+
     
     
     
 footer
-    position: relative
     .footer-1
-        background-color: $grey-color
+        background-color: $gray-color
         display: flex
         align-items: center
         justify-content: space-between
@@ -241,7 +299,9 @@ footer
         color: $white-color
       
         .footer-social-icon
-            font-size: 28px
+            font-size: 40px
+            @include mobile
+                font-size: 28px
             a
                 text-decoration: none
                 color: $white-color
