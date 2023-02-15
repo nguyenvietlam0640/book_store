@@ -1,40 +1,35 @@
 
-
 $yellow-color: #ffb700
 $dark-yellow-color: #ff9900
 $light-gray-color: #f5f1eed5
 $gray-color: #625950
 $brown-color: #5b4634
 $vertical-color: #aaa5a4cb
-$black-color: black 
-$white-color: white 
+$black-color: black
+$white-color: white
 $basket-color: #05a09A
 $mobile: 600px
-$tablet: 1000px
-$large-tablet: 1100px
-
+$tablet: 1199px
+$large-device: 1200px
 @mixin mobile
     @media screen and ( max-width: $mobile)
         @content
 
-@mixin tablet 
+@mixin tablet
     @media screen and ( max-width: $tablet)
         @content
-
-@mixin large-tablet
-    @media screen and (max-width: $large-tablet)
-        @content   
-
-
+@mixin large-device
+    @media screen and ( min-width: $large-device)
+        @content
 body
     hr
         border: 1px dashed
-
 
 header
     position: fixed
     width: 100%
     background-color: $gray-color
+    z-index: 999
     .header-1
         width: 100%
         background-color: $yellow-color
@@ -42,8 +37,9 @@ header
         align-items: center
         justify-content: space-between
         box-shadow: 0 0 15px $black-color
-        padding:25px 5%
-
+        padding: 25px 5%
+        @include mobile
+            padding: 25px 2%
     .label
         a
             text-decoration: none
@@ -51,16 +47,16 @@ header
             color: $black-color
         span
             color: $white-color
-    
+
     .option
         button
             align-items: center
-            background-color: inherit 
+            background-color: inherit
             color: $black-color
             border-left: none
             border-top: none
             border-bottom: none
-            padding-right: 25px  
+            padding-right: 25px
 
         .dropdown-menu
             background-color: $white-color
@@ -70,18 +66,18 @@ header
             border-radius: 0
         .upper-form
             padding: 25px 15px 10px 15px
-            input 
+            input
                 border-radius: 0
                 border-width: 1px
                 outline: none
                 width: 100%
                 height: 4vh
-            
+
             .navigation
                 display: flex
                 justify-content: space-between
                 align-items: center
-                
+
                 .btn
                     background-color: $yellow-color
                     color: $white-color
@@ -94,9 +90,9 @@ header
         .lower-form
             padding: 0 15px
             background: $light-gray-color
-            span 
-                color: $yellow-color 
-            p 
+            span
+                color: $yellow-color
+            p
                 padding-left: 10px
             .register-link
                 text-align: end
@@ -106,109 +102,80 @@ header
                     color: $yellow-color
                 img
                     transform: rotate(-0.25turn)
-            
 
-
-
-
-    .header-2
-        margin-top: 3px
-        background-color: $gray-color
+.header-2
+    background-color: $gray-color
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding: 0 5%
+    padding-top: 100px
+    @include tablet
+        display: block
+        padding-left: 0
+        padding-right: 0
+    
+    .search-group
+        padding: 15px 0
+        width: 80%
         display: flex
-        align-items: center
-        justify-content: space-between
-        padding: 0 5%
         @include tablet
-            display: block
-            padding: 0
+            width: 100%
+            padding: 15px 5%
         @include mobile
             display: block
-            padding:0
-        .search-group
-            padding: 15px 0
-            width: 80%
+            padding: 0
+        .search-bar-container
             display: flex
-            @include tablet
-                width: 100%
-                display: flex
-                padding: 15px 5%
+            width: 60%
+            padding-right: 15px
             @include mobile
                 width: 100%
-                display: block
-                padding: 0 0
-            .search-bar-container
+                padding: 10px 2%
+                
+            .search-bar
+                background-color: $white-color
                 display: flex
-                width: 60% 
-                padding-right: 15px
-                @include tablet
-                    width: 60%
-                @include mobile
+                align-items: center
+                padding: 0 10px
+                width: 100%
+                 
+
+                input
+                    border-radius: 0
+                    border-left: none
+                    border-top: none
+                    border-bottom: none
+                    outline: none
                     width: 100%
-                    padding: 15px 5%
-                .search-bar
+
+                .btn
                     background-color: $white-color
                     display: flex
                     align-items: center
-                    padding:0 10px
-                    width: 100%
-                    
-                    input
-                        border-radius: 0
-                        border-left: none
-                        border-top: none
-                        border-bottom: none
-                        outline: none
-                        width: 100%
-
-                    .btn
-                        background-color: $white-color
-                        display: flex
-                        align-items: center
-                        justify-content: space-between
-                    img 
-                        padding-left: 10px
-                img
-                    padding-left: 3px
-                    &:hover
-                        cursor: pointer
-                    
-                    
-            .category-dropdown
-                width: 40%
-                background-color: $brown-color
-                @include tablet
-                    width: 40%
-                @include mobile
-                    width: 100%
-                .btn
-                    width: 100%
-                    color: $white-color
-                    display: flex
-                    align-items: center
                     justify-content: space-between
-                    border: none
-                    border-radius: 0
-                    
-                    &:hover
-                        border: none
+                    @include mobile
+                        font-size: 3.5vw
+                img
+                    padding-left: 10px
+                    @include mobile
+                        padding-top:2px 
+                        width: 25%
 
-            
-        .basket-dropdown
-            background-color: $basket-color
-            width: 30%
-            margin-left: 15px 
-            @include tablet
-                width: 100%
-                margin: 0
+            img
+                padding-left: 3px
+                &:hover
+                    cursor: pointer
+
+        .category-dropdown
+            width: 40%
+            background-color: $brown-color
             @include mobile
-                width: 100%  
-                margin: 0
+                width: 100%
+                box-shadow: 0 0 15px $black-color
+        
+
             .btn
-                @include tablet
-                    height: auto
-                @include mobile
-                    height: auto
-                height: 70px
                 width: 100%
                 color: $white-color
                 display: flex
@@ -216,60 +183,179 @@ header
                 justify-content: space-between
                 border: none
                 border-radius: 0
-                
+                @include tablet
+                    font-size: 1.8vw
+                @include mobile
+                    font-size: 4vw
+                    height: 60px
+                    padding-left: 3%
+                    img 
+                        padding-top: 2px
+                .category-title
+                    padding-left: 15px
+                    @include tablet 
+                        padding-left:0
+
                 &:hover
                     border: none
 
-    
+            .category-dropdown-menu
+                position: absolute
+                margin: 10px 0
+                padding: 10px 25px
+                background-color: $white-color
+                list-style: none
+                border: 1px solid $black-color
+                width: 26%
+                @include tablet
+                    width: 36%
+                    padding-left: 12px
+                @include mobile
+                    position: relative
+                    width: 100%
+                    border: none
+                    margin:0
 
+                
+                li  
+                    padding-bottom: 10px
+                    @include tablet
+                        font-size: 1.6vw
+                    @include mobile
+                        font-size: 3.5vw
+                .menu-list
+                    a
+                        text-decoration: none
+                        color: $black-color
+                        &:hover
 
+                            text-decoration-line: underline
+                    span
+                        padding-left: 5px
+                        color: $dark-yellow-color
+
+    .basket-dropdown
+        background-color: $basket-color
+        width: 30%
+        margin-left: 15px
+        @include tablet
+            margin-left: 0
+            width: 100%
+        .btn
+            display: flex
+            height: 75px
+            width: 100%
+            color: $white-color
+            align-items: center
+            justify-content: space-between
+            border: none
+            border-radius: 0
+            @include tablet
+                height: 65px
+            .basket-content
+                display: flex
+                align-items: center
+                @include tablet
+                    padding-left: 40%
+                @include mobile
+                    padding-left: 23%
+            .quantity
+                @include tablet
+                    padding-right: 30%
+                @include mobile
+                    padding-right: 22%
+                    padding-top: 2px
+
+            &:hover
+                border: none
 
 .shelf-container
     padding: 0 5%
-    padding-top: 20vh
+    padding-top: 20px
+    @include mobile
+        padding-top: 50px
+        padding-left: 2%
+        padding-right: 2%
 .shelf-header
-    padding-top: 25px
+    padding-top: 10px
+    padding-bottom: 50px
     display: flex
     justify-content: space-between
+    @include mobile
+        display: none
 .shelf-label
     color: $dark-yellow-color
 .page-changer
+    
     a
         text-decoration: none
         padding: 0 10px
     .vertical-right
         border-right: 1px solid gray
-        color: gray         
+        color: gray
     .vertical-left
         border-left: 1px solid gray
         color: $dark-yellow-color
-    
+
 .shelf-footer
     text-align: end
-    margin: 50px 0
+    margin-bottom: 50px
 
 .book-shelf
     display: flex
     flex-wrap: wrap
     width: 100%
+    @include large-device
+        div:nth-child(4n+1)
+            padding-left: 0
+            border-left: none
+            width: 21.1%
+    @include tablet
+        div:nth-child(3n+1)
+            padding-left: 0
+            border-left: none
+            width: 30%
+    @include mobile
+        div:nth-child(3n+1)
+            width: 100%
+
     .book-card
-        margin-top: 5% 
         padding-left: 5%
-        padding-right: 3%
-        width: 25%
         border-left: 1px dashed $vertical-color
+        margin-bottom: 75px
+        padding-right: 3%
+        width: 26.3%
+        @include tablet
+            width: 35%
+        @include mobile
+            width: 100%
         img
             width: 50%
             height: auto
 
-    
     .book-card-header
         margin-top: 20px
         .book-title
+            font-size: 1.2vw
             color: $dark-yellow-color
+            @include tablet
+                font-size: 2.1vw
+        .book-autor
+            font-size: 1vw
+            @include tablet
+                font-size: 1.5vw
         a
             color: $basket-color
-    
+
+        .book-des
+            font-size: 15px
+            display: -webkit-box
+            -webkit-line-clamp: 5
+            -webkit-box-orient: vertical
+            overflow: hidden
+            @include tablet
+                font-size: 13px
+
     .book-card-footer
         display: flex
         justify-content: space-between
@@ -278,42 +364,46 @@ header
         .book-price
             color: $dark-yellow-color
         .btn
+            width: 6vw
             display: flex
             align-items: center
-            justify-content: space-between
             border-radius: 0
             background-color: $yellow-color
             color: $white-color
+            @include tablet
+                width: 9vw
+            h5
+                font-size: 1.1vw
+                @include tablet
+                    font-size: 1.5vw
+            img
+                padding-left: 3px
+                width: 50%
+                height: auto
+                @include tablet
+                    width: 60%
 
-
-    
-    
-    
 footer
     .footer-1
         background-color: $gray-color
         display: flex
         align-items: center
         justify-content: space-between
-        padding:25px 5%
+        padding: 25px 5%
         color: $white-color
-      
+
         .footer-social-icon
             font-size: 40px
-            @include mobile
-                font-size: 28px
+
             a
                 text-decoration: none
                 color: $white-color
 
     .footer-2
         display: flex
-        align-items: center 
+        align-items: center
         padding: 0 5%
         padding-top: 10px
         background-color: $brown-color
         color: $white-color
         font-size: 12px
-        @include mobile
-            font-size: 9px
-        

@@ -14,9 +14,12 @@
     <script src="https://kit.fontawesome.com/c8ad53d769.js" crossorigin="anonymous"></script>
     <title>{% block title %} Base {% endblock %}</title>
     <style>
-       .quantity{ 
-            background-image: url("{% static 'img/icon/quantity-background.png' %}");
-        }
+        
+       .quantity{
+        height: fit-content;
+        width: 38px;
+        background-image: url( "{% static 'img/icon/quantity-background.png' %}" );
+       }
     </style>
 </head>
 <body>
@@ -34,7 +37,7 @@
                     <img src="{% static 'img/icon/black-dropdown.png' %}">
                 </button>
                 <div class="dropdown-menu">
-                    <div class="upper-form">
+                    <form class="upper-form">
                         <input id="login-email" type="email" placeholder="Email">
                         <div class="py-2"><input id="login-password" type="password" placeholder="Password"></div>
                         
@@ -44,7 +47,7 @@
                         </div>
                         <hr>
                         <a class="login-via-fb-icon" href="#"><img src="{% static 'img/icon/login-via-fb.png'%}"></a>
-                    </div>
+                    </form>
                     <div class="lower-form">
                         <p><span>Are you not registered yet?</span><br>
                         In just few steps you can have easy
@@ -78,9 +81,10 @@
                 <div class="btn">
                     <div class="d-flex align-items-center">
                         <img src="{% static 'img/icon/basket.png' %}">
-                        <h5>basket($0)</h5>
-                        <div class="quantity"><h5>0</h5></div>
+                        <h5 class="px-2">basket($0)</h5>
                     </div>
+                    <div class="quantity"><h3><strong>0</strong></h3></div>
+
                     <img src="{% static 'img/icon/white-dropdown.png' %}">
                 </div>
             </div>
@@ -88,65 +92,29 @@
 
     </header>
 
-
-<div class="shelf-container">
-    <div class="shelf-header">
-        <div><h5 class="shelf-label"><strong>All categories</strong></h5></div>
-        <div class="page-changer">
-            <a class="vertical-right" href="#">&#60;&#60;Previous</a>&nbsp;Page: 1 of 2&nbsp;<a class="vertical-left" href="#">Next&#62;&#62;</a>
-        </div>
-    </div>
-    <div class="book-shelf">
-        {% for porduct in len %}
-        <div class="book-card">
-            <img class="book-img" src="{% static 'img/icon/book-example.png' %}">
-            <div class="book-card-header">
-                <h5 class="book-title">The mind of a leader</h5>
-                <h6 class="book-autor">by Kevin Anderson</h6>
-                <p class="book-des">See how the copy addresses the same primary buyer need multiple times? 
-                    They’re well aware that my main concern when shopping for a grill is its size, 
-                    and that if I’m not convinced that the grill will fit in my space and do a good job, 
-                    I won’t buy it<br>
-                    <a href="#">more details</a>
-                </p>
-            </div>  
-            <div class="book-card-footer">
-                <h5 class="book-price"><strong>$17.00</strong></h5>
-                <div class="btn"><h5 style="padding-top: 5px;">Add</h5><img src="{% static 'img/icon/basket.png' %}"></div> 
-            </div>
-    
-        </div>
-        {% endfor %}
-    </div>
-    <div class="shelf-footer">
-        
-        <div class="page-changer">
-            <a class="vertical-right" href="#">&#60;&#60;Previous</a>&nbsp;Page: 1 of 2&nbsp;<a class="vertical-left" href="#">Next&#62;&#62;</a>
-        </div>
-    </div>
-</div>
-
-
-    
-<footer>
-    <div class="footer-1">
-        <div>
-            <div><h4><strong>Do you want to sell your books?</strong></h4></div>
-            <div style="padding-top: 15px;"><p>join BookStore.com today!</p></div>
-        </div>
-        <div>
-            <h4><strong>Follow&nbsp;us</strong></h4>
-            <div class="footer-social-icon">
-            <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-square-facebook"></i></a>
-            <a href="https://www.twitter.com" target="_blank"><i class="fa-brands fa-square-twitter"></i></a>
-            <a href="https://www.googleplus.com" target="_blank"><i class="fa-brands fa-square-google-plus"></i></a>
-            </div>
-        </div>
-    </div>
-    <div class="footer-2">
-        <p>Copyright @2013 BookStore is a registered trademark of BookStore Pte Ltd</p>
-    </div>
-    </footer>
     {% block content %}{% endblock %}
+
+
+    
+    <footer>
+        <div class="footer-1">
+            <div>
+                <div><h4><strong>Do you want to sell your books?</strong></h4></div>
+                <div style="padding-top: 15px;"><p>join BookStore.com today!</p></div>
+            </div>
+            <div>
+                <h4><strong>Follow&nbsp;us</strong></h4>
+                <div class="footer-social-icon">
+                <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-square-facebook"></i></a>
+                <a href="https://www.twitter.com" target="_blank"><i class="fa-brands fa-square-twitter"></i></a>
+                <a href="https://www.googleplus.com" target="_blank"><i class="fa-brands fa-square-google-plus"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-2">
+            <p>Copyright @2013 BookStore is a registered trademark of BookStore Pte Ltd</p>
+        </div>
+    </footer>
+    
 </body>
 </html>

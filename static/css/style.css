@@ -217,10 +217,10 @@ header .header-2 .basket-dropdown {
   }
 }
 header .header-2 .basket-dropdown .btn {
+  display: flex;
   height: 70px;
   width: 100%;
   color: white;
-  display: flex;
   align-items: center;
   justify-content: space-between;
   border: none;
