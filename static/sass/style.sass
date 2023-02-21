@@ -11,6 +11,7 @@ $basket-color: #05a09A
 $mobile: 600px
 $tablet: 1199px
 $large-device: 1200px
+$small-tablet: 900px
 @mixin mobile
     @media screen and ( max-width: $mobile)
         @content
@@ -18,9 +19,13 @@ $large-device: 1200px
 @mixin tablet
     @media screen and ( max-width: $tablet)
         @content
+@mixin small-tablet
+    @media screen and ( max-width: $small-tablet)
+        @content
 @mixin large-device
     @media screen and ( min-width: $large-device)
         @content
+
 body
     hr
         border: 1px dashed
@@ -114,7 +119,7 @@ header
         display: block
         padding-left: 0
         padding-right: 0
-    
+
     .search-group
         padding: 15px 0
         width: 80%
@@ -132,14 +137,13 @@ header
             @include mobile
                 width: 100%
                 padding: 10px 2%
-                
+
             .search-bar
                 background-color: $white-color
                 display: flex
                 align-items: center
                 padding: 0 10px
                 width: 100%
-                 
 
                 input
                     border-radius: 0
@@ -153,19 +157,43 @@ header
                     background-color: $white-color
                     display: flex
                     align-items: center
-                    justify-content: space-between
+                    border-radius: 0
                     @include mobile
-                        font-size: 3.5vw
+
+                        font-size: 3.3vw
                 img
                     padding-left: 10px
+                    padding-top: 3px
                     @include mobile
-                        padding-top:2px 
-                        width: 25%
+                        padding-top: 3px
+                        padding-left: 5px
+                        width: 15px
 
             img
                 padding-left: 3px
                 &:hover
                     cursor: pointer
+
+        .all-categories-dropdown-menu
+            position: absolute
+            background-color: $white-color
+            margin-top: 210px
+            margin-left: 18%
+            padding: 10px 25px
+            list-style: none
+            border: 1px solid $black-color
+            width: 20%
+            li
+                margin-bottom: 10px
+            @include tablet
+                margin-top: 255px
+                margin-left: -1%
+                width: 47%
+
+            @include mobile
+                margin-top: 255px
+                width: 86%
+                margin-left: -3%
 
         .category-dropdown
             width: 40%
@@ -173,7 +201,6 @@ header
             @include mobile
                 width: 100%
                 box-shadow: 0 0 15px $black-color
-        
 
             .btn
                 width: 100%
@@ -189,50 +216,48 @@ header
                     font-size: 4vw
                     height: 60px
                     padding-left: 3%
-                    img 
+                    img
                         padding-top: 2px
                 .category-title
                     padding-left: 15px
-                    @include tablet 
-                        padding-left:0
+                    @include tablet
+                        padding-left: 0
 
                 &:hover
                     border: none
 
-            .category-dropdown-menu
-                position: absolute
-                margin: 10px 0
-                padding: 10px 25px
-                background-color: $white-color
-                list-style: none
-                border: 1px solid $black-color
-                width: 26%
+        .category-dropdown-menu
+            position: absolute
+            margin: 10px 0
+            padding: 10px 25px
+            background-color: $white-color
+            list-style: none
+            border: 1px solid $black-color
+            width: 26%
+            @include tablet
+                width: 36%
+                padding-left: 12px
+            @include mobile
+                position: relative
+                width: 100%
+                border: none
+                margin: 0
+
+            li
+                padding-bottom: 10px
                 @include tablet
-                    width: 36%
-                    padding-left: 12px
+                    font-size: 1.6vw
                 @include mobile
-                    position: relative
-                    width: 100%
-                    border: none
-                    margin:0
-
-                
-                li  
-                    padding-bottom: 10px
-                    @include tablet
-                        font-size: 1.6vw
-                    @include mobile
-                        font-size: 3.5vw
-                .menu-list
-                    a
-                        text-decoration: none
-                        color: $black-color
-                        &:hover
-
-                            text-decoration-line: underline
-                    span
-                        padding-left: 5px
-                        color: $dark-yellow-color
+                    font-size: 3.5vw
+        .menu-list
+            a
+                text-decoration: none
+                color: $black-color
+                &:hover
+                    text-decoration-line: underline
+            span
+                padding-left: 5px
+                color: $dark-yellow-color
 
     .basket-dropdown
         background-color: $basket-color
@@ -286,17 +311,33 @@ header
 .shelf-label
     color: $dark-yellow-color
 .page-changer
-    
+
     a
         text-decoration: none
         padding: 0 10px
-    .vertical-right
-        border-right: 1px solid gray
+
+    .go-next-page-non-active
+        border-left: 1px solid gray
         color: gray
-    .vertical-left
+        &:hover
+            cursor: not-allowed
+
+    .go-next-page-active
         border-left: 1px solid gray
         color: $dark-yellow-color
+        &:hover
+            cursor: pointer
+    .go-previous-page-non-active
+        border-right: 1px solid gray
+        color: gray
+        &:hover
+            cursor: not-allowed
 
+    .go-previous-page-active
+        border-right: 1px solid gray
+        color: $dark-yellow-color
+        &:hover
+            cursor: pointer
 .shelf-footer
     text-align: end
     margin-bottom: 50px
@@ -315,6 +356,16 @@ header
             padding-left: 0
             border-left: none
             width: 30%
+    @include small-tablet
+        div:nth-child(3n+1)
+            width: 47%
+            border-left: 1px dashed $vertical-color
+            padding-left: 5%
+            padding-right: 0
+        div:nth-child(2n+1)
+            border-left: none
+            padding-left: 0
+            width: 46%
     @include mobile
         div:nth-child(3n+1)
             width: 100%
@@ -325,25 +376,45 @@ header
         margin-bottom: 75px
         padding-right: 3%
         width: 26.3%
+
         @include tablet
             width: 35%
+        @include small-tablet
+            width: 54%
         @include mobile
             width: 100%
+            display: flex
+            flex-wrap: wrap
+            padding-right: 0
+            margin-bottom: 30px
+            border-bottom: 1px solid $black-color
+            padding-left: 0
+            border-left: none
         img
             width: 50%
             height: auto
+            @include mobile
+                width: 35%
 
     .book-card-header
         margin-top: 20px
+        @include mobile
+            width: 65%
+            padding-left: 25px
+            margin-top: 0
         .book-title
             font-size: 1.2vw
             color: $dark-yellow-color
             @include tablet
                 font-size: 2.1vw
+            @include mobile
+                font-size: 5.2vw
         .book-autor
             font-size: 1vw
             @include tablet
                 font-size: 1.5vw
+            @include mobile
+                font-size: 3.5vw
         a
             color: $basket-color
 
@@ -354,6 +425,8 @@ header
             -webkit-box-orient: vertical
             overflow: hidden
             @include tablet
+                font-size: 15px
+            @include mobile
                 font-size: 13px
 
     .book-card-footer
@@ -361,6 +434,11 @@ header
         justify-content: space-between
         align-items: center
         padding-right: 15%
+        @include mobile
+            padding-left: calc(35% + 25px)
+            padding-right: 0
+            width: 100%
+            padding-bottom: 20px
         .book-price
             color: $dark-yellow-color
         .btn
@@ -372,10 +450,18 @@ header
             color: $white-color
             @include tablet
                 width: 9vw
+            @include mobile
+                margin-left: 40%
+                width: 100px
+                margin-top: -5%
+
             h5
                 font-size: 1.1vw
                 @include tablet
                     font-size: 1.5vw
+                @include mobile
+                    font-size: 4vw
+
             img
                 padding-left: 3px
                 width: 50%

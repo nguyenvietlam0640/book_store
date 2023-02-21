@@ -20,13 +20,12 @@ class Category(models.Model):
     def get_absolute_url(self):
         return f'/category/{self.slug}'
     
-    def get_number_of_books(self):
+    def get_books_total(self):
         number = 0
         category = Category.objects.get(slug=self.slug)
-        books = category.products.all()
-        for books in books:
-            number+=1
-        return number
+        total= category.products.count()
+        
+        return total
 
     
 class Book(models.Model):

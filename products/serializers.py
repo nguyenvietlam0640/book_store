@@ -11,7 +11,7 @@ class CategorySerializers(serializers.ModelSerializer):
                 'id',
                 'name',
                 'get_absolute_url',
-                'get_number_of_books',
+                'get_books_total',
             ] 
 
 

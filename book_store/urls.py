@@ -35,8 +35,8 @@ urlpatterns = [
 
 
 
-
-    path('api/view_book_as_category/<str:category_slug>',views.ViewBookAsCategoryApi.as_view()),
+    path('api/search_results/<int:books_per_page>/<int:page>' ,views.SearchResultsApi.as_view()),
+    path('api/view_book_as_category/<str:category_slug>/<int:books_per_page>/<int:page>',views.ViewBookAsCategoryApi.as_view()),
     path('api/view_categories' , views.ViewCategoriesApi.as_view()),
     path('api/view_category/<str:category_slug>' , views.ViewCategoryApi.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
