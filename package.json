@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "bulma-toast": "^2.4.2"
+  }
+}

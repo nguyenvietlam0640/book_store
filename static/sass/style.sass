@@ -1,0 +1,670 @@
+
+$yellow-color: #ffb700
+$dark-yellow-color: #ff9900
+$light-gray-color: #e2e1e1d0
+$gray-color: #625950
+$brown-color: #5b4634
+$vertical-color: #aaa5a4cb
+$black-color: black
+$white-color: white
+$basket-color: #05a09A
+$notification-color: #60dd98
+$mobile: 600px
+$tablet: 1199px
+$large-device: 1200px
+$small-tablet: 900px
+
+
+@mixin mobile
+    @media screen and ( max-width: $mobile)
+        @content
+
+@mixin tablet
+    @media screen and ( max-width: $tablet)
+        @content
+@mixin small-tablet
+    @media screen and ( max-width: $small-tablet)
+        @content
+@mixin large-device
+    @media screen and ( min-width: $large-device)
+        @content
+
+[v-cloak] 
+  display: none
+
+body
+    hr
+        border: 1px dashed
+
+header
+    position: fixed
+    width: 100%
+    background-color: $gray-color
+    z-index: 999
+    .header-1
+        width: 100%
+        background-color: $yellow-color
+        display: flex
+        align-items: center
+        justify-content: space-between
+        box-shadow: 0 0 15px $black-color
+        padding: 25px 5%
+        @include mobile
+            padding: 25px 2%
+    .label
+        a
+            text-decoration: none
+        h1
+            color: $black-color
+        span
+            color: $white-color
+
+    .logined-option
+        margin-right: 5%
+        display: flex
+        align-items: center
+        button
+            border: none
+        .dropdown-menu
+            border-radius: 0
+            width: 50px
+            padding: 5px
+            li
+                padding: 5px 10px
+                &:hover
+                    cursor: pointer
+                    text-decoration-line: underline
+            a
+                text-decoration: none
+                color: $black-color
+
+        .icon
+            margin: 0 10px
+            font-size: 30px
+    .option
+        button
+            align-items: center
+            background-color: inherit
+            color: $black-color
+            border-left: none
+            border-top: none
+            border-bottom: none
+            padding-right: 25px
+
+        .dropdown-menu
+            padding: 0
+            background-color: $white-color
+            width: 300px
+            height: fit-content
+
+            border-radius: 0
+
+        .upper-form
+            padding: 25px 15px 10px 15px
+            input
+                border-radius: 0
+                border-width: 1px
+                outline: none
+                width: 100%
+                height: 4vh
+
+            .navigation
+                display: flex
+                justify-content: space-between
+                align-items: center
+
+                .btn
+                    padding-inline: 15px
+                    display: flex
+                    background-color: $yellow-color
+                    color: $white-color
+                    border-radius: 0
+
+            .login-via-fb-icon
+                display: flex
+                justify-content: center
+
+        .lower-form
+            padding: 0 15px
+            background: $light-gray-color
+            span
+                color: $yellow-color
+            p
+                padding-left: 10px
+            .register-link
+                text-align: end
+                padding-bottom: 15px
+                a
+                    text-decoration: none
+                    color: $yellow-color
+                img
+                    transform: rotate(-0.25turn)
+
+.header-2
+    background-color: $gray-color
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding: 0 5%
+    padding-top: 100px
+
+    @include small-tablet
+        display: block
+        padding-left: 0
+        padding-right: 0
+
+    .search-group
+        padding: 15px 0
+        width: 80%
+        display: flex
+        @include small-tablet
+            width: 100%
+            padding: 15px 5%
+        @include mobile
+            display: block
+            padding: 0
+        .search-bar-container
+            display: flex
+            width: 60%
+            padding-right: 15px
+            @include mobile
+                width: 100%
+                padding: 10px 2%
+
+            .search-bar
+                background-color: $white-color
+                display: flex
+                align-items: center
+                padding: 0 10px
+                width: 100%
+
+                input
+                    border-radius: 0
+                    border-left: none
+                    border-top: none
+                    border-bottom: none
+                    outline: none
+                    width: 100%
+
+                .btn
+                    border: none
+                    background-color: $white-color
+                    display: flex
+                    align-items: center
+                    border-radius: 0
+                    @include mobile
+
+                        font-size: 3.3vw
+                img
+                    padding-left: 10px
+                    padding-top: 3px
+                    @include mobile
+                        padding-top: 3px
+                        padding-left: 5px
+                        width: 15px
+
+            img
+                padding-left: 3px
+                &:hover
+                    cursor: pointer
+
+        .dropdown-menu
+            border-radius: 0
+            background-color: $white-color
+            margin-top: 210px
+            margin-left: 18%
+            padding: 10px 25px
+            list-style: none
+            border: 1px solid $black-color
+            width: 15%
+            li
+                margin-bottom: 10px
+                &:hover
+                    cursor: pointer
+            @include small-tablet
+                margin-top: 255px
+                margin-left: -1%
+                width: 47%
+
+            @include mobile
+                margin-top: 255px
+                width: 86%
+                margin-left: -3%
+
+        .category-dropdown
+            width: 40%
+            background-color: $brown-color
+            @include mobile
+                width: 100%
+                box-shadow: 0 0 15px $black-color
+
+            .btn
+                width: 100%
+                color: $white-color
+                display: flex
+                align-items: center
+                justify-content: space-between
+                border: none
+                border-radius: 0
+                @include small-tablet
+                    font-size: 1.8vw
+                @include mobile
+                    font-size: 4vw
+                    height: 60px
+                    padding-left: 3%
+                    img
+                        padding-top: 2px
+                .category-title
+                    padding-left: 15px
+                    @include small-tablet
+                        padding-left: 0
+
+                &:hover
+                    border: none
+
+            .dropdown-menu
+                border-radius: 0
+                padding: 10px 25px
+                background-color: $white-color
+                list-style: none
+                border: 1px solid $black-color
+                width: 26%
+                @include small-tablet
+                    width: 36%
+                    padding-left: 12px
+                @include mobile
+                    position: relative
+                    width: 100%
+                    border: none
+                    margin: 0
+
+            li
+                padding-bottom: 10px
+                @include small-tablet
+                    font-size: 1.6vw
+                @include mobile
+                    font-size: 3.5vw
+        .menu-list
+            a
+                text-decoration: none
+                color: $black-color
+                &:hover
+                    text-decoration-line: underline
+            span
+                padding-left: 5px
+                color: $dark-yellow-color
+
+    .basket-dropdown
+        background-color: $basket-color
+        width: 30%
+        margin-left: 15px
+        @include small-tablet
+            margin-left: 0
+            width: 100%
+        .btn
+            display: flex
+            height: 75px
+            width: 100%
+            color: $white-color
+            align-items: center
+            justify-content: space-between
+            border: none
+            border-radius: 0
+            @include small-tablet
+                height: 65px
+            .basket-content
+                display: flex
+                align-items: center
+                @include small-tablet
+                    padding-left: 40%
+                @include mobile
+                    padding-left: 23%
+            .quantity
+                @include small-tablet
+                    padding-right: 30%
+                @include mobile
+                    padding-right: 22%
+                    padding-top: 2px
+
+            &:hover
+                border: none
+
+.shelf-container
+    padding: 0 5%
+    padding-top: 20px
+    @include mobile
+        padding-top: 50px
+        padding-left: 2%
+        padding-right: 2%
+.shelf-header
+    padding-top: 10px
+    padding-bottom: 50px
+    display: flex
+    justify-content: space-between
+    @include mobile
+        display: none
+.shelf-label
+    color: $dark-yellow-color
+.page-changer
+
+    a
+        text-decoration: none
+        padding: 0 10px
+
+    .go-next-page-non-active
+        border-left: 1px solid gray
+        color: gray
+        &:hover
+            cursor: not-allowed
+
+    .go-next-page-active
+        border-left: 1px solid gray
+        color: $dark-yellow-color
+        &:hover
+            cursor: pointer
+    .go-previous-page-non-active
+        border-right: 1px solid gray
+        color: gray
+        &:hover
+            cursor: not-allowed
+
+    .go-previous-page-active
+        border-right: 1px solid gray
+        color: $dark-yellow-color
+        &:hover
+            cursor: pointer
+.shelf-footer
+    text-align: end
+    margin-bottom: 50px
+
+.book-shelf
+    display: flex
+    flex-wrap: wrap
+    width: 100%
+    @include large-device
+        div:nth-child(4n+1)
+            padding-left: 0
+            border-left: none
+            width: 21.1%
+    @include tablet
+        div:nth-child(3n+1)
+            padding-left: 0
+            border-left: none
+            width: 30%
+    @include small-tablet
+        div:nth-child(3n+1)
+            width: 47%
+            border-left: 1px dashed $vertical-color
+            padding-left: 5%
+            padding-right: 0
+        div:nth-child(2n+1)
+            border-left: none
+            padding-left: 0
+            width: 46%
+    @include mobile
+        div:nth-child(3n+1)
+            width: 100%
+
+    .book-card
+        padding-left: 5%
+        border-left: 1px dashed $vertical-color
+        margin-bottom: 75px
+        padding-right: 3%
+        width: 26.3%
+
+        @include tablet
+            width: 35%
+        @include small-tablet
+            width: 54%
+        @include mobile
+            width: 100%
+            display: flex
+            flex-wrap: wrap
+            padding-right: 0
+            margin-bottom: 30px
+            border-bottom: 1px solid $black-color
+            padding-left: 0
+            border-left: none
+        img
+            width: 50%
+            height: auto
+            @include mobile
+                width: 35%
+
+    .book-card-header
+        margin-top: 20px
+        @include mobile
+            width: 65%
+            padding-left: 25px
+            margin-top: 0
+        .book-title
+            font-size: 1.2vw
+            color: $dark-yellow-color
+            @include tablet
+                font-size: 2.1vw
+            @include mobile
+                font-size: 5.2vw
+        .book-autor
+            font-size: 1vw
+            @include tablet
+                font-size: 1.5vw
+            @include mobile
+                font-size: 3.5vw
+        a
+            color: $basket-color
+
+        .book-des
+            font-size: 15px
+            display: -webkit-box
+            -webkit-line-clamp: 5
+            -webkit-box-orient: vertical
+            overflow: hidden
+            @include tablet
+                font-size: 15px
+            @include mobile
+                font-size: 13px
+
+    .book-card-footer
+        display: flex
+        justify-content: space-between
+        align-items: center
+        padding-right: 15%
+        @include mobile
+            padding-left: calc(35% + 25px)
+            padding-right: 0
+            width: 100%
+            padding-bottom: 20px
+        .book-price
+            color: $dark-yellow-color
+        .btn
+            width: 6vw
+            display: flex
+            align-items: center
+            border-radius: 0
+            background-color: $yellow-color
+            color: $white-color
+            @include tablet
+                width: 9vw
+            @include mobile
+                margin-left: 40%
+                width: 100px
+                margin-top: -5%
+
+            h5
+                font-size: 1.1vw
+                @include tablet
+                    font-size: 1.5vw
+                @include mobile
+                    font-size: 4vw
+
+            img
+                padding-left: 3px
+                width: 50%
+                height: auto
+                @include tablet
+                    width: 60%
+
+footer
+    .footer-1
+        background-color: $gray-color
+        display: flex
+        align-items: center
+        justify-content: space-between
+        padding: 25px 5%
+        color: $white-color
+
+        .footer-social-icon
+            display: flex
+            font-size: 40px
+
+            a
+                text-decoration: none
+                color: $white-color
+
+    .footer-2
+        display: flex
+        align-items: center
+        padding: 0 5%
+        padding-top: 10px
+        background-color: $brown-color
+        color: $white-color
+        font-size: 12px
+
+.register-form-container
+    padding-top: 35px
+    padding-left: 5%
+    width: 840px
+    @include tablet
+        width: 60%
+    @include small-tablet
+        width: 75%
+    @include mobile
+        width: 100%
+        padding-left: 2%
+        padding-right: 2%
+
+.form-header
+    .title
+        color: $dark-yellow-color
+.form-body
+    padding: 5% 10% 2% 7%
+    display: flex
+    background: $light-gray-color
+    border: 1px solid $gray-color
+    .row
+        width: 100%
+        height: 40px
+        margin-bottom: 20px
+        align-items: center
+        .captcha
+            height: 100%
+            display: flex
+            padding: 0
+            .preview
+                width: 45%
+                background: $white-color
+                display: flex
+                justify-content: center
+                align-items: center
+                font-size: 23px
+            .captcha-input
+                margin-left: 20px
+                width: 55%
+
+    .column-1
+        display: block
+        width: 20%
+        float: left
+    .column-2
+        margin-left: 30px
+        display: block
+        width: 80%
+    input
+        width: 100%
+        border: none
+
+.form-footer
+    margin-top: 35px
+    margin-bottom: 50px
+    display: flex
+    justify-content: space-between
+    .btn
+        background-color: $yellow-color
+        color: $white-color
+        border-radius: 0
+        width: 100px
+    h6
+        margin-top: 5px
+
+.forgot-form-container
+    padding-top: 35px
+    padding-left: 5%
+    width: 840px
+    @include tablet
+        width: 60%
+    @include small-tablet
+        width: 75%
+    @include mobile
+        width: 100%
+        padding-left: 2%
+        padding-right: 2%
+
+.forgot-form-header
+    .title
+        color: $dark-yellow-color
+.forgot-form-body
+    padding: 5% 10% 2% 7%
+    display: flex
+    background: $light-gray-color
+    border: 1px solid $gray-color
+    .row
+        width: 100%
+        height: 40px
+        margin-bottom: 20px
+        align-items: center
+    .column-1
+        display: block
+        width: 20%
+        float: left
+    .column-2
+        margin-left: 30px
+        display: block
+        width: 80%
+    input
+        width: 100%
+        border: none
+
+.forgot-form-footer
+    margin-top: 35px
+    margin-bottom: 250px
+    display: flex
+    justify-content: space-between
+    .btn
+        background-color: $yellow-color
+        color: $white-color
+        border-radius: 0
+        width: 100px
+    h6
+        margin-top: 5px
+    
+    
+    
+    
+    
+    
+    
+    
+    
+.notification
+    display: flex
+    background-color: $notification-color
+    justify-content: space-around
+    align-items: center
+    height: 50px
+    border-radius: 5px
+    position: fixed
+    bottom: 20px
+    padding: 30px
+
+    .delete
+        display: none
