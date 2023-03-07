@@ -4,11 +4,10 @@
             <div class="search-bar-container">
                 <div class="search-bar">
                     <input id="search-input" type="search" placeholder="autor, title">
-                    <div class="btn" v-on:click.prevent="all_categories_dropdown_show">
+                    <div class="btn" data-bs-toggle="dropdown">
                         <div>all&nbsp;categories</div><img src="../assets/img/icon/black-dropdown.png">
                     </div>
-                    <ul class="all-categories-dropdown-menu" v-on:click="all_categories_dropdown_show" :class="{ shown: all_categories_dropdown_menu }"
-                        v-show="all_categories_dropdown_menu">
+                    <ul class="dropdown-menu dropdown-menu-end">
                         <li class="menu-list" v-for="category in _categories" v-bind:key="category.id">
                             <a v-on:click="_pass_category(category.name, category.id)">{{ category.name }}</a>
                         </li>
@@ -18,15 +17,15 @@
             </div>
 
             <div class="category-dropdown">
-                <button class="btn" v-on:click.prevent="category_dropdown_show">
+                <button class="btn" data-bs-toggle="dropdown" v-on:click.prevent="category_dropdown_show">
                     <!---->
                     <div class="category-title">{{ _current_category }}</div>
                     <img src="../assets/img/icon/white-dropdown.png">
                 </button>
-                <ul class="category-dropdown-menu" :class="{ shown: category_dropdown_menu }" v-show="category_dropdown_menu">
+                <ul class="dropdown-menu">
                     <li class="menu-list" v-for="category in _categories" v-bind:key="category.id">
 
-                        <a v-bind:href="category.get_absolute_url+`/${books_per_page}/1`">{{ category.name }}<span>({{
+                        <a v-bind:href="category.get_absolute_url + `/${books_per_page}/1`">{{ category.name }}<span>({{
                             category.get_books_total
                         }})</span></a>
                     </li>
@@ -47,7 +46,7 @@
                 <img src="../assets/img/icon/white-dropdown.png">
             </div>
         </div>
-</div>
+    </div>
 </template>
 
 
@@ -73,29 +72,11 @@ export default {
     },
     mounted() {
         var route = useRoute()
-        this.books_per_page = route.params.books_per_page
-        document.addEventListener('click', this.close)
+        this.books_per_page = route.params.books_per_page == null ? 8 : route.params.books_per_page
 
     },
-    beforeDestroy() {
-        document.removeEventListener('click', this.close)
-    },
+    
     methods: {
-        all_categories_dropdown_show(e) {
-            this.all_categories_dropdown_menu = !this.all_categories_dropdown_menu
-
-        },
-        category_dropdown_show(e) {
-            this.category_dropdown_menu = !this.category_dropdown_menu
-        },
-        close(e) {
-            if (!this.$el.contains(e.target)) {
-                this.all_categories_dropdown_menu = false
-                this.category_dropdown_menu = false
-            }
-        },
-
-
 
         _pass_category(name, id) {
             document.querySelector('#search-input').placeholder = `Search in ${name}`
@@ -109,7 +90,6 @@ export default {
             else {
                 window.location.href = `/search/${this.books_per_page}/1?id=${id}&input=${input}`
             }
-
         }
     },
 }

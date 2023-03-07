@@ -17,26 +17,20 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
-from products import views
+import products
 from django.conf import settings
 from django.conf.urls.static import static
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.home),
-    
-    path('category/<str:category_slug>',views.viewBookAsCategory,name='viewBookAsCategory'),
-    
 
-    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/favicon.ico'))),
+    path('', include('products.urls')),
+    path('', include('authentication.urls')),
 
-
+    path('favicon.ico', RedirectView.as_view(
+        url=staticfiles_storage.url('img/favicon.ico'))),
 
 
-    path('api/search_results/<int:books_per_page>/<int:page>' ,views.SearchResultsApi.as_view()),
-    path('api/view_book_as_category/<str:category_slug>/<int:books_per_page>/<int:page>',views.ViewBookAsCategoryApi.as_view()),
-    path('api/view_categories' , views.ViewCategoriesApi.as_view()),
-    path('api/view_category/<str:category_slug>' , views.ViewCategoryApi.as_view()),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import SearchView from '../views/SearchView.vue'
+import RegisterView from '../views/RegisterView.vue'
+import ForgotPassView from '../views/ForgotPassView.vue'
+import ChangePassView from '../views/ChangePassView.vue'
+import ActivateView from '../views/ActivateView.vue'
 const routes = [
   {
     path: '/',
@@ -16,6 +20,27 @@ const routes = [
     path: '/search/:books_per_page/:page',
     name: 'SearchView',
     component: SearchView
+  },
+  {
+    path: '/register',
+    name: 'RegisterView',
+    component: RegisterView
+  },
+  {
+    path: '/activate/:token',
+    name: 'ActivateView',
+    component: ActivateView
+  },
+  {
+    path: '/forgot_password',
+    name: 'ForgotPassView',
+    component: ForgotPassView
+  },
+  
+  {
+    path: '/change_password/:token',
+    name: 'ChangePassView',
+    component: ChangePassView
   }
 ]
 

@@ -93,11 +93,3 @@ class SearchResultsApi(APIView):
             return Response({'404': 'somthing went wrong'})
 
 
-def home(request):
-    category_url = Category.objects.order_by("?").first().get_absolute_url()
-    return redirect('category'+category_url)
-
-
-def viewBookAsCategory(request, category_slug):
-    print(category_slug)
-    return render(request, 'home.html')

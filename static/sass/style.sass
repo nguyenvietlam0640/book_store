@@ -1,17 +1,20 @@
 
 $yellow-color: #ffb700
 $dark-yellow-color: #ff9900
-$light-gray-color: #f5f1eed5
+$light-gray-color: #e2e1e1d0
 $gray-color: #625950
 $brown-color: #5b4634
 $vertical-color: #aaa5a4cb
 $black-color: black
 $white-color: white
 $basket-color: #05a09A
+$notification-color: #60dd98
 $mobile: 600px
 $tablet: 1199px
 $large-device: 1200px
 $small-tablet: 900px
+
+
 @mixin mobile
     @media screen and ( max-width: $mobile)
         @content
@@ -25,6 +28,9 @@ $small-tablet: 900px
 @mixin large-device
     @media screen and ( min-width: $large-device)
         @content
+
+[v-cloak] 
+  display: none
 
 body
     hr
@@ -53,6 +59,28 @@ header
         span
             color: $white-color
 
+    .logined-option
+        margin-right: 5%
+        display: flex
+        align-items: center
+        button
+            border: none
+        .dropdown-menu
+            border-radius: 0
+            width: 50px
+            padding: 5px
+            li
+                padding: 5px 10px
+                &:hover
+                    cursor: pointer
+                    text-decoration-line: underline
+            a
+                text-decoration: none
+                color: $black-color
+
+        .icon
+            margin: 0 10px
+            font-size: 30px
     .option
         button
             align-items: center
@@ -64,11 +92,13 @@ header
             padding-right: 25px
 
         .dropdown-menu
+            padding: 0
             background-color: $white-color
             width: 300px
             height: fit-content
-            padding: 0
+
             border-radius: 0
+
         .upper-form
             padding: 25px 15px 10px 15px
             input
@@ -84,6 +114,8 @@ header
                 align-items: center
 
                 .btn
+                    padding-inline: 15px
+                    display: flex
                     background-color: $yellow-color
                     color: $white-color
                     border-radius: 0
@@ -115,7 +147,8 @@ header
     justify-content: space-between
     padding: 0 5%
     padding-top: 100px
-    @include tablet
+
+    @include small-tablet
         display: block
         padding-left: 0
         padding-right: 0
@@ -124,7 +157,7 @@ header
         padding: 15px 0
         width: 80%
         display: flex
-        @include tablet
+        @include small-tablet
             width: 100%
             padding: 15px 5%
         @include mobile
@@ -154,6 +187,7 @@ header
                     width: 100%
 
                 .btn
+                    border: none
                     background-color: $white-color
                     display: flex
                     align-items: center
@@ -174,18 +208,20 @@ header
                 &:hover
                     cursor: pointer
 
-        .all-categories-dropdown-menu
-            position: absolute
+        .dropdown-menu
+            border-radius: 0
             background-color: $white-color
             margin-top: 210px
             margin-left: 18%
             padding: 10px 25px
             list-style: none
             border: 1px solid $black-color
-            width: 20%
+            width: 15%
             li
                 margin-bottom: 10px
-            @include tablet
+                &:hover
+                    cursor: pointer
+            @include small-tablet
                 margin-top: 255px
                 margin-left: -1%
                 width: 47%
@@ -210,7 +246,7 @@ header
                 justify-content: space-between
                 border: none
                 border-radius: 0
-                @include tablet
+                @include small-tablet
                     font-size: 1.8vw
                 @include mobile
                     font-size: 4vw
@@ -220,32 +256,31 @@ header
                         padding-top: 2px
                 .category-title
                     padding-left: 15px
-                    @include tablet
+                    @include small-tablet
                         padding-left: 0
 
                 &:hover
                     border: none
 
-        .category-dropdown-menu
-            position: absolute
-            margin: 10px 0
-            padding: 10px 25px
-            background-color: $white-color
-            list-style: none
-            border: 1px solid $black-color
-            width: 26%
-            @include tablet
-                width: 36%
-                padding-left: 12px
-            @include mobile
-                position: relative
-                width: 100%
-                border: none
-                margin: 0
+            .dropdown-menu
+                border-radius: 0
+                padding: 10px 25px
+                background-color: $white-color
+                list-style: none
+                border: 1px solid $black-color
+                width: 26%
+                @include small-tablet
+                    width: 36%
+                    padding-left: 12px
+                @include mobile
+                    position: relative
+                    width: 100%
+                    border: none
+                    margin: 0
 
             li
                 padding-bottom: 10px
-                @include tablet
+                @include small-tablet
                     font-size: 1.6vw
                 @include mobile
                     font-size: 3.5vw
@@ -263,7 +298,7 @@ header
         background-color: $basket-color
         width: 30%
         margin-left: 15px
-        @include tablet
+        @include small-tablet
             margin-left: 0
             width: 100%
         .btn
@@ -275,17 +310,17 @@ header
             justify-content: space-between
             border: none
             border-radius: 0
-            @include tablet
+            @include small-tablet
                 height: 65px
             .basket-content
                 display: flex
                 align-items: center
-                @include tablet
+                @include small-tablet
                     padding-left: 40%
                 @include mobile
                     padding-left: 23%
             .quantity
-                @include tablet
+                @include small-tablet
                     padding-right: 30%
                 @include mobile
                     padding-right: 22%
@@ -479,6 +514,7 @@ footer
         color: $white-color
 
         .footer-social-icon
+            display: flex
             font-size: 40px
 
             a
@@ -493,3 +529,142 @@ footer
         background-color: $brown-color
         color: $white-color
         font-size: 12px
+
+.register-form-container
+    padding-top: 35px
+    padding-left: 5%
+    width: 840px
+    @include tablet
+        width: 60%
+    @include small-tablet
+        width: 75%
+    @include mobile
+        width: 100%
+        padding-left: 2%
+        padding-right: 2%
+
+.form-header
+    .title
+        color: $dark-yellow-color
+.form-body
+    padding: 5% 10% 2% 7%
+    display: flex
+    background: $light-gray-color
+    border: 1px solid $gray-color
+    .row
+        width: 100%
+        height: 40px
+        margin-bottom: 20px
+        align-items: center
+        .captcha
+            height: 100%
+            display: flex
+            padding: 0
+            .preview
+                width: 45%
+                background: $white-color
+                display: flex
+                justify-content: center
+                align-items: center
+                font-size: 23px
+            .captcha-input
+                margin-left: 20px
+                width: 55%
+
+    .column-1
+        display: block
+        width: 20%
+        float: left
+    .column-2
+        margin-left: 30px
+        display: block
+        width: 80%
+    input
+        width: 100%
+        border: none
+
+.form-footer
+    margin-top: 35px
+    margin-bottom: 50px
+    display: flex
+    justify-content: space-between
+    .btn
+        background-color: $yellow-color
+        color: $white-color
+        border-radius: 0
+        width: 100px
+    h6
+        margin-top: 5px
+
+.forgot-form-container
+    padding-top: 35px
+    padding-left: 5%
+    width: 840px
+    @include tablet
+        width: 60%
+    @include small-tablet
+        width: 75%
+    @include mobile
+        width: 100%
+        padding-left: 2%
+        padding-right: 2%
+
+.forgot-form-header
+    .title
+        color: $dark-yellow-color
+.forgot-form-body
+    padding: 5% 10% 2% 7%
+    display: flex
+    background: $light-gray-color
+    border: 1px solid $gray-color
+    .row
+        width: 100%
+        height: 40px
+        margin-bottom: 20px
+        align-items: center
+    .column-1
+        display: block
+        width: 20%
+        float: left
+    .column-2
+        margin-left: 30px
+        display: block
+        width: 80%
+    input
+        width: 100%
+        border: none
+
+.forgot-form-footer
+    margin-top: 35px
+    margin-bottom: 250px
+    display: flex
+    justify-content: space-between
+    .btn
+        background-color: $yellow-color
+        color: $white-color
+        border-radius: 0
+        width: 100px
+    h6
+        margin-top: 5px
+    
+    
+    
+    
+    
+    
+    
+    
+    
+.notification
+    display: flex
+    background-color: $notification-color
+    justify-content: space-around
+    align-items: center
+    height: 50px
+    border-radius: 5px
+    position: fixed
+    bottom: 20px
+    padding: 30px
+
+    .delete
+        display: none
