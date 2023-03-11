@@ -13,14 +13,16 @@
             </div>
         </div>
         <div class="book-shelf">
-            <div class="book-card" v-for="book in _books" v-bind:key="book.id">
 
-                <img class="book-img" :src="book.get_image">
+            <div class="book-card" v-for="book in _books" v-bind:key="book.id">
+                <a v-bind:href="book.get_absolute_url">
+                    <img class="book-img" :src="book.get_image">
+                </a>
                 <div class="book-card-header">
-                    <h5 class="book-title">{{ book.title }}</h5>
+                    <h5 class="book-title"> <a v-bind:href="book.get_absolute_url">{{ book.title }}</a></h5>
                     <h6 class="book-autor">by {{ book.author }}</h6>
                     <p class="book-des"> {{ book.des }}</p>
-                    <a class="book-des" v-bind:href="book.get_absolute_url">more details</a>
+                    <a v-bind:href="book.get_absolute_url">more details</a>
 
                 </div>
                 <div class="book-card-footer">
@@ -32,6 +34,7 @@
                 </div>
 
             </div>
+
         </div>
 
         <div class="shelf-footer">

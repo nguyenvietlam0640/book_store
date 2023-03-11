@@ -132,7 +132,7 @@ export default {
             }
 
             if (!this.errors.length) {
-                const formData = {
+                const data = {
                     full_name: this.full_name,
                     email: this.email,
                     password: this.password,
@@ -140,7 +140,7 @@ export default {
                 }
 
                 axios
-                    .post('api/register', formData)
+                    .post('api/register', data)
                     .then(response => {
 
                         toast({
