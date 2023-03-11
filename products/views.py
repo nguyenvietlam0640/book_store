@@ -2,15 +2,16 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from rest_framework import generics
 from rest_framework.response import Response
-from .models import Category, Book
-from .serializers import BookSerializers, CategorySerializers
+from .models import Category, Book, Comment
+from .serializers import BookSerializers, CategorySerializers, CommentSerializer
 from json import JSONDecoder
 from rest_framework.views import APIView
 from django.http import JsonResponse
+from authentication.models import User
 import json
 
 
-class ViewBookAsCategoryApi(APIView):
+class ViewBookAsCategory(APIView):
     def get(self, request, category_slug, books_per_page, page, format=None):
         try:
             category = Category.objects.get(slug=category_slug)
@@ -27,7 +28,7 @@ class ViewBookAsCategoryApi(APIView):
             return Response({'404': 'somthing went wrong'})
 
 
-class ViewCategoriesApi(APIView):
+class ViewCategories(APIView):
     def get(self, request, format=None):
         try:
             categories = Category.objects.all()
@@ -37,17 +38,17 @@ class ViewCategoriesApi(APIView):
             return Response({'200': 'categories empty'})
 
 
-class ViewCategoryApi(APIView):
+class ViewCategory(APIView):
     def get(self, request, category_slug, format=None):
         try:
             category = Category.objects.filter(slug=category_slug)
             categorySerializer = CategorySerializers(category, many=True)
             return Response(categorySerializer.data)
         except:
-            return Response({'404': 'category not found'})
+            return Response({'404': 'category not found'}, status=404)
 
 
-class SearchResultsApi(APIView):
+class SearchResults(APIView):
     def get(self, request, books_per_page, page, format=None):
         try:
             searchList = []
@@ -68,7 +69,7 @@ class SearchResultsApi(APIView):
                 pageTotal = int(len(searchList) / books_per_page) if len(
                     searchList) % books_per_page == 0 else int(len(searchList) / books_per_page)+1
                 if page > 0 and page <= pageTotal:
-                    return Response([len(searchList),searchList[(
+                    return Response([len(searchList), searchList[(
                         books_per_page*(page-1)):books_per_page*page]])
                 else:
                     return Response({'404': 'page not found'})
@@ -84,7 +85,7 @@ class SearchResultsApi(APIView):
                 pageTotal = int(len(searchList) / books_per_page) if len(
                     searchList) % books_per_page == 0 else int(len(searchList) / books_per_page)+1
                 if page > 0 and page <= pageTotal:
-                    return Response([len(searchList),searchList[(
+                    return Response([len(searchList), searchList[(
                         books_per_page*(page-1)):books_per_page*page]])
                 else:
                     return Response({'404': 'page not found'})
@@ -93,3 +94,45 @@ class SearchResultsApi(APIView):
             return Response({'404': 'somthing went wrong'})
 
 
+class ViewBookDetail(APIView):
+    def get(self, request, category_slug, book_slug):
+
+        book = Book.objects.filter(slug=book_slug).first()
+        if book:
+            bookSerializer = BookSerializers(book)
+            return Response(bookSerializer.data)
+        return Response({'message': 'Book not found'}, status=404)
+
+
+class ViewAllComments(APIView):
+    def get(self, request, book_slug):
+        book = Book.objects.filter(slug=book_slug).first()
+        if book:
+            comments = book.comments.all()
+            commentsSerializer = CommentSerializer(comments, many=True)
+            for data in commentsSerializer.data:
+                data['created_by'] = User.objects.get(
+                    id=int(data['created_by'])).full_name
+            return Response(commentsSerializer.data)
+
+        return Response({'message': 'Book not found'}, status=404)
+
+
+class PostComment(APIView):
+    def post(self, request, book_slug, user_id):
+    
+        book = Book.objects.filter(slug = book_slug).first()
+        user  = User.objects.filter(id = user_id).first()
+        if book and user:
+            data = request.data
+            data['created_for'] = book.id
+            data['created_by'] = user.id
+            if data['rating']:
+                if  data['rating']>=0 and data['rating']<=5:
+                    comment = CommentSerializer(data=data)
+                    comment.is_valid(raise_exception=True)
+                    comment.save()
+
+                    return Response({'message': 'success'})   
+            return Response({'message': 'rating value must provided'}, status=403)
+        return Response({'message': 'book or user not found'}, status=404)

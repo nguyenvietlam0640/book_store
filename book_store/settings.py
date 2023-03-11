@@ -26,8 +26,8 @@ SECRET_KEY = ')@2v662*3evqvyl8suijtmg&(8w8+ws__wu*i^yk*%rvqb16xe'
 DEBUG = True
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'bookstore.noreply25@gmail.com'
-EMAIL_HOST_PASSWORD = 'uvnwmcomezaooeyn'
+EMAIL_HOST_USER = 'bookstore.0325@gmail.com'
+EMAIL_HOST_PASSWORD = 'rhdwujooiuylfulc'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 

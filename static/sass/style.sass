@@ -14,7 +14,6 @@ $tablet: 1199px
 $large-device: 1200px
 $small-tablet: 900px
 
-
 @mixin mobile
     @media screen and ( max-width: $mobile)
         @content
@@ -29,8 +28,8 @@ $small-tablet: 900px
     @media screen and ( min-width: $large-device)
         @content
 
-[v-cloak] 
-  display: none
+[v-cloak]
+    display: none
 
 body
     hr
@@ -96,7 +95,6 @@ header
             background-color: $white-color
             width: 300px
             height: fit-content
-
             border-radius: 0
 
         .upper-form
@@ -123,7 +121,12 @@ header
             .login-via-fb-icon
                 display: flex
                 justify-content: center
-
+            .alert
+                a
+                    color: blue 
+                    text-decoration-line: underline
+                    &:hover
+                        cursor: pointer
         .lower-form
             padding: 0 15px
             background: $light-gray-color
@@ -439,7 +442,10 @@ header
             margin-top: 0
         .book-title
             font-size: 1.2vw
-            color: $dark-yellow-color
+            
+            a
+                text-decoration: none
+                color: $dark-yellow-color
             @include tablet
                 font-size: 2.1vw
             @include mobile
@@ -646,15 +652,234 @@ footer
         width: 100px
     h6
         margin-top: 5px
+
+// book detail style
+
+.book-detail-container
+    margin: 0 5%
+    margin-top: 60px
+    padding-bottom: 60px
+    display: flex
+    box-shadow: 0px 5px $light-gray-color
+    @include mobile
+        display: block
+        margin: 0 2%
+    .book-photo
+        width: 21%
+        height: fit-content
+        @include tablet
+            width: 25%
+        @include small-tablet
+            width: 28%
+        @include mobile
+            width: 35%
+            margin: 30px 28% 0 28%
+
+    .info-container
+        margin-left: 3%
+        width: 55%
+        height: auto
+        @include tablet
+            width: 52%
+            margin-left: 2%
+        @include small-tablet
+            width: 47%
+        @include mobile
+            margin-top: 20px
+            width: 96%
+        .title
+            color: $dark-yellow-color
+            font-size: 40px
+            @include tablet
+                font-size: 35px
+            @include small-tablet
+                font-size: 30px
+            
+        .author
+            font-size: 25px
+            @include tablet
+                font-size: 20px
+            @include small-tablet
+                font-size: 20px
+            
+        .Evaluate
+            margin-top: 5px
+            display: flex
+            align-items: center
+            .rating-star
+                width: 30px
+                margin-right: 3px
+                @include small-tablet
+                    width: 30px
+               
+            .count-rate
+                margin-left: 10px
+                color: $yellow-color
+                font-size: 25px
+        .des
+            margin-top: 25px
+            font-size: 20px
+            @include tablet
+                font-size: 17px
+            @include small-tablet
+                font-size: 15px
+            @include mobile
+                margin-top: 10px
+                
+
+        .publisher
+            color: $gray-color
+            margin-top: 10%
+            font-size: 20px
+            @include tablet
+                font-size: 17px
+            @include small-tablet
+                font-size: 15px
+            
+        .published-date
+            color: $gray-color
+            font-size: 20px
+            @include tablet
+                font-size: 17px
+            @include small-tablet
+                font-size: 15px
+            
+
+    .add-item-container
+        margin: 6% 0 0 3%
+        width: 15%
+        height: 100%
+        padding-bottom: 20px
+        border: 1px solid $light-gray-color
+        background-color: $light-gray-color
+        text-align: center
+        @include tablet
+            margin-left: 2%
+            width: 18%
+        @include small-tablet
+            width: 20%
+        @include mobile
+            display: flex
+            justify-content: space-around
+            align-items: center
+            width: 96%
+        .price-container
+            display: block
+            @include mobile
+                padding-left: 25px
+        .current-price
+            margin-top: 15%
+            color: $dark-yellow-color
+            font-size: 55px
+            font-weight: bold
+            @include tablet
+                font-size: 40px
+            @include small-tablet
+                font-size: 35px
+            @include mobile
+                font-size: 45px
+        .discount
+            color: $gray-color
+            font-size: 25px
+            @include tablet
+                font-size: 20px
+            @include small-tablet
+                font-size: 17px    
+           
+        .original-price
+            color: $gray-color
+            font-size: 25px
+            @include tablet
+                font-size: 20px
+            @include small-tablet
+                font-size: 17px
+           
+        .btn
+            display: flex
+            justify-content: center
+            
+            margin: 40px 0 0 15%
+            border: none
+            border-radius: 0
+            background-color: $yellow-color
+            color: $white-color
+            font-size: 25px
+            font-weight: bold
+            align-items: center
+            width: 70%
+            @include small-tablet
+                font-size: 18px
+            @include mobile
+                width: 30%
+                height: 50px
+                font-size: 23px
+                padding-right: 4%
+                margin: 20px 25px 0 0
+            .basket-img
+                width: 40px
+                margin-left: 10%
+                @include small-tablet
+                    width: 28px
+                @include mobile
+                    width: 35px
+
+.add-comment-container
+    margin: 0 5%
+    padding: 30px 0 30px 0
+    box-shadow: 0px 5px $light-gray-color
+    .header
+        display: flex
+        justify-content: space-between
+        align-items: center
+        h4
+            color: $dark-yellow-color
     
-    
-    
-    
-    
-    
-    
-    
-    
+            font-weight: bold
+    .rating
+        display: flex
+        .rating-star
+            padding-left: 2px
+            width: 30px
+         
+    textarea
+        width: 100%
+        height: 140px
+        margin-top: 20px
+
+        resize: none
+    .footer
+        display: flex
+        justify-content: space-between
+        align-items: center
+        .btn
+            margin-top: 20px
+            border-radius: 0
+            background-color: $yellow-color
+            font-weight: bold
+            color: $white-color
+
+.comments-container
+    margin: 30px 5% 40px 5%
+    .title
+        color: $dark-yellow-color
+        font-weight: bold
+        padding-bottom: 20px
+    .no-comment-title
+        margin: 25px 0
+        color: $gray-color
+        text-align: center
+    .comment-card
+        .user-name
+            color: $dark-yellow-color
+        .rating
+            display: flex
+            align-items: center
+            img 
+                padding-left: 3px
+        .day-post
+            padding-bottom: 20px
+            color: $gray-color
+
 .notification
     display: flex
     background-color: $notification-color
