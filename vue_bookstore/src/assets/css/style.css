@@ -225,12 +225,11 @@ header .option .lower-form .register-link img {
 .header-2 .search-group .dropdown-menu {
   border-radius: 0;
   background-color: white;
-  margin-top: 210px;
-  margin-left: 18%;
   padding: 10px 25px;
   list-style: none;
   border: 1px solid black;
   width: 15%;
+  z-index: inherit;
 }
 .header-2 .search-group .dropdown-menu li {
   margin-bottom: 10px;
@@ -304,6 +303,7 @@ header .option .lower-form .register-link img {
   list-style: none;
   border: 1px solid black;
   width: 26%;
+  z-index: inherit;
 }
 @media screen and (max-width: 900px) {
   .header-2 .search-group .category-dropdown .dropdown-menu {
@@ -396,6 +396,70 @@ header .option .lower-form .register-link img {
 }
 .header-2 .basket-dropdown .btn:hover {
   border: none;
+}
+.header-2 .basket-dropdown .dropdown-menu {
+  border: none;
+  background-color: #05a09A;
+  color: white;
+  border-radius: 0;
+  z-index: inherit;
+  width: 24.3%;
+  padding-top: 20px;
+}
+.header-2 .basket-dropdown .dropdown-menu .item-card {
+  margin: 0 10px 10px 10px;
+  display: flex;
+}
+.header-2 .basket-dropdown .dropdown-menu .item-card .book-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  width: 55%;
+}
+.header-2 .basket-dropdown .dropdown-menu .item-card .unit-price {
+  margin-left: 50px;
+}
+.header-2 .basket-dropdown .dropdown-menu .item-card .quantity-button {
+  margin-left: 10px;
+}
+.header-2 .basket-dropdown .dropdown-menu .item-card .quantity-button i {
+  padding-left: 15px;
+  color: #ffb700;
+}
+.header-2 .basket-dropdown .dropdown-menu .total {
+  padding: 0 10px 0 10px;
+  background-color: #18817e;
+  color: #ffb700;
+  display: flex;
+  height: 40px;
+  align-items: center;
+}
+.header-2 .basket-dropdown .dropdown-menu .total .title {
+  width: 55%;
+}
+.header-2 .basket-dropdown .dropdown-menu .total .price {
+  margin-left: 50px;
+}
+.header-2 .basket-dropdown .dropdown-menu .footer-container {
+  display: flex;
+  margin: 20px 10px 10px 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-2 .basket-dropdown .dropdown-menu .footer-container button {
+  border: none;
+  background-color: #ffb700;
+  color: white;
+  font-weight: bold;
+  height: 40px;
+  width: 110px;
+  text-align: center;
+  margin-left: 10px;
+}
+.header-2 .basket-dropdown .dropdown-menu .footer-container a {
+  text-decoration-line: underline;
+  color: white;
 }
 
 .shelf-container {
@@ -931,13 +995,13 @@ footer .footer-2 {
   display: flex;
   align-items: center;
 }
-.book-detail-container .info-container .Evaluate .rating-star {
+.book-detail-container .info-container .Evaluate .rated-star {
   width: 30px;
   margin-right: 3px;
 }
 @media screen and (max-width: 900px) {
-  .book-detail-container .info-container .Evaluate .rating-star {
-    width: 30px;
+  .book-detail-container .info-container .Evaluate .rated-star {
+    width: 28px;
   }
 }
 .book-detail-container .info-container .Evaluate .count-rate {
@@ -1134,10 +1198,44 @@ footer .footer-2 {
   color: #ff9900;
   font-weight: bold;
 }
-.add-comment-container .rating {
-  display: flex;
+.add-comment-container h5 {
+  color: #625950;
+  text-align: center;
+  font-size: 25px;
+  margin: 30px 0 10px 0;
 }
-.add-comment-container .rating .rating-star {
+.add-comment-container .rating {
+  width: -moz-fit-content;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+}
+.add-comment-container .rating .alertt {
+  margin-left: 10px;
+  height: -moz-fit-content;
+  height: fit-content;
+  color: red;
+}
+.add-comment-container .rating:hover {
+  cursor: pointer;
+}
+.add-comment-container .rating .rating-star1 {
+  padding-left: 2px;
+  width: 30px;
+}
+.add-comment-container .rating .rating-star2 {
+  padding-left: 2px;
+  width: 30px;
+}
+.add-comment-container .rating .rating-star3 {
+  padding-left: 2px;
+  width: 30px;
+}
+.add-comment-container .rating .rating-star4 {
+  padding-left: 2px;
+  width: 30px;
+}
+.add-comment-container .rating .rating-star5 {
   padding-left: 2px;
   width: 30px;
 }

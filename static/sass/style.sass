@@ -8,6 +8,7 @@ $vertical-color: #aaa5a4cb
 $black-color: black
 $white-color: white
 $basket-color: #05a09A
+$dark-green: #18817e
 $notification-color: #60dd98
 $mobile: 600px
 $tablet: 1199px
@@ -123,7 +124,7 @@ header
                 justify-content: center
             .alert
                 a
-                    color: blue 
+                    color: blue
                     text-decoration-line: underline
                     &:hover
                         cursor: pointer
@@ -214,12 +215,11 @@ header
         .dropdown-menu
             border-radius: 0
             background-color: $white-color
-            margin-top: 210px
-            margin-left: 18%
             padding: 10px 25px
             list-style: none
             border: 1px solid $black-color
             width: 15%
+            z-index: inherit
             li
                 margin-bottom: 10px
                 &:hover
@@ -272,6 +272,7 @@ header
                 list-style: none
                 border: 1px solid $black-color
                 width: 26%
+                z-index: inherit
                 @include small-tablet
                     width: 36%
                     padding-left: 12px
@@ -331,6 +332,71 @@ header
 
             &:hover
                 border: none
+        .dropdown-menu
+            border: none
+            background-color: $basket-color
+            color: $white-color
+            border-radius: 0
+
+            z-index: inherit
+            width: 24.3%
+            padding-top: 20px
+
+            .item-card
+                margin: 0 10px 10px 10px
+                display: flex
+                
+                .book-title
+                    display: -webkit-box
+                    -webkit-line-clamp: 1
+                    -webkit-box-orient: vertical
+                    overflow: hidden
+                    width: 55%
+                .unit-price
+                    margin-left: 50px
+                .quantity-button
+                    margin-left: 10px
+                    i
+                        padding-left: 15px
+                        color: $yellow-color
+
+            .total
+                padding: 0 10px 0 10px
+                background-color: $dark-green
+                color: $yellow-color
+                display: flex
+                height: 40px
+                align-items: center
+                .title
+                    width: 55%
+            
+                .price
+                    margin-left: 50px
+
+            .footer-container
+                display: flex
+            
+                margin: 20px 10px 10px 10px
+                justify-content: space-between
+                align-items: center
+                button
+                    border: none
+                    background-color: $yellow-color
+                    color: $white-color
+                    font-weight: bold
+                    height: 40px
+                    width: 110px
+                    text-align: center
+                    margin-left: 10px
+                a
+                    text-decoration-line: underline
+                    color: $white-color
+
+                
+                    
+    
+
+
 
 .shelf-container
     padding: 0 5%
@@ -442,7 +508,7 @@ header
             margin-top: 0
         .book-title
             font-size: 1.2vw
-            
+
             a
                 text-decoration: none
                 color: $dark-yellow-color
@@ -694,24 +760,24 @@ footer
                 font-size: 35px
             @include small-tablet
                 font-size: 30px
-            
+
         .author
             font-size: 25px
             @include tablet
                 font-size: 20px
             @include small-tablet
                 font-size: 20px
-            
+
         .Evaluate
             margin-top: 5px
             display: flex
             align-items: center
-            .rating-star
+            .rated-star
                 width: 30px
                 margin-right: 3px
                 @include small-tablet
-                    width: 30px
-               
+                    width: 28px
+
             .count-rate
                 margin-left: 10px
                 color: $yellow-color
@@ -725,7 +791,6 @@ footer
                 font-size: 15px
             @include mobile
                 margin-top: 10px
-                
 
         .publisher
             color: $gray-color
@@ -735,7 +800,7 @@ footer
                 font-size: 17px
             @include small-tablet
                 font-size: 15px
-            
+
         .published-date
             color: $gray-color
             font-size: 20px
@@ -743,7 +808,6 @@ footer
                 font-size: 17px
             @include small-tablet
                 font-size: 15px
-            
 
     .add-item-container
         margin: 6% 0 0 3%
@@ -784,8 +848,8 @@ footer
             @include tablet
                 font-size: 20px
             @include small-tablet
-                font-size: 17px    
-           
+                font-size: 17px
+
         .original-price
             color: $gray-color
             font-size: 25px
@@ -793,11 +857,11 @@ footer
                 font-size: 20px
             @include small-tablet
                 font-size: 17px
-           
+
         .btn
             display: flex
             justify-content: center
-            
+
             margin: 40px 0 0 15%
             border: none
             border-radius: 0
@@ -833,14 +897,41 @@ footer
         align-items: center
         h4
             color: $dark-yellow-color
-    
+
             font-weight: bold
+    h5
+        color: $gray-color
+        text-align: center
+        font-size: 25px
+        margin: 30px 0 10px 0
+
     .rating
+        width: fit-content
         display: flex
-        .rating-star
+        align-items: center
+        .alertt
+            margin-left: 10px
+            height: fit-content
+            color: red
+
+        &:hover
+            cursor: pointer
+        .rating-star1
             padding-left: 2px
             width: 30px
-         
+        .rating-star2
+            padding-left: 2px
+            width: 30px
+        .rating-star3
+            padding-left: 2px
+            width: 30px
+        .rating-star4
+            padding-left: 2px
+            width: 30px
+        .rating-star5
+            padding-left: 2px
+            width: 30px
+
     textarea
         width: 100%
         height: 140px
@@ -874,7 +965,7 @@ footer
         .rating
             display: flex
             align-items: center
-            img 
+            img
                 padding-left: 3px
         .day-post
             padding-bottom: 20px

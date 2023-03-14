@@ -17,7 +17,7 @@
             </div>
 
             <div class="category-dropdown">
-                <button class="btn" data-bs-toggle="dropdown" v-on:click.prevent="category_dropdown_show">
+                <button class="btn" data-bs-toggle="dropdown">
                     <!---->
                     <div class="category-title">{{ _current_category }}</div>
                     <img src="../assets/img/icon/white-dropdown.png">
@@ -34,7 +34,7 @@
         </div>
 
         <div class="basket-dropdown">
-            <div class="btn">
+            <div class="btn" data-bs-toggle="dropdown" data-bs-auto-close="outside">
                 <div class="basket-content">
                     <img src="../assets/img/icon/basket.png">
                     <h5 class="px-2">basket($0)</h5>
@@ -44,6 +44,53 @@
                 </div>
 
                 <img src="../assets/img/icon/white-dropdown.png">
+            </div>
+            <div class="dropdown-menu">
+                <div class="item-card">
+                    <div class="book-title">
+                        Lunar storm
+                    </div>
+                    <div class="quantity">
+                        1
+                    </div>
+                    <div class="unit-price">
+                        $12.99
+                    </div>
+                    <div class="quantity-button">
+                        <i class="fa-solid fa-minus"></i>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                </div>
+                <div class="item-card">
+                    <div class="book-title">
+                        Lunar stormsdflkasldkf
+                    </div>
+                    <div class="quantity">
+                        1
+                    </div>
+                    <div class="unit-price">
+                        $12.99
+                    </div>
+                    <div class="quantity-button"><i class="fas fa-minus"></i>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <div class="total">
+                    <div class="title">Total</div>
+                    <div class="quantity">1</div>
+                    <div class="price">$12.99</div>
+                </div>
+
+                <div class="footer-container">
+                    <a href="#">View part orders</a>
+                    <div class="basket-button">
+                        <button>
+                            Checkout
+                        </button>
+                        <button>Empty Cart</button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -75,7 +122,7 @@ export default {
         this.books_per_page = route.params.books_per_page == null ? 8 : route.params.books_per_page
 
     },
-    
+
     methods: {
 
         _pass_category(name, id) {

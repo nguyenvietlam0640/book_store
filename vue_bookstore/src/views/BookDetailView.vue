@@ -7,11 +7,11 @@
             <h2 class="title">{{ book.title }}</h2>
             <div class="author">{{ book.author }}</div>
             <div class="Evaluate">
-                <img class="rating-star" src="../assets/img/icon/high-star.png">
-                <img class="rating-star" src="../assets/img/icon/high-star.png">
-                <img class="rating-star" src="../assets/img/icon/low-star.png">
-                <img class="rating-star" src="../assets/img/icon/low-star.png">
-                <img class="rating-star" src="../assets/img/icon/low-star.png">
+
+                <img v-for="i in book.get_total_rating_value" :key="i" class="rated-star"
+                    src="../assets/img/icon/high-star.png">
+
+                <img v-for="i in rating_star_left" :key="i" class="rated-star" src="../assets/img/icon/low-star.png">
                 <h6 class="count-rate">({{ book.get_total_rating_count }})</h6>
             </div>
             <div class="des">
@@ -41,22 +41,32 @@
 
 
     </div>
+    <div v-if="thanks_for_comment" class="add-comment-container">
+        <div class="header">
+            <h4 class="title"> You have rated on this book.</h4>
+            <img src="../assets/img/icon/yellow-dropdown.png">
 
-    <div class="add-comment-container">
+        </div>
+        <h5>--- Thanks for your rating ---</h5>
+    </div>
+
+    <div v-if="!thanks_for_comment" class="add-comment-container">
         <div class="header">
             <h4 class="title"> Add your comment:</h4>
             <img src="../assets/img/icon/yellow-dropdown.png">
         </div>
+
         <div class="rating">
-            <div>
-                <img class="rating-star" src="../assets/img/icon/low-star.png">
-                <img class="rating-star" src="../assets/img/icon/low-star.png">
-                <img class="rating-star" src="../assets/img/icon/low-star.png">
-                <img class="rating-star" src="../assets/img/icon/low-star.png">
-                <img class="rating-star" src="../assets/img/icon/low-star.png">
+
+            <img v-for="i in 5" :key="i" v-on:click="rate(i)" :class="`rating-star${i}`"
+                src="../assets/img/icon/low-star.png">
+            <div class="alertt" v-if="errors.length" v-for="error in errors" :key="error">
+                *{{ error }}.
             </div>
-            <!-- problem in here -->
         </div>
+
+        <!-- problem in here -->
+
         <textarea v-model="content" id="comment"></textarea>
         <div class="footer">
             <a href="#">cancel</a>
@@ -97,10 +107,16 @@ export default {
         return {
             categories: [],
             book: {},
+
             comments: [],
+
             content: '',
             rating: '',
+
+            rating_star_left: 0,
+
             errors: [],
+
             able_to_comment: false,
             thanks_for_comment: false,
 
@@ -120,6 +136,7 @@ export default {
         await this.get_all_comments(book_slug)
         this.check_able_to_comment()
 
+
     },
 
     computed: {
@@ -127,22 +144,52 @@ export default {
     },
 
     methods: {
+        reset_rating_star() {
+            for (let i = 1; i <= 5; i++) {
+                document.querySelector(`.rating .rating-star${i}`).src = require("../assets/img/icon/low-star.png")
+            }
+        },
+        rate(high_star_index) {
+            this.reset_rating_star()
+            if (high_star_index == this.rating) {
+                this.rating = ''
+                return
+            }
+
+            for (let i = 1; i <= high_star_index; i++) {
+                document.querySelector(`.rating .rating-star${i}`).src = require("../assets/img/icon/high-star.png")
+            }
+            this.rating = high_star_index
+
+        },
         check_able_to_comment() {
             if (this.user) {
                 this.able_to_comment = true
+                this.check_unique_comment()
             }
             else {
                 this.able_to_comment = false
             }
 
         },
-        async post_comment() {
 
+        async check_unique_comment() {
+            await axios
+                .get(`api/post_comment/${this.$route.params.book_slug}/${this.user.id}`)
+                .then(response => {
+                    this.thanks_for_comment = !response.data.message
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        async post_comment() {
+            this.errors = []
             if (!this.able_to_comment) {
                 alert('You must login to comment')
             }
             else if (!this.rating) {
-                console.log('rate please')
+                this.errors.push('You must rate before posting comment')
             }
             else if (this.able_to_comment && this.rating) {
                 const data = {
@@ -152,12 +199,18 @@ export default {
                 await axios
                     .post(`api/post_comment/${this.$route.params.book_slug}/${this.user.id}`, data)
                     .then(response => {
-                        console.log(response.data)
                         this.get_all_comments(this.$route.params.book_slug)
+                        this.get_book_detail(this.$route.params.category_slug, this.$route.params.book_slug)
+
                         this.thanks_for_comment = true
                     })
                     .catch(error => {
-                        console.log(error.response.data)
+                        if (error.response.data.non_field_errors) {
+                            alert('You had comment in this book')
+                        }
+                        if (error.response.data.message) {
+                            this.errors.push(error.response.data.message)
+                        }
                     })
             }
 
@@ -179,7 +232,7 @@ export default {
                 .then(response => {
 
                     this.book = response.data
-                    console.log(this.book)
+                    this.rating_star_left = 5 - this.book.get_total_rating_value
                 })
                 .catch(error => {
                     console.log(error)

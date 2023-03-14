@@ -83,7 +83,8 @@ class Comment(models.Model):
     created_at = models.DateTimeField(default=django.utils.timezone.now)
 
     class Meta:
-        ordering = ('created_at',)
+        ordering = ('-created_at',)
+        unique_together = ('created_by', 'created_for')
     
     def __str__(self):
         return f'{self.created_by} for {self.created_for}'

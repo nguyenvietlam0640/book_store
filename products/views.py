@@ -119,20 +119,32 @@ class ViewAllComments(APIView):
 
 
 class PostComment(APIView):
+
+    def get(self, request, book_slug, user_id):
+        book = Book.objects.filter(slug=book_slug).first()
+        user = User.objects.filter(id=user_id).first()
+        if book and user:
+            existed_comment = Comment.objects.filter(
+                created_for=book.id, created_by=user.id)
+            if existed_comment:
+                return Response({'message': False})
+            return Response({'message': True})
+        return Response({'message': 'book or user not found'}, status=404)
+
     def post(self, request, book_slug, user_id):
-    
-        book = Book.objects.filter(slug = book_slug).first()
-        user  = User.objects.filter(id = user_id).first()
+
+        book = Book.objects.filter(slug=book_slug).first()
+        user = User.objects.filter(id=user_id).first()
         if book and user:
             data = request.data
             data['created_for'] = book.id
             data['created_by'] = user.id
             if data['rating']:
-                if  data['rating']>=0 and data['rating']<=5:
+                if data['rating'] >= 0 and data['rating'] <= 5:
                     comment = CommentSerializer(data=data)
                     comment.is_valid(raise_exception=True)
                     comment.save()
 
-                    return Response({'message': 'success'})   
+                    return Response({'message': 'success'})
             return Response({'message': 'rating value must provided'}, status=403)
         return Response({'message': 'book or user not found'}, status=404)
