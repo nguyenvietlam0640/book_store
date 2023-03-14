@@ -106,17 +106,20 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['user'])
+        ...mapGetters(['user']),
+        ...mapGetters(['cart'])
+        
     },
 
     async created() {
+        console.log(this.cart)
         const response = await axios
             .get('api/user')
             .then(response => {
                 this.$store.dispatch('user', response.data)
             })
             .catch(error => {
-                console.log()
+                
             })
 
     },
@@ -169,7 +172,6 @@ export default {
         },
         logout() {
             localStorage.removeItem('jwt')
-            console.log(this.$route)
             window.location.href = this.$route.fullPath
         },
 

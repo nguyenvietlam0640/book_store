@@ -27,7 +27,7 @@
                 </div>
                 <div class="book-card-footer">
                     <h5 class="book-price"><strong>${{ book.unit_price }}</strong></h5>
-                    <div class="btn">
+                    <div v-on:click="add_to_cart(book)" class="btn">
                         <h5 style="padding-top: 5px;">Add</h5>
                         <img src="../assets/img/icon/basket.png">
                     </div>
@@ -53,7 +53,8 @@
 
 <script>
 
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
+import { mapGetters } from 'vuex'
 export default {
     name: 'BookShelf',
     props: {
@@ -79,10 +80,21 @@ export default {
         setTimeout(() => {
             this.forward_status()
         }, 1000);
-
+        
 
     },
+    computed:{
+        ...mapGetters(['cart'])
+    },
     methods: {
+        add_to_cart(book){
+            const item = {
+                book: book,
+                quantity: 1
+            }
+            this.$store.dispatch('add_to_cart', item)
+            console.log(this.cart.items.length)
+        },
         backward_status() {
             if (this.current_page == 1) {
                 this.backward = false

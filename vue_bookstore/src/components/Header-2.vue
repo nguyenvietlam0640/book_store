@@ -34,63 +34,63 @@
         </div>
 
         <div class="basket-dropdown">
-            <div class="btn" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+            <div class="btn" data-bs-toggle="dropdown" display="static" data-bs-auto-close="false">
                 <div class="basket-content">
                     <img src="../assets/img/icon/basket.png">
-                    <h5 class="px-2">basket($0)</h5>
+                    <h5 class="px-2">basket(${{ get_cart_total_price }})</h5>
                 </div>
                 <div class="quantity">
-                    <h3><strong>0</strong></h3>
+                    <h3><strong>{{ get_cart_total_length }}</strong></h3>
                 </div>
 
                 <img src="../assets/img/icon/white-dropdown.png">
             </div>
+            <!-- problem -->
+
+            <!-- problem -->
             <div class="dropdown-menu">
-                <div class="item-card">
-                    <div class="book-title">
-                        Lunar storm
+                <div v-if="!cart.items.length">
+                    <div class="total">
+                        <div>cart is empty</div>
                     </div>
-                    <div class="quantity">
-                        1
+                    <div class="footer-container">
+                        <a href="#">View part orders</a>
                     </div>
-                    <div class="unit-price">
-                        $12.99
-                    </div>
-                    <div class="quantity-button">
-                        <i class="fa-solid fa-minus"></i>
-                        <i class="fa-solid fa-plus"></i>
-                    </div>
-                </div>
-                <div class="item-card">
-                    <div class="book-title">
-                        Lunar stormsdflkasldkf
-                    </div>
-                    <div class="quantity">
-                        1
-                    </div>
-                    <div class="unit-price">
-                        $12.99
-                    </div>
-                    <div class="quantity-button"><i class="fas fa-minus"></i>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                </div>
-                <div class="total">
-                    <div class="title">Total</div>
-                    <div class="quantity">1</div>
-                    <div class="price">$12.99</div>
-                </div>
 
-                <div class="footer-container">
-                    <a href="#">View part orders</a>
-                    <div class="basket-button">
-                        <button>
-                            Checkout
-                        </button>
-                        <button>Empty Cart</button>
+                </div>
+                <div v-if="cart.items.length">
+                    <div class="item-card" v-for="(item, index) in cart.items" :key="index">
+                        <div class="book-title">
+                            {{ item.book.title }}
+                        </div>
+                        <div class="quantity">
+                            {{ item.quantity }}
+                        </div>
+                        <div class="unit-price">
+                            ${{ item.book.unit_price }}
+                        </div>
+                        <div class="quantity-button">
+                            <i class="fa-solid fa-minus"></i>
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                    </div>
+
+                    <div class="total">
+                        <div class="title">Total</div>
+                        <div class="quantity">{{ get_cart_total_length }}</div>
+                        <div class="price">${{ get_cart_total_price }}</div>
+                    </div>
+
+                    <div class="footer-container">
+                        <a href="#">View part orders</a>
+                        <div class="basket-button">
+                            <button>
+                                Checkout
+                            </button>
+                            <button v-on:click="empty_cart">Empty Cart</button>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -102,6 +102,7 @@
 
 <script>
 import { useRoute } from 'vue-router'
+import { mapGetters } from 'vuex'
 export default {
     name: 'Header2',
     props: {
@@ -113,17 +114,42 @@ export default {
 
             _id_to_search: null,
             books_per_page: 0,
-            category_dropdown_menu: false,
-            all_categories_dropdown_menu: false
+
         }
     },
+
     mounted() {
+        console.log(this.cart)
         var route = useRoute()
         this.books_per_page = route.params.books_per_page == null ? 8 : route.params.books_per_page
 
     },
+    computed: {
+        ...mapGetters(['cart']),
+        get_cart_total_length() {
+            let total_length = 0
+            for (let i = 0; i < this.cart.items.length; i++) {
+                total_length += this.cart.items[i].quantity
+            }
+            return total_length
+        },
+        get_cart_total_price() {
+            let total_price = 0
+            for (let i = 0; i < this.cart.items.length; i++) {
+                total_price += this.cart.items[i].book.unit_price * parseInt(this.cart.items[i].quantity)
+            }
+            return total_price === 0 ? total_price : total_price.toFixed(2)
+        }
+    },
+    created() {
+        this.$store.dispatch('initalize_cart')
 
+    },
     methods: {
+        empty_cart() {
+            this.$store.dispatch('empty_cart')
+        },
+
 
         _pass_category(name, id) {
             document.querySelector('#search-input').placeholder = `Search in ${name}`
