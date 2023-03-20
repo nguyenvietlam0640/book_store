@@ -13,7 +13,7 @@
                         </li>
                     </ul>
                 </div>
-                <a v-on:click="_search(_id_to_search)"><img src="../assets/img/icon/search.png"></a>
+                <img v-on:click="_search(_id_to_search)" src="../assets/img/icon/search.png">
             </div>
 
             <div class="category-dropdown">
@@ -34,7 +34,7 @@
         </div>
 
         <div class="basket-dropdown">
-            <div class="btn" data-bs-toggle="dropdown" display="static" data-bs-auto-close="false">
+            <div class="btn" data-bs-toggle="dropdown" data-bs-auto-close="outside">
                 <div class="basket-content">
                     <img src="../assets/img/icon/basket.png">
                     <h5 class="px-2">basket(${{ get_cart_total_price }})</h5>
@@ -67,11 +67,11 @@
                             {{ item.quantity }}
                         </div>
                         <div class="unit-price">
-                            ${{ item.book.unit_price }}
+                            ${{ item.book.unit_price.toFixed(2) }}
                         </div>
                         <div class="quantity-button">
-                            <i class="fa-solid fa-minus"></i>
-                            <i class="fa-solid fa-plus"></i>
+                            <i v-on:click="decrease(item.book.id)" class="fa-solid fa-minus"></i>
+                            <i v-on:click="increase(item.book.id)" class="fa-solid fa-plus"></i>
                         </div>
                     </div>
 
@@ -82,14 +82,15 @@
                     </div>
 
                     <div class="footer-container">
-                        <a href="#">View part orders</a>
                         <div class="basket-button">
-                            <button>
-                                Checkout
+                            <button v-on:click="go_to_cart()">
+                                Go to cart
                             </button>
                             <button v-on:click="empty_cart">Empty Cart</button>
                         </div>
+                        <a href="/past_orders">View past orders</a>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -119,7 +120,6 @@ export default {
     },
 
     mounted() {
-        console.log(this.cart)
         var route = useRoute()
         this.books_per_page = route.params.books_per_page == null ? 8 : route.params.books_per_page
 
@@ -146,8 +146,19 @@ export default {
 
     },
     methods: {
+        go_to_cart() {
+            window.location.href = '/shopping_cart'
+        },
         empty_cart() {
-            this.$store.dispatch('empty_cart')
+            if (confirm('This action will empty your shopping cart')) {
+                this.$store.dispatch('empty_cart')
+            }
+        },
+        decrease(id) {
+            this.$store.dispatch('decrease_item', id)
+        },
+        increase(id) {
+            this.$store.dispatch('increase_item', id)
         },
 
 

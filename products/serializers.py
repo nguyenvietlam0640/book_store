@@ -24,11 +24,14 @@ class BookSerializers(serializers.ModelSerializer):
             'des',
             'publisher',
             'published_date',
+            'price',
+            'discount',
             'unit_price',
             'get_absolute_url',
             'get_image',
             'get_total_rating_count',
             'get_total_rating_value',
+            'get_rating_star_left',
         ]
 
 

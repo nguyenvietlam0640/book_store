@@ -23,9 +23,9 @@ class ViewBookAsCategory(APIView):
                 bookSerializer = BookSerializers(books, many=True)
                 return Response(bookSerializer.data)
             else:
-                return Response({'404': 'page not found'})
+                return Response({'message': 'page not found'}, status=404)
         except:
-            return Response({'404': 'somthing went wrong'})
+            return Response({'message': 'somthing went wrong'}, status=500)
 
 
 class ViewCategories(APIView):

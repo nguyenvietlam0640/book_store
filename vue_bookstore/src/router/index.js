@@ -7,6 +7,7 @@ import ChangePassView from '../views/ChangePassView.vue'
 import ActivateView from '../views/ActivateView.vue'
 import EditProfileView from '../views/EditProfileView.vue'
 import BookDetailView from '../views/BookDetailView.vue'
+import ShoppingCartView from '../views/ShoppingCartView.vue'
 const routes = [
   {
     path: '/',
@@ -58,6 +59,11 @@ const routes = [
     path: '/change_password/:token',
     name: 'ChangePassView',
     component: ChangePassView
+  },
+  {
+    path: '/shopping_cart',
+    name: 'ShoppingCartView',
+    component: ShoppingCartView
   }
 ]
 

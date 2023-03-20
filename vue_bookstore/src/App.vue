@@ -57,8 +57,10 @@
             </div>
         </div>
     </header>
+    <div class="all-but-footer">
+        <router-view />
+    </div>
 
-    <router-view />
 
 
     <footer>
@@ -108,9 +110,9 @@ export default {
     computed: {
         ...mapGetters(['user']),
         ...mapGetters(['cart'])
-        
-    },
 
+    },
+    
     async created() {
         console.log(this.cart)
         const response = await axios
@@ -119,7 +121,7 @@ export default {
                 this.$store.dispatch('user', response.data)
             })
             .catch(error => {
-                
+
             })
 
     },

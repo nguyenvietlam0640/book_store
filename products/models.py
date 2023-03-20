@@ -4,6 +4,7 @@ from datetime import datetime, date
 from authentication.models import User
 import django.utils.timezone
 
+
 class Category(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
@@ -35,9 +36,9 @@ class Book(models.Model):
     des = models.TextField(blank=False)
     publisher = models.CharField(max_length=100, blank=False)
     published_date = models.DateField(default=datetime.now)
-    unit_price = models.DecimalField(max_digits=5, decimal_places=2)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
     photo = models.ImageField(upload_to='bookcover/')
-
+    discount = models.IntegerField(default=0)
     def __str__(self):
         return self.title
 
@@ -62,13 +63,15 @@ class Book(models.Model):
 
         sum = round(total_rating_value/total_rating_count)
         return sum
-
+    def get_rating_star_left(self):
+        return 5 - self.get_total_rating_value()
     def get_image(self):
         if self.photo:
             return 'http://127.0.0.1:8000' + self.photo.url
         return ''
 
-
+    def unit_price(self):
+        return round(float(self.price) - float(self.price)*(self.discount/100),2) 
 class Comment(models.Model):
 
     id = models.AutoField(primary_key=True)
@@ -85,6 +88,25 @@ class Comment(models.Model):
     class Meta:
         ordering = ('-created_at',)
         unique_together = ('created_by', 'created_for')
-    
+
     def __str__(self):
         return f'{self.created_by} for {self.created_for}'
+
+
+class Order(models.Model):
+    id = models.AutoField(primary_key=True)
+    order_date = models.DateField(default=django.utils.timezone.now)
+    user = models.ForeignKey(
+        User, related_name='orders', on_delete=models.CASCADE)
+    shipping_address = models.CharField(max_length=254)
+    total_amount = models.DecimalField(max_digits=5, decimal_places=2)
+
+
+class OrderLine(models.Model):
+    id = models.AutoField(primary_key=True)
+    order = models.ForeignKey(
+        Order, related_name='orderLine', on_delete=models.CASCADE)
+    book = models.ForeignKey(
+        Book, related_name='orderedLine', on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    unit_price = models.DecimalField(max_digits=5, decimal_places=2)
