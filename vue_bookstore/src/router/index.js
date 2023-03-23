@@ -8,6 +8,9 @@ import ActivateView from '../views/ActivateView.vue'
 import EditProfileView from '../views/EditProfileView.vue'
 import BookDetailView from '../views/BookDetailView.vue'
 import ShoppingCartView from '../views/ShoppingCartView.vue'
+import CheckoutView from '../views/CheckoutView.vue'
+import SuccessView from '../views/SuccessView.vue'
+import CancelView from '../views/CancelView.vue'
 const routes = [
   {
     path: '/',
@@ -64,7 +67,22 @@ const routes = [
     path: '/shopping_cart',
     name: 'ShoppingCartView',
     component: ShoppingCartView
-  }
+  },
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: CheckoutView
+  },
+  {
+    path: '/success',
+    name: 'SuccessView',
+    component: SuccessView
+  },
+  {
+    path: '/cancel',
+    name: 'CancelView',
+    component: CancelView
+  },
 ]
 
 const router = createRouter({

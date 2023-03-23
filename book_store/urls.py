@@ -27,7 +27,7 @@ urlpatterns = [
 
     path('', include('products.urls')),
     path('', include('authentication.urls')),
-
+    path('',include('payment.urls')),
     path('favicon.ico', RedirectView.as_view(
         url=staticfiles_storage.url('img/favicon.ico'))),
 

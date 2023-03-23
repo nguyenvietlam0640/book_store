@@ -91,7 +91,11 @@
             </div>
             <div class="footer">
                 <a href="/">Continue Shopping</a>
-                <button v-if="cart.items.length" class="btn">Checkout</button>
+
+
+
+                <button v-on:click="create_checkout_session" v-if="cart.items.length" class="btn">Checkout</button>
+
             </div>
 
 
@@ -108,6 +112,7 @@ export default {
     name: 'ShoppingCartView',
     data() {
         return {
+            hello: 'haha',
             categories: [],
             email: '',
             errors: []
@@ -139,6 +144,16 @@ export default {
 
     },
     methods: {
+        create_checkout_session() {
+            axios
+                .post('/create_checkout_session', this.cart)
+                .then(response => {
+                    window.location.href = response.data.checkout_session_url
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
         decrease(id) {
             this.$store.dispatch('decrease_item', id)
         },

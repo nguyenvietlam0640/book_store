@@ -35,7 +35,7 @@ EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 ALLOWED_HOSTS = []
 
-
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8080']
 # Application definition
 
 INSTALLED_APPS = [
