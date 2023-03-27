@@ -37,7 +37,7 @@ EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8080']
 # Application definition
 
 INSTALLED_APPS = [
@@ -68,7 +68,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 CORS_ALLOWED_ORIGINS = [
-    '*',
+    'http://localhost:8080',
 ]
 
 ROOT_URLCONF = 'book_store.urls'
@@ -101,8 +101,8 @@ DATABASES = {
         'NAME': 'bookstore',
         'USER': 'postgres',
         'PASSWORD': 'vietlam',
-        # 'HOST': 'localhost',
-        # 'PORT': '5432',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -155,7 +155,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CORS_ORIGIN_ALLOW_ALL: True
 CORS_ALLOW_CREDENTIALS: True
-
 import dj_database_url 
 prod_db  =  dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
