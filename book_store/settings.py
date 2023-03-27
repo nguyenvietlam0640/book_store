@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'products',
     'authentication',
+    'payment',
     'corsheaders',
+    
 ]
 
 MIDDLEWARE = [
