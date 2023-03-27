@@ -31,10 +31,49 @@ header .label h1 {
 header .label span {
   color: white;
 }
+header .mobile-option, header .mobile-logged-option {
+  display: none;
+}
+@media screen and (max-width: 600px) {
+  header .mobile-option, header .mobile-logged-option {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+}
+header .mobile-option i, header .mobile-logged-option i {
+  font-size: 20px;
+}
+header .mobile-option i:hover, header .mobile-logged-option i:hover {
+  cursor: pointer;
+}
+header .mobile-option .title, header .mobile-logged-option .title {
+  margin-right: 10px;
+}
+header .mobile-option ul, header .mobile-logged-option ul {
+  padding: 10px 0 20px 0;
+  border-radius: 0;
+}
+header .mobile-option li, header .mobile-logged-option li {
+  padding: 10px 0 0 20px;
+}
+header .mobile-option li:hover, header .mobile-logged-option li:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+header .mobile-option a, header .mobile-logged-option a {
+  text-decoration: none;
+  color: black;
+}
 header .logined-option {
   margin-right: 5%;
   display: flex;
   align-items: center;
+}
+@media screen and (max-width: 600px) {
+  header .logined-option {
+    display: none;
+  }
 }
 header .logined-option button {
   border: none;
@@ -58,6 +97,11 @@ header .logined-option .dropdown-menu a {
 header .logined-option .icon {
   margin: 0 10px;
   font-size: 30px;
+}
+@media screen and (max-width: 600px) {
+  header .option {
+    display: none;
+  }
 }
 header .option button {
   align-items: center;

@@ -1,50 +1,52 @@
 <template>
-    <Header2 :_current_category="'Category'" :_categories="categories" />
-    <div class="register-form-container">
-        <div class="form-header">
-            <h4 class="title"><strong>Register</strong></h4>
-            <p class="des">Fill the register and be part of our comunity.</p>
-        </div>
-        <form @submit.prevent="register_submit">
-            <div class="form-body">
-                <div class="column-1">
-                    <label class="row" for="fullname">Full Name</label>
-                    <label class="row" for="email">Email</label>
-                    <label class="row" for="password">Password</label>
-                    <label class="row" for="cfpassword">Confirm Password</label>
-                    <label class="row" for="birthday">Birthday</label>
-                    <label class="row" for="captcha-input">Captcha</label>
-                </div>
-                <div class="column-2">
-                    <input class="row" id="fullname" type="text" placeholder="Full name" v-model="full_name">
-                    <input class="row" id="email" type="email" placeholder="@" v-model="email">
-                    <input class="row" id="password" type="password" placeholder="minimum 8 characters and 1 number"
-                        v-model="password">
-                    <input class="row" id="cfpassword" type="password" placeholder="Retype the password"
-                        v-model="cfpassword">
-                    <input class="row" id="birthday" type="date" v-model="birthday">
-                    <div class="row">
-                        <div class="captcha">
-                            <div class="preview"></div>
-                            <input class="captcha-input" id="captcha-input" type="text" v-model="captcha">
+    <div v-if="!is_loading">
+        <Header2 :_current_category="'Category'" :_categories="categories" />
+        <div class="register-form-container">
+            <div class="form-header">
+                <h4 class="title"><strong>Register</strong></h4>
+                <p class="des">Fill the register and be part of our comunity.</p>
+            </div>
+            <form @submit.prevent="register_submit">
+                <div class="form-body">
+                    <div class="column-1">
+                        <label class="row" for="fullname">Full Name</label>
+                        <label class="row" for="email">Email</label>
+                        <label class="row" for="password">Password</label>
+                        <label class="row" for="cfpassword">Confirm Password</label>
+                        <label class="row" for="birthday">Birthday</label>
+                        <label class="row" for="captcha-input">Captcha</label>
+                    </div>
+                    <div class="column-2">
+                        <input class="row" id="fullname" type="text" placeholder="Full name" v-model="full_name">
+                        <input class="row" id="email" type="email" placeholder="@" v-model="email">
+                        <input class="row" id="password" type="password" placeholder="minimum 8 characters and 1 number"
+                            v-model="password">
+                        <input class="row" id="cfpassword" type="password" placeholder="Retype the password"
+                            v-model="cfpassword">
+                        <input class="row" id="birthday" type="date" v-model="birthday">
+                        <div class="row">
+                            <div class="captcha">
+                                <div class="preview"></div>
+                                <input class="captcha-input" id="captcha-input" type="text" v-model="captcha">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
 
 
-            <div class="alert alert-danger" v-if="errors.length" v-for="error in errors" :key="error">
-                <strong>Register Fail!</strong> {{ error }}
-            </div>
-            <div class="form-footer">
-                <a href="/">Cancel</a>
+                <div class="alert alert-danger" v-if="errors.length" v-for="error in errors" :key="error">
+                    <strong>Register Fail!</strong> {{ error }}
+                </div>
+                <div class="form-footer">
+                    <a href="/">Cancel</a>
 
-                <button class="btn">
-                    <h6><strong>Send</strong></h6>
-                </button>
-            </div>
-        </form>
+                    <button class="btn">
+                        <h6><strong>Send</strong></h6>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -53,6 +55,7 @@
 import axios from 'axios'
 import Header2 from '../components/Header-2.vue'
 import { toast } from 'bulma-toast'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'RegisterView',
@@ -76,14 +79,31 @@ export default {
     components: {
         Header2,
     },
-    mounted() {
+
+    computed: {
+        ...mapGetters(['user']),
+        ...mapGetters(['is_loading']),
+
+    },
+    async mounted() {
         document.title = 'Register'
-        this.get_categories()
-        this.generate_captcha()
-        this.set_captcha()
+        await this.get_categories()
+        this.redirect()
+
+        if (!this.user) {
+            await this.$store.dispatch('set_loading', false)
+            this.generate_captcha()
+            this.set_captcha()
+            
+        }
     },
 
     methods: {
+        async redirect() {
+            if (this.user) {
+                return window.location.href = '/'
+            }
+        },
         generate_captcha() {
             let value = btoa(Math.random() * 1000000000)
             value = value.substring(0, 7)
@@ -150,7 +170,7 @@ export default {
                             dismissible: true,
                             pauseOnHover: true,
                         })
-                        this.$router.push({path : '/'})
+                        this.$router.push({ path: '/' })
 
                     })
                     .catch(errors => {
@@ -162,8 +182,8 @@ export default {
             }
 
         },
-        get_categories() {
-            axios
+        async get_categories() {
+            await axios
                 .get('/api/view_categories')
                 .then(response => {
                     this.categories = response.data

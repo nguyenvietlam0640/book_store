@@ -61,10 +61,37 @@ header
         span
             color: $white-color
 
+    .mobile-option, .mobile-logged-option
+        display: none
+
+        @include mobile
+            display: flex
+            align-items: center
+            margin-right: 20px
+        i
+            font-size: 20px
+            &:hover
+                cursor: pointer
+        .title
+            margin-right: 10px
+        ul
+            padding: 10px 0 20px 0
+            border-radius: 0
+        li
+            padding: 10px 0 0 20px
+            &:hover
+                cursor: pointer
+                text-decoration: underline
+        a
+            text-decoration: none
+            color: $black-color
+
     .logined-option
         margin-right: 5%
         display: flex
         align-items: center
+        @include mobile
+            display: none
         button
             border: none
         .dropdown-menu
@@ -84,6 +111,8 @@ header
             margin: 0 10px
             font-size: 30px
     .option
+        @include mobile
+            display: none
         button
             align-items: center
             background-color: inherit
@@ -651,7 +680,6 @@ footer
             border-radius: 0
             background-color: $yellow-color
             color: $white-color
-            
 
             @include mobile
                 margin-left: 40%

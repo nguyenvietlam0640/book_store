@@ -1,5 +1,10 @@
 <template>
-    <div class="shelf-container">
+    <div class="shelf-container" v-if="!_books">
+        <div>
+            <h5 class="shelf-label"><strong>{{ _current_category }}</strong></h5>
+        </div>
+    </div>
+    <div class="shelf-container" v-if="_books">
         <div class="shelf-header">
             <div>
                 <h5 class="shelf-label"><strong>{{ _current_category }}</strong></h5>
@@ -73,7 +78,7 @@ export default {
         return {
             current_page: 0,
             input: false,
-            
+
 
         }
     },
@@ -82,11 +87,11 @@ export default {
         this.current_page = route.params.page
         this.input = this.$route.query.input
         this.id = this.$route.query.id
-        
+
 
     },
     computed: {
-        
+
         backward_status() {
             if (this.current_page == 1) {
                 return false

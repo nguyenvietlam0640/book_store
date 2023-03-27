@@ -6,6 +6,20 @@
                     <h1><strong>bookstore<span>.com</span></strong></h1>
                 </a>
             </div>
+            <div v-if="!user" class="mobile-option" data-bs-toggle="dropdown">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+                <ul class="dropdown-menu">
+                    <a href="/login">login</a>
+                </ul>
+            </div>
+            <div v-if="user" class="mobile-logged-option" data-bs-toggle="dropdown">
+                <div class="title">{{ user.full_name }}</div>
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+                <ul class="dropdown-menu">
+                    <li><a v-on:click:href="`/profile`">edit profile</a></li>
+                    <li><a v-on:click="logout()">log out</a></li>
+                </ul>
+            </div>
             <div v-if="user" class="logined-option">
                 <button class="btn" data-bs-toggle="dropdown">
                     {{ user.full_name }}
@@ -19,8 +33,8 @@
                 <div class="icon">
                     <i class="fa-sharp fa-solid fa-comment"></i>
                 </div>
-
             </div>
+
             <div v-if="!user" class="option">
                 <button data-bs-toggle="dropdown" data-bs-auto-close="outside">
                     login
@@ -65,6 +79,7 @@
 
     <footer>
         <div class="footer-1">
+
             <div>
                 <div>
                     <h4><strong>Do you want to sell your books?</strong></h4>
@@ -107,12 +122,13 @@ export default {
             send_email_link: false,
         }
     },
+
     computed: {
         ...mapGetters(['user']),
         ...mapGetters(['cart'])
 
     },
-    
+
     async created() {
         console.log(this.cart)
         const response = await axios

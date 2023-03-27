@@ -11,6 +11,8 @@ import ShoppingCartView from '../views/ShoppingCartView.vue'
 import CheckoutView from '../views/CheckoutView.vue'
 import SuccessView from '../views/SuccessView.vue'
 import CancelView from '../views/CancelView.vue'
+
+
 const routes = [
   {
     path: '/',

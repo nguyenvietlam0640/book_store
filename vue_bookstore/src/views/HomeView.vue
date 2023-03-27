@@ -63,7 +63,7 @@ export default {
             else {
                 this.page_total = parseInt(number_of_books / books_per_page) + 1
             }
-            
+
         },
 
 
@@ -72,10 +72,10 @@ export default {
                 .get(`/api/view_book_as_category/${this.category_slug}/${this.books_per_page}/${this.current_page}`)
                 .then(response => {
                     this.books = response.data
-                    
+
                 })
                 .catch(error => {
-                    console.log(error)
+                    this.books = null
                 })
         },
 
