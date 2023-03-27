@@ -22,7 +22,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = ')@2v662*3evqvyl8suijtmg&(8w8+ws__wu*i^yk*%rvqb16xe'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
