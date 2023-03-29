@@ -45,9 +45,7 @@ CORS_ALLOWED_ORIGINS = [
     'https://lamnv-bookstore.netlify.app',
     'http://127.0.0.1:8080'
 ]
-CORS_ALLOW_HEADERS = [
-    'Access-Control-Allow-Origin'
-]
+
 
 
 INSTALLED_APPS = [
