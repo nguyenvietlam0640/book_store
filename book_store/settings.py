@@ -39,11 +39,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://lamnv-bookstore.netlify.app', 'http://127.0.0.1:8080']
+    'https://lamnv-bookstore.netlify.app', 'http://127.0.0.1:8080','https://lamnv-bookstore-9c596.web.app']
 
 CORS_ALLOWED_ORIGINS = [
     'https://lamnv-bookstore.netlify.app',
-    'http://127.0.0.1:8080'
+    'http://127.0.0.1:8080','https://lamnv-bookstore-9c596.web.app'
 ]
 
 
