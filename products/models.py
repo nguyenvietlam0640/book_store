@@ -67,7 +67,7 @@ class Book(models.Model):
         return 5 - self.get_total_rating_value()
     def get_image(self):
         if self.photo:
-            return 'http://127.0.0.1:8000' + self.photo.url
+            return 'https://lamnv-book-store.herokuapp.com' + self.photo.url
         return ''
 
     def unit_price(self):
