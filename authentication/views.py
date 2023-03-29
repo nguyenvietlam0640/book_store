@@ -15,7 +15,7 @@ from django.conf import settings
 import jwt
 import datetime
 
-
+url = 'https://lamnv-bookstore.netlify.app'
 def passwordEncryption(password: str):
     encypted = hashlib.sha256(password.encode()).hexdigest()
     return encypted
@@ -36,7 +36,7 @@ def sendActivateEmail(request, user):
     }
 
     token = jwt.encode(payload, 'secret', algorithm='HS256')
-    link = f'http://localhost:8080/activate/{token}'
+    link = f'{url}/activate/{token}'
     # send email reset password
     subject = 'BookStore Activate'
     textContent = None
@@ -60,7 +60,7 @@ def sendResetPassEmail(request, user):
 
     token = jwt.encode(payload, 'secret', algorithm='HS256')
 
-    link = f'http://localhost:8080/change_password/{token}'
+    link = f'{url}/change_password/{token}'
     # send email reset password
     subject = 'BookStore forgot password'
     textContent = None
