@@ -21,13 +21,13 @@ import products
 from django.conf import settings
 from django.conf.urls.static import static
 
-
+from .import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    path('', views.home),
     path('', include('products.urls')),
     path('', include('authentication.urls')),
-    path('',include('payment.urls')),
+    path('', include('payment.urls')),
     path('favicon.ico', RedirectView.as_view(
         url=staticfiles_storage.url('img/favicon.ico'))),
 
