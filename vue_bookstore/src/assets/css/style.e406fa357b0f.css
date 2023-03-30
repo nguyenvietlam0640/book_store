@@ -56,12 +56,14 @@ header .mobile-option ul, header .mobile-logged-option ul {
 }
 header .mobile-option li, header .mobile-logged-option li {
   padding: 10px 0 0 20px;
-  text-decoration: none;
-  color: black;
 }
 header .mobile-option li:hover, header .mobile-logged-option li:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+header .mobile-option a, header .mobile-logged-option a {
+  text-decoration: none;
+  color: black;
 }
 header .logined-option {
   margin-right: 5%;
@@ -645,11 +647,6 @@ footer .footer-1 {
   padding: 25px 5%;
   color: white;
 }
-@media screen and (max-width: 979px) {
-  footer .footer-1 {
-    padding: 25px 2%;
-  }
-}
 footer .footer-1 .footer-social-icon {
   display: flex;
   font-size: 40px;
@@ -667,11 +664,6 @@ footer .footer-2 {
   color: white;
   font-size: 12px;
 }
-@media screen and (max-width: 979px) {
-  footer .footer-2 {
-    padding: 10px 2% 0 2%;
-  }
-}
 
 .shelf-container {
   padding: 0 5%;
@@ -686,6 +678,8 @@ footer .footer-2 {
 @media screen and (max-width: 600px) {
   .shelf-container {
     padding-top: 50px;
+    padding-left: 2%;
+    padding-right: 2%;
   }
 }
 
@@ -859,11 +853,6 @@ footer .footer-2 {
     font-size: 14px;
   }
 }
-@media screen and (max-width: 600px) {
-  .book-shelf .book-card-header .detail-link {
-    display: none;
-  }
-}
 .book-shelf .book-card-footer {
   display: flex;
   justify-content: space-between;
@@ -878,7 +867,7 @@ footer .footer-2 {
 @media screen and (max-width: 600px) {
   .book-shelf .book-card-footer {
     padding-left: calc(30% + 25px);
-    padding-right: 15px;
+    padding-right: 0;
     width: 100%;
     padding-bottom: 20px;
   }
@@ -899,6 +888,7 @@ footer .footer-2 {
   .book-shelf .book-card-footer .btn {
     margin-left: 40%;
     width: 100px;
+    margin-top: -18px;
   }
 }
 .book-shelf .book-card-footer .btn h5 {
@@ -1666,4 +1656,4 @@ footer .footer-2 {
   .shopping-cart-container .footer .btn {
     margin-right: 0;
   }
-}/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.e406fa357b0f.css.map */

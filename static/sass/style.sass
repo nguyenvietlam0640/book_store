@@ -76,15 +76,15 @@ header
             margin-right: 10px
         ul
             padding: 10px 0 20px 0
-            border-radius: 0
-        li
+            border-radius: 0      
+                    
+        li   
             padding: 10px 0 0 20px
+            text-decoration: none
+            color: $black-color
             &:hover
                 cursor: pointer
                 text-decoration: underline
-        a
-            text-decoration: none
-            color: $black-color
 
     .logined-option
         margin-right: 5%
@@ -500,7 +500,8 @@ footer
         justify-content: space-between
         padding: 25px 5%
         color: $white-color
-
+        @include small-tablet
+            padding: 25px 2%
         .footer-social-icon
             display: flex
             font-size: 40px
@@ -517,7 +518,8 @@ footer
         background-color: $brown-color
         color: $white-color
         font-size: 12px
-
+        @include small-tablet
+            padding: 10px 2% 0 2%
 //browse for book style 
 .shelf-container
     padding: 0 5%
@@ -527,8 +529,6 @@ footer
         padding-left: 2%
     @include mobile
         padding-top: 50px
-        padding-left: 2%
-        padding-right: 2%
 .shelf-header
     padding-top: 10px
     padding-bottom: 50px
@@ -655,6 +655,9 @@ footer
             overflow: hidden
             @include tablet
                 font-size: 14px
+        .detail-link
+            @include mobile
+                display: none
 
     .book-card-footer
         display: flex
@@ -665,7 +668,7 @@ footer
             padding-right: 0
         @include mobile
             padding-left: calc(30% + 25px)
-            padding-right: 0
+            padding-right: 15px
             width: 100%
             padding-bottom: 20px
 
@@ -684,7 +687,6 @@ footer
             @include mobile
                 margin-left: 40%
                 width: 100px
-                margin-top: -18px
 
             h5
                 font-size: 20px

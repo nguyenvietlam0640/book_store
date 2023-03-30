@@ -9,15 +9,16 @@
             <div v-if="!user" class="mobile-option" data-bs-toggle="dropdown">
                 <i class="fa-solid fa-ellipsis-vertical"></i>
                 <ul class="dropdown-menu">
-                    <a href="/login">login</a>
+                    <li v-on:click="login()">login</li>
+                    <li v-on:click="register()">Register</li>
                 </ul>
             </div>
             <div v-if="user" class="mobile-logged-option" data-bs-toggle="dropdown">
                 <div class="title">{{ user.full_name }}</div>
                 <i class="fa-solid fa-ellipsis-vertical"></i>
                 <ul class="dropdown-menu">
-                    <li><a v-on:click:href="`/profile`">edit profile</a></li>
-                    <li><a v-on:click="logout()">log out</a></li>
+                    <li v-on:click="edit_profile()">edit profile</li>
+                    <li v-on:click="logout()">log out</li>
                 </ul>
             </div>
             <div v-if="user" class="logined-option">
@@ -143,6 +144,15 @@ export default {
     },
 
     methods: {
+        edit_profile(){
+            window.location.href = '/profile'
+        },
+        register(){
+            window.location.href = '/register'
+        },
+        login(){
+            window.location.href = '/login'
+        },
 
         login_submit() {
             this.errors = []

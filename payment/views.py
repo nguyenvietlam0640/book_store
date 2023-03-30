@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 import stripe
 from rest_framework.views import APIView, Response
-domain = 'http://localhost:8080'
+domain = 'https://lamnv-bookstore.netlify.app'
 
 stripe.api_key = 'sk_test_51MnmhMI4tXTMcUFe5lg6uOLLOBB1z6NJocie3BnW1ZVCnWWKCD00LA601MHROcqjEcL1nR1l3shlNOCyAkxxihPa009AOwOwQd'
 

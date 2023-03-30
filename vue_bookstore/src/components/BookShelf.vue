@@ -34,7 +34,7 @@
                             src="../assets/img/icon/low-star.png">
                     </div>
                     <p class="book-des"> {{ book.des }}</p>
-                    <a v-bind:href="book.get_absolute_url">more details</a>
+                    <a class="detail-link" v-bind:href="book.get_absolute_url">more details</a>
 
                 </div>
                 <div class="book-card-footer">
