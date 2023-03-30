@@ -3,8 +3,8 @@ from datetime import datetime, date
 # Create your models here.
 from authentication.models import User
 import django.utils.timezone
-
-
+# url = 'https://lamnv-book-store.herokuapp.com'
+url = 'http://127.0.0.1:8000'
 class Category(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
@@ -67,7 +67,7 @@ class Book(models.Model):
         return 5 - self.get_total_rating_value()
     def get_image(self):
         if self.photo:
-            return 'https://lamnv-book-store.herokuapp.com' + self.photo.url
+            return f'{url}' + self.photo.url
         return ''
 
     def unit_price(self):

@@ -119,6 +119,7 @@ export default {
         }
     },
     computed: {
+        ...mapGetters(['user']),
         ...mapGetters(['cart']),
         get_cart_total_length() {
             let total_length = 0
@@ -145,8 +146,12 @@ export default {
     },
     methods: {
         create_checkout_session() {
+            const data = {
+                user: this.user.id,
+                cart: this.cart
+            }
             axios
-                .post('/create_checkout_session', this.cart)
+                .post('/create_checkout_session', data)
                 .then(response => {
                     window.location.href = response.data.checkout_session_url
                 })
