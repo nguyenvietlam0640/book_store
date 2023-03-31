@@ -7,6 +7,8 @@ from rest_framework.views import APIView, Response
 import jwt
 import datetime
 from .models import Order_session_expired
+from products.models import Order, OrderLine
+from authentication.models import User
 domain = 'https://lamnv-bookstore.netlify.app'
 
 stripe.api_key = 'sk_test_51MnmhMI4tXTMcUFe5lg6uOLLOBB1z6NJocie3BnW1ZVCnWWKCD00LA601MHROcqjEcL1nR1l3shlNOCyAkxxihPa009AOwOwQd'
@@ -80,7 +82,7 @@ def email_customer_about_failed_payment(session):
 
 def generate_order_token(user_id, order):
     payload = {
-        'user': user_id,
+        'user_id': user_id,
         'order': order,
         'iat': datetime.datetime.utcnow()
     }
@@ -90,59 +92,68 @@ def generate_order_token(user_id, order):
 
 class check_order_session(APIView):
     def post(self, request):
+        token = request.data
         order = Order_session_expired.objects.filter(
-            token=request.data).first()
+            token=token).first()
         if order:
-            return Response({'message': 'your order has expired or invalid'}, status=410)
-        order = Order_session_expired(token=request.data)
-        order.save()
-        #save order in here
-        return Response({'message': 'order created'}, status=200)
+            payload = jwt.decode(token, 'secret', algorithms='HS256')
+            user = User.objects.filter(id=payload.user_id).first()
+            if user:
+                order = Order(user=user)
+                order.save()
+                #check order id
+                print(order.id)
+                order_session_expired = Order_session_expired(
+                    token=request.data)
+                order_session_expired.save()
+                return Response({'message': 'order created'}, status=200)
+            return Response({'message': 'not found user'}, status=403)
+        return Response({'message': 'your order has expired or invalid'}, status=410)
 
 
 class create_checkout_session(APIView):
     def post(self, request):
-        # try:
-        line_items = [{
-            'price_data': {
-                'currency': 'usd',
-                'unit_amount': int(float(item['book']['unit_price'])*100),
-                'product_data': {
-                    'name': item['book']['title'],
-                    'images': [item['book']['get_image']]
-                },
-            },
-            'quantity': int(item['quantity']),
-        } for item in request.data['cart']['items']]
-        order = [{'id': item['book']['id'], 'quantity':item['quantity']}
-                 for item in request.data['cart']['items']]
-        checkout_session = stripe.checkout.Session.create(
-            line_items=line_items,
-            mode='payment',
-            success_url=f'http://localhost:8080/success?order={generate_order_token(request.data["user"],order)}',
-            cancel_url='http://localhost:8080/cancel',
-            phone_number_collection={
-                'enabled': True
-            },
-            shipping_address_collection={
-                "allowed_countries": ["VN"]},
-            shipping_options=[
-                {
-                    "shipping_rate_data": {
-                        "type": "fixed_amount",
-                        "fixed_amount": {"amount": 500, "currency": "usd"},
-                        "display_name": "Free shipping",
-                        "delivery_estimate": {
-                            "minimum": {"unit": "business_day", "value": 10},
-                            "maximum": {"unit": "business_day", "value": 15},
-                        },
+        try:
+            line_items = [{
+                'price_data': {
+                    'currency': 'usd',
+                    'unit_amount': int(float(item['book']['unit_price'])*100),
+                    'product_data': {
+                        'name': item['book']['title'],
+                        'images': [item['book']['get_image']]
                     },
                 },
-            ],
+                'quantity': int(item['quantity']),
+            } for item in request.data['cart']['items']]
+            order = [{'id': item['book']['id'], 'quantity':item['quantity']}
+                     for item in request.data['cart']['items']]
+            checkout_session = stripe.checkout.Session.create(
+                line_items=line_items,
+                mode='payment',
+                success_url=f'{domain}?order={generate_order_token(request.data["user"],order)}',
+                cancel_url=f'{domain}/cancel',
+                phone_number_collection={
+                    'enabled': True
+                },
+                shipping_address_collection={
+                    "allowed_countries": ["VN"]},
+                shipping_options=[
+                    {
+                        "shipping_rate_data": {
+                            "type": "fixed_amount",
+                            "fixed_amount": {"amount": 500, "currency": "usd"},
+                            "display_name": "Free shipping",
+                            "delivery_estimate": {
+                                "minimum": {"unit": "business_day", "value": 10},
+                                "maximum": {"unit": "business_day", "value": 15},
+                            },
+                        },
+                    },
+                ],
 
-        )
+            )
 
-        # except Exception as e:
-        #     print(str(e))
+        except Exception as e:
+            print(str(e))
 
         return Response({'checkout_session_url': checkout_session.url})

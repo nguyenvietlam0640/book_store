@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Category, Book, Comment
+from .models import Category, Book, Comment, Order, OrderLine
 
 
 class CategorySerializers(serializers.ModelSerializer):
@@ -36,7 +36,6 @@ class BookSerializers(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    
 
     class Meta:
         model = Comment
@@ -51,3 +50,13 @@ class CommentSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'created_for': {'write_only': True}
         }
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = [
+            'id',
+            'order_date',
+            'total_amount',
+        ]
