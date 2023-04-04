@@ -21,4 +21,5 @@ urlpatterns = [
      path('api/view_all_comments/<str:book_slug>',
          views.ViewAllComments.as_view()),
      path('api/post_comment/<str:book_slug>/<int:user_id>', views.PostComment.as_view()),
+     path('api/past_orders', views.PastOrders.as_view())
 ]

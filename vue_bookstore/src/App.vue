@@ -100,7 +100,7 @@
             </div>
         </div>
         <div class="footer-2">
-            <p>Copyright @2013 BookStore is a registered trademark of BookStore Pte Ltd</p>
+            <p>Copyright @2023 BookStore is a registered trademark of BookStore Pte Ltd</p>
         </div>
     </footer>
 </template>
@@ -131,7 +131,6 @@ export default {
     },
 
     async created() {
-        console.log(this.cart)
         const response = await axios
             .get('api/user')
             .then(response => {

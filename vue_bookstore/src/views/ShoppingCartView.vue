@@ -146,18 +146,23 @@ export default {
     },
     methods: {
         create_checkout_session() {
-            const data = {
-                user: this.user.id,
-                cart: this.cart
+            if (this.user) {
+                const data = {
+                    user: this.user.id,
+                    cart: this.cart
+                }
+                axios
+                    .post('api/create_checkout_session', data)
+                    .then(response => {
+                        window.location.href = response.data.checkout_session_url
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             }
-            axios
-                .post('/create_checkout_session', data)
-                .then(response => {
-                    window.location.href = response.data.checkout_session_url
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+            else{
+                consol.log('pls login')
+            }
         },
         decrease(id) {
             this.$store.dispatch('decrease_item', id)

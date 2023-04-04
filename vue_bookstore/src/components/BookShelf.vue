@@ -26,7 +26,7 @@
                 <div class="book-card-header">
                     <h5 class="book-title"> <a v-bind:href="book.get_absolute_url">{{ book.title }}</a></h5>
                     <h6 class="book-autor">by {{ book.author }}</h6>
-                    <div class="Evaluate">
+                    <div class="evaluate">
                         <img v-for="i in book.get_total_rating_value" :key="i" class="rated-star"
                             src="../assets/img/icon/high-star.png">
 

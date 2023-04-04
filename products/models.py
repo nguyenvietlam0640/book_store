@@ -3,6 +3,8 @@ from datetime import datetime, date
 # Create your models here.
 from authentication.models import User
 import django.utils.timezone
+from django.forms.models import model_to_dict
+import json
 url = 'https://lamnv-book-store.herokuapp.com'
 # url = 'http://127.0.0.1:8000'
 
@@ -106,12 +108,16 @@ class Order(models.Model):
     user = models.ForeignKey(
         User, related_name='orders', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'order of {self.user}({self.id})'
+
     def total_amount(self):
         total = 0
         order_lines = self.orderLine.all()
         for order_line in order_lines:
             sub = order_line.quantity*order_line.unit_price
             total += sub
+        total += 5
         return total
 
 
@@ -123,3 +129,15 @@ class OrderLine(models.Model):
         Book, related_name='orderedLine', on_delete=models.CASCADE)
     quantity = models.IntegerField()
     unit_price = models.DecimalField(max_digits=5, decimal_places=2)
+
+    def __str__(self):
+        return f'order line by {self.order}'
+
+    def get_book_title(self):
+        return f'{self.book.title}'
+
+    def get_book_author(self):
+        return f'{self.book.author}'
+
+    def get_url(self):
+        return f'{self.book.get_absolute_url()}'

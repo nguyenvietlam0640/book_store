@@ -54,7 +54,7 @@
                         <div>cart is empty</div>
                     </div>
                     <div class="footer-container">
-                        <a href="#">View part orders</a>
+                        <a href="/past_orders">View part orders</a>
                     </div>
 
                 </div>

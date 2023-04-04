@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from rest_framework import generics
 from rest_framework.response import Response
 from .models import Category, Book, Comment
-from .serializers import BookSerializers, CategorySerializers, CommentSerializer
+from .serializers import BookSerializers, CategorySerializers, CommentSerializer, OrderSerializer, OrderLineSerializer
 from json import JSONDecoder
 from rest_framework.views import APIView
 from django.http import JsonResponse
@@ -148,3 +148,22 @@ class PostComment(APIView):
                     return Response({'message': 'success'})
             return Response({'message': 'rating value must provided'}, status=403)
         return Response({'message': 'book or user not found'}, status=404)
+
+
+class PastOrders(APIView):
+    def post(self, request):
+        user_id = request.data['user_id']
+        user = User.objects.filter(id=user_id).first()
+        if user:
+            orders_list = []
+            orders = user.orders.all()
+            for order in orders:
+                orderSerializer = OrderSerializer(order)
+                order_dict = {'order': orderSerializer.data}
+                order_lines = order.orderLine.all()
+                orderLineSerializer = OrderLineSerializer(
+                    order_lines, many=True)
+                order_dict['order_lines'] = orderLineSerializer.data
+                orders_list.append(order_dict)
+            return Response(orders_list)
+        return Response({'message': 'user not found'}, status=403)

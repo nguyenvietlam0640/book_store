@@ -11,6 +11,7 @@ $basket-color: #05a09A
 $dark-green: #18817e
 $notification-color: #60dd98
 $gray: #9e9a9a
+$red: #d81d1d
 $mobile: 600px
 $tablet: 1199px
 $large-device: 1200px
@@ -76,9 +77,9 @@ header
             margin-right: 10px
         ul
             padding: 10px 0 20px 0
-            border-radius: 0      
-                    
-        li   
+            border-radius: 0
+
+        li
             padding: 10px 0 0 20px
             text-decoration: none
             color: $black-color
@@ -643,7 +644,10 @@ footer
             -webkit-box-orient: vertical
             overflow: hidden
             font-size: 18px
-
+        .evaluate
+            .rated-star
+                width: 25px
+                padding-right: 2px
         a
             color: $basket-color
 
@@ -1233,3 +1237,133 @@ footer
                 margin-right: 60px
             @include mobile
                 margin-right: 0
+
+// success and cancel page style
+.success-container
+    width: 50%
+    height: 200px
+    margin: 170px 25% 0 25%
+    @include tablet
+        width: 60%
+        margin: 150px 20% 0 20%
+    @include small-tablet
+        width: 70%
+        margin: 130px 15% 0 15%
+    @include mobile
+        width: 96%
+        margin: 100px 2% 0 2%
+
+    .border
+        border: 1px $gray dashed
+
+    .success-icon
+        width: 100%
+        text-align: center
+        font-size: 100px
+        color: $notification-color
+    .success-title
+        width: 100%
+        text-align: center
+        color: $notification-color
+    .fail-icon
+        width: 100%
+        text-align: center
+        font-size: 100px
+        color: $red
+    .fail-title
+        width: 100%
+        text-align: center
+        color: $red
+    .past-orders
+        margin-top: 10px
+        float: right
+
+//past orders page
+.past-orders-container
+    margin: 40px 5% 50px 5%
+    @include tablet
+        margin: 40px 2% 50px 2%
+    .header
+        margin-bottom: 40px
+        .title
+            color: $dark-yellow-color
+    .order-card
+        border: 2px $light-gray-color solid
+        display: flex
+        margin-bottom: 30px
+        padding: 15px
+        @include mobile
+            display: block
+            padding: 0
+        .order-infomation
+            width: 30%
+            @include mobile
+                display: flex
+                width: 100%
+                justify-content: space-between
+                align-items: center
+                padding: 10px
+            .order-placed
+                font-size: 20px
+            .date
+                font-size: 22px
+                font-weight: bold
+            .recipient
+                margin-top: 10px
+                font-size: 18px
+                @include mobile
+                    margin-top: 0
+            .total
+                font-size: 18px
+                span
+                    color: $basket-color
+                    font-weight: bold
+        .order-lines
+            width: 70%
+            display: block
+            @include mobile
+                width: 100%
+            .order-line
+                display: flex
+                width: 100%
+                height: 50px
+                align-items: center
+                margin-bottom: 10px
+                padding-left: 15px
+                @include mobile
+                    height: 100px
+                    padding-left: 10px
+                .title
+                    width: 50%
+                    color: $dark-yellow-color
+                    font-size: 20px
+                    // display: -webkit-inline-box
+                    // -webkit-line-clamp: 2
+                    // -webkit-box-orient: vertical
+                    // overflow: hidden
+                    @include tablet
+                        width: 70%
+                    @include mobile
+                        width: 65%
+                    &:hover
+                        cursor: pointer
+                        text-decoration: underline
+                    span
+                        color: $gray-color
+                        font-size: 18px
+                        @include mobile
+                            &::before
+                                content: "\a"
+                                white-space: pre
+
+                .quantity
+                    width: 15%
+                    font-size: 18px
+                    @include mobile
+                        width: 20%
+                .total
+                    font-size: 18px
+                    color: $basket-color
+                    font-weight: bold
+            .order-line:nth-child(2n+1)
+                background-color: $light-gray-color

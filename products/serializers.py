@@ -60,3 +60,17 @@ class OrderSerializer(serializers.ModelSerializer):
             'order_date',
             'total_amount',
         ]
+
+
+class OrderLineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderLine
+        fields = [
+            'id',
+            'book',
+            'get_book_title',
+            'get_book_author',
+            'get_url',
+            'quantity',
+            'unit_price',
+        ]
