@@ -108,6 +108,9 @@ class Order(models.Model):
     user = models.ForeignKey(
         User, related_name='orders', on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ('-order_date',)
+
     def __str__(self):
         return f'order of {self.user}({self.id})'
 

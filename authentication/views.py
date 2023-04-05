@@ -141,7 +141,7 @@ class LoginApi(APIView):
 
                 return response
 
-            return Response({'message': 'Your account was not activated, please check your email for confirming. In case there is notthing was sent,'}, status=403)
+            return Response({'message': 'Your account was not activated, please check your email for confirming. In case there is notthing was sent'}, status=403)
 
         return Response({'message': 'Wrong email or password'}, status=403)
 

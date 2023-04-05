@@ -146,10 +146,13 @@ header
 
                 .btn
                     padding-inline: 15px
-                    display: flex
                     background-color: $yellow-color
                     color: $white-color
                     border-radius: 0
+                    width: 70px
+                    text-align: center
+                i
+                    font-size: 20px
 
             .login-via-fb-icon
                 display: flex
@@ -490,6 +493,11 @@ header
                     margin-top: 40px
                     color: $white-color
                     float: right
+                    text-decoration: underline
+                    &:hover
+                        cursor: pointer
+                        color: $white-color
+                        text-decoration: none
 
 .all-but-footer
     min-height: calc(100vh - 190px)
@@ -764,6 +772,22 @@ footer
     input
         width: 100%
         border: none
+.comming-soon
+    
+    position: absolute
+    width: 100%
+    height: 565px
+    text-align: center
+    padding-top: 250px
+    z-index: 99
+    background-color: rgba(0,0,0,.50)
+    color: $white-color
+    font-size: 30px
+    font-weight: bold
+    @include tablet
+        height: 530px
+    @include small-tablet
+        height: 560px
 
 .form-footer
     margin-top: 35px
@@ -775,6 +799,8 @@ footer
         color: $white-color
         border-radius: 0
         width: 100px
+    i
+        font-size: 20px
     h6
         margin-top: 5px
 // forgot password style 
@@ -1116,6 +1142,12 @@ footer
         justify-content: space-between
         .title
             color: $yellow-color
+        a
+            text-decoration: underline
+            color: $basket-color
+            &:hover
+                cursor: pointer
+                color: $basket-color
     .cart-table
         border: solid 1px gray
 
@@ -1233,10 +1265,14 @@ footer
             font-weight: bold
             color: $white-color
             border-radius: 0
+            width: 100px
+            text-align: center
             @include small-tablet
                 margin-right: 60px
             @include mobile
                 margin-right: 0
+        i
+            font-size: 20px
 
 // success and cancel page style
 .success-container
@@ -1277,6 +1313,12 @@ footer
     .past-orders
         margin-top: 10px
         float: right
+        a
+            text-decoration: underline
+            color: $basket-color
+            &:hover
+                cursor: pointer
+                color: $basket-color
 
 //past orders page
 .past-orders-container
@@ -1287,6 +1329,11 @@ footer
         margin-bottom: 40px
         .title
             color: $dark-yellow-color
+    .no-order
+        text-align: center
+        width: 100%
+        color: $gray-color
+        margin: 50px 0
     .order-card
         border: 2px $light-gray-color solid
         display: flex
@@ -1295,6 +1342,7 @@ footer
         @include mobile
             display: block
             padding: 0
+
         .order-infomation
             width: 30%
             @include mobile
@@ -1337,14 +1385,16 @@ footer
                     width: 50%
                     color: $dark-yellow-color
                     font-size: 20px
-                    // display: -webkit-inline-box
-                    // -webkit-line-clamp: 2
-                    // -webkit-box-orient: vertical
-                    // overflow: hidden
+                    display: -webkit-inline-box
+                    -webkit-line-clamp: 1
+                    -webkit-box-orient: vertical
+                    overflow: hidden
                     @include tablet
                         width: 70%
                     @include mobile
+                        display: block
                         width: 65%
+                        font-size: 18px
                     &:hover
                         cursor: pointer
                         text-decoration: underline
@@ -1367,3 +1417,89 @@ footer
                     font-weight: bold
             .order-line:nth-child(2n+1)
                 background-color: $light-gray-color
+
+//Page 404
+.page-404-container
+    width: 70%
+    margin: 170px 0 0 20%
+    display: flex
+    @include tablet
+        width: 90%
+        margin: 150px 0% 0 5%
+    @include small-tablet
+        display: block
+        text-align: center
+    i
+        font-size: 150px
+        color: $yellow-color
+        margin-right: 80px
+        @include small-tablet
+            margin-right: 0
+
+    .title
+        h1
+            color: $dark-yellow-color
+        h3
+            color: $gray-color
+
+        h2
+            color: $gray
+            @include small-tablet
+                display: none
+
+//login page
+.login-container
+    margin: 20px 2%
+    .title
+        color: $dark-yellow-color
+        margin-bottom: 20px
+    .form
+        border: 1px $black-color solid
+    .upper-form
+        padding: 25px 15px 10px 15px
+        input
+            border-radius: 0
+            border-width: 1px
+            outline: none
+            width: 100%
+            height: 4vh
+
+        .navigation
+            display: flex
+            justify-content: space-between
+            align-items: center
+
+            .btn
+                padding-inline: 15px
+                background-color: $yellow-color
+                color: $white-color
+                border-radius: 0
+                width: 70px
+                text-align: center
+            i
+                font-size: 20px
+
+        .login-via-fb-icon
+            display: flex
+            justify-content: center
+        .alert
+            a
+                color: blue
+                text-decoration-line: underline
+                &:hover
+                    cursor: pointer
+    .lower-form
+        padding: 0 5%
+        background: $light-gray-color
+        span
+            color: $yellow-color
+        p
+            padding-left: 10px
+        .register-link
+            text-align: end
+            padding-bottom: 15px
+            a
+                text-decoration: none
+                color: $yellow-color
+            img
+                transform: rotate(-0.25turn)
