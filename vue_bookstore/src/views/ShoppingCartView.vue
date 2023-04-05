@@ -158,14 +158,14 @@ export default {
             }
 
         },
-        create_checkout_session() {
+        async create_checkout_session() {
             this.button_loading = true
             if (this.user) {
                 const data = {
                     user: this.user.id,
                     cart: this.cart
                 }
-                axios
+                await axios
                     .post('api/create_checkout_session', data)
                     .then(response => {
                         window.location.href = response.data.checkout_session_url

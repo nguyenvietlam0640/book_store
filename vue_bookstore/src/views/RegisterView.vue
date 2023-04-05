@@ -26,7 +26,8 @@
                         <input class="row" id="birthday" type="date" v-model="birthday">
                         <div class="row">
                             <div class="captcha">
-                                <div class="preview"></div>
+                                <div class="preview" oncopy="return false" onpaste="return false" oncut="return false">
+                                </div>
                                 <input class="captcha-input" id="captcha-input" type="text" v-model="captcha">
                             </div>
                         </div>
@@ -96,7 +97,7 @@ export default {
             await this.$store.dispatch('set_loading', false)
             this.generate_captcha()
             this.set_captcha()
-            
+
         }
     },
 
@@ -153,7 +154,7 @@ export default {
             else if (this.captcha !== this.captcha_value) {
                 this.errors.push('Invalid captcha')
             }
-            
+
             if (!this.errors.length) {
                 const data = {
                     full_name: this.full_name,
@@ -182,7 +183,7 @@ export default {
                             this.errors.push(`${key}: ${errors_message[key]}`)
                         }
                     })
-            
+
             }
             this.button_loading = false
 
