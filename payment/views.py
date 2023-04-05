@@ -9,7 +9,7 @@ import datetime
 from .models import Order_session_expired
 from products.models import Order, OrderLine, Book
 from authentication.models import User
-domain = 'https://lamnv-bookstore.netlify.app'
+domain = 'https://lamnv-bookstore.netlify.app/'
 # domain = 'http://localhost:8080/'
 
 stripe.api_key = 'sk_test_51MnmhMI4tXTMcUFe5lg6uOLLOBB1z6NJocie3BnW1ZVCnWWKCD00LA601MHROcqjEcL1nR1l3shlNOCyAkxxihPa009AOwOwQd'
@@ -143,7 +143,7 @@ class create_checkout_session(APIView):
             checkout_session = stripe.checkout.Session.create(
                 line_items=line_items,
                 mode='payment',
-                success_url=f'{domain}success/?order={generate_order_token(request.data["user"],order)}',
+                success_url=f'{domain}/success/?order={generate_order_token(request.data["user"],order)}',
                 cancel_url=f'{domain}/cancel',
                 phone_number_collection={
                     'enabled': True
