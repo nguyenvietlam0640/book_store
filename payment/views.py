@@ -143,8 +143,8 @@ class create_checkout_session(APIView):
             checkout_session = stripe.checkout.Session.create(
                 line_items=line_items,
                 mode='payment',
-                success_url=f'{domain}/success/?order={generate_order_token(request.data["user"],order)}',
-                cancel_url=f'{domain}/cancel',
+                success_url=f'{domain}success/?order={generate_order_token(request.data["user"],order)}',
+                cancel_url=f'{domain}cancel',
                 phone_number_collection={
                     'enabled': True
                 },
