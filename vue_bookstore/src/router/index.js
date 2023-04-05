@@ -12,7 +12,8 @@ import CheckoutView from '../views/CheckoutView.vue'
 import SuccessView from '../views/SuccessView.vue'
 import CancelView from '../views/CancelView.vue'
 import PastOrdersView from '../views/PastOrdersView.vue'
-
+import Page404View from '../views/Page404View.vue'
+import LoginView from '../views/LoginView.vue'
 const routes = [
   {
     path: '/',
@@ -43,6 +44,11 @@ const routes = [
     path: '/register',
     name: 'RegisterView',
     component: RegisterView
+  },
+  {
+    path: '/login',
+    name: 'LoginView',
+    component: LoginView
   },
   {
     path: '/profile',
@@ -89,6 +95,11 @@ const routes = [
     path: '/past_orders',
     name: 'PastOrdersView',
     component: PastOrdersView
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: 'Page404View',
+    component: Page404View
   },
 ]
 

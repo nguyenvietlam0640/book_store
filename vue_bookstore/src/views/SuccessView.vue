@@ -5,7 +5,7 @@
             <div class="success-icon"><i class="fa-regular fa-circle-check"></i></div>
             <h4 class="success-title">Your puschare has been successed</h4>
         </div>
-        <div class="past-orders"><a href="/view_past_orders">view past orders</a></div>
+        <div class="past-orders"><a v-on:click="view_past_orders">view past orders</a></div>
     </div>
 
     <div v-if="fail" class="success-container">
@@ -13,7 +13,7 @@
             <div class="fail-icon"><i class="fa-sharp fa-regular fa-circle-xmark"></i></div>
             <h3 class="fail-title">{{ message }}</h3>
         </div>
-        <div class="past-orders"><a href="/past_orders">view past orders</a></div>
+        <div class="past-orders"><a v-on:click="view_past_orders">view past orders</a></div>
     </div>
 </template>
 
@@ -21,7 +21,7 @@
 <script>
 import axios from 'axios';
 import Header2 from '@/components/Header-2.vue';
-
+import { mapGetters } from 'vuex';
 export default {
     name: 'SuccessView',
     data() {
@@ -34,13 +34,24 @@ export default {
     components: {
         Header2,
     },
-
+    computed:{
+        ...mapGetters(['user'])
+    },
     async mounted() {
         const token = this.$route.query.order
         await this.get_categories()
         await this.check_order_session(token)
     },
     methods: {
+        view_past_orders(){
+            if(this.user){
+                window.location.href = '/past_orders'
+            }
+            else{
+                alert('login to view your past orders')
+            }
+
+        },
         async check_order_session(token) {
             if (token) {
                 await axios

@@ -88,9 +88,9 @@
                             </button>
                             <button v-on:click="empty_cart">Empty Cart</button>
                         </div>
-                        <a href="/past_orders">View past orders</a>
+                        <a v-on:click="view_past_orders">View past orders</a>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -146,6 +146,15 @@ export default {
 
     },
     methods: {
+        view_past_orders() {
+            if (this.user) {
+                window.location.href = '/past_orders'
+            }
+            else {
+                alert('login to view your past orders')
+            }
+
+        },
         go_to_cart() {
             window.location.href = '/shopping_cart'
         },

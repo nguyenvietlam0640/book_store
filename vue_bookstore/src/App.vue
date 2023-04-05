@@ -52,7 +52,10 @@
                         </div>
                         <div class="navigation">
                             <a href="/forgot_password">Forgot Password</a>
-                            <button class="btn">Send</button>
+                            <button class="btn">
+                                <div v-if="!button_loading">Send</div><i v-if="button_loading"
+                                    class="fa-solid fa-spinner fa-spin"></i>
+                            </button>
                         </div>
                         <hr>
                         <div class="login-via-fb-icon"><a href="https://www.facebook.com"><img
@@ -117,6 +120,7 @@ export default {
     name: 'App',
     data() {
         return {
+            button_loading: false,
             email: '',
             password: '',
             errors: [],
@@ -143,19 +147,20 @@ export default {
     },
 
     methods: {
-        edit_profile(){
+        edit_profile() {
             window.location.href = '/profile'
         },
-        register(){
+        register() {
             window.location.href = '/register'
         },
-        login(){
+        login() {
             window.location.href = '/login'
         },
 
-        login_submit() {
+        async login_submit() {
+            this.button_loading = true 
             this.errors = []
-            axios
+            await axios
                 .post('api/login', {
                     email: this.email,
                     password: this.password
@@ -174,10 +179,11 @@ export default {
                 .catch(error => {
                     this.send_email_link = false
                     this.errors.push(error.response.data['message'])
-                    if (error.response.data['message'] == 'Your account was not activated, please check your email for confirming. In case there is notthing was sent,') {
+                    if (error.response.data['message'] == 'Your account was not activated, please check your email for confirming. In case there is notthing was sent') {
                         this.send_email_link = true
                     }
                 })
+            this.button_loading = false
         },
         send_activate_email() {
             this.send_email_link = false

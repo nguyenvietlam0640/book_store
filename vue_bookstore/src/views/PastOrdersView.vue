@@ -1,10 +1,9 @@
 <template>
     <Header2 :_current_category="'Category'" :_categories="categories" />
-    <div class="past-orders-container">
+    <div v-if="orders.length && !is_loading" class="past-orders-container">
         <div class="header">
             <h4 class="title"><strong>Past Orders</strong></h4>
         </div>
-
         <div v-for="order in orders" :key="order.order.id" class="order-card">
             <div class="order-infomation">
                 <div>
@@ -27,6 +26,14 @@
             </div>
         </div>
     </div>
+    <div v-if="!orders.length && !is_loading" class="past-orders-container">
+        <div class="header">
+            <h4 class="title"><strong>Past Orders</strong></h4>
+        </div>
+        <div class="order-card">
+            <h3 class="no-order">--- No order yet ---</h3>
+        </div>
+    </div>
 </template>
 
 
@@ -46,11 +53,14 @@ export default {
         Header2,
     },
     computed: {
-        ...mapGetters(['user'])
+        ...mapGetters(['user']),
+        ...mapGetters(['is_loading'])
     },
     async mounted() {
+        await this.$store.dispatch('set_loading', true)
         await this.get_categories()
         await this.get_past_orders()
+        await this.$store.dispatch('set_loading', false)
     },
     methods: {
         async get_categories() {

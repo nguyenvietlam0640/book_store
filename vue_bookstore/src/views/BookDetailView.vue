@@ -32,9 +32,9 @@
                     <h3 class="discount">Save: {{ book.discount }}%</h3>
                     <h3 class="original-price"> before ${{ book.price }}</h3>
                 </div>
-                <button v-on:click="add_to_cart(book)" class="btn">Add
+                <div v-on:click="add_to_cart(book)" class="btn">Add
                     <img class="basket-img" src="../assets/img/icon/basket.png">
-                </button>
+                </div>
             </div>
 
 
@@ -100,7 +100,7 @@
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 import Header2 from '../components/Header-2.vue'
-
+import { toast } from 'bulma-toast'
 
 export default {
     name: 'BookDetailView',
@@ -153,6 +153,13 @@ export default {
                 quantity: 1
             }
             this.$store.dispatch('add_to_cart', item)
+            toast({
+                message: 'book added to cart',
+                type: 'is-success',
+                duration: 3000,
+                dismissible: true,
+                pauseOnHover: true,
+            })
 
         },
         reset_rating_star() {

@@ -8,7 +8,7 @@
         <div class="shopping-cart-container">
             <div class="header">
                 <h4 class="title"><strong>Shopping Cart</strong></h4>
-                <a href="/past_orders">View past orders</a>
+                <a v-on:click="view_past_orders">View past orders</a>
             </div>
             <div v-if="!cart.items.length" class="cart-table">
                 <h2 class="empty-message">
@@ -94,7 +94,10 @@
 
 
 
-                <button v-on:click="create_checkout_session" v-if="cart.items.length" class="btn">Checkout</button>
+                <button v-on:click="create_checkout_session" v-if="cart.items.length" class="btn">
+                    <div v-if="!button_loading">Checkout</div><i v-if="button_loading"
+                        class="fa-solid fa-spinner fa-spin"></i>
+                </button>
 
             </div>
 
@@ -112,7 +115,8 @@ export default {
     name: 'ShoppingCartView',
     data() {
         return {
-            hello: 'haha',
+
+            button_loading: false,
             categories: [],
             email: '',
             errors: []
@@ -145,7 +149,17 @@ export default {
 
     },
     methods: {
+        view_past_orders() {
+            if (this.user) {
+                window.location.href = '/past_orders'
+            }
+            else {
+                alert('login to view your past orders')
+            }
+
+        },
         create_checkout_session() {
+            this.button_loading = true
             if (this.user) {
                 const data = {
                     user: this.user.id,
@@ -160,9 +174,10 @@ export default {
                         console.log(error)
                     })
             }
-            else{
-                consol.log('pls login')
+            else {
+                alert('login to checkout')
             }
+            this.button_loading = false
         },
         decrease(id) {
             this.$store.dispatch('decrease_item', id)

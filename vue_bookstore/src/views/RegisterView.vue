@@ -42,7 +42,8 @@
                     <a href="/">Cancel</a>
 
                     <button class="btn">
-                        <h6><strong>Send</strong></h6>
+                        <h6 v-if="!button_loading"><strong>Send</strong></h6>
+                        <i v-if="button_loading" class="fa-solid fa-spinner fa-spin"></i>
                     </button>
                 </div>
             </form>
@@ -61,6 +62,7 @@ export default {
     name: 'RegisterView',
     data() {
         return {
+            button_loading: false,
             categories: [],
             font_captcha: ['cursive', 'sans-serif', 'serif', 'monospace'],
             captcha_value: '',
@@ -133,7 +135,8 @@ export default {
 
 
 
-        register_submit() {
+        async register_submit() {
+            this.button_loading = true
             this.errors = []
             if (this.full_name === '') {
                 this.errors.push('Full name is empty')
@@ -150,7 +153,7 @@ export default {
             else if (this.captcha !== this.captcha_value) {
                 this.errors.push('Invalid captcha')
             }
-
+            
             if (!this.errors.length) {
                 const data = {
                     full_name: this.full_name,
@@ -159,7 +162,7 @@ export default {
                     birthday: this.birthday,
                 }
 
-                axios
+                await axios
                     .post('api/register', data)
                     .then(response => {
 
@@ -179,7 +182,9 @@ export default {
                             this.errors.push(`${key}: ${errors_message[key]}`)
                         }
                     })
+            
             }
+            this.button_loading = false
 
         },
         async get_categories() {

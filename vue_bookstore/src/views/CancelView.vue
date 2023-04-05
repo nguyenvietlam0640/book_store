@@ -5,7 +5,7 @@
             <div class="fail-icon"><i class="fa-sharp fa-regular fa-circle-xmark"></i></div>
             <h3 class="fail-title">Your checkout order has been cancelled</h3>
         </div>
-        <div class="past-orders"><a href="/past_orders">view past orders</a></div>
+        <div class="past-orders"><a v-on:click="view_past_orders">view past orders</a></div>
     </div>
 </template>
 
@@ -37,6 +37,15 @@ export default {
                 .catch(error => {
                     console.log(error)
                 })
+        },
+        view_past_orders() {
+            if (this.user) {
+                window.location.href = '/past_orders'
+            }
+            else {
+                alert('login to view your past orders')
+            }
+
         },
     },
 

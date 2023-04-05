@@ -67,6 +67,7 @@
 
 import { useRoute } from 'vue-router'
 import { mapGetters } from 'vuex'
+import { toast } from 'bulma-toast'
 export default {
     name: 'BookShelf',
     props: {
@@ -119,6 +120,13 @@ export default {
                 quantity: 1
             }
             this.$store.dispatch('add_to_cart', item)
+            toast({
+                message: 'book added to cart',
+                type: 'is-success',
+                duration: 3000,
+                dismissible: true,
+                pauseOnHover: true,
+            })
         },
         go_backward() {
             if (this.current_page == 1) {

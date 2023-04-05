@@ -1,6 +1,10 @@
 <template>
     <Header2 :_current_category="'Category'" :_categories="categories" />
+    <div class="comming-soon">
+       Comming soon
+    </div>
     <div v-if="user" class="register-form-container">
+
         <div class="form-header">
             <h4 class="title" style="padding-bottom: 20px;"><strong>Edit profile</strong></h4>
         </div>
@@ -21,9 +25,11 @@
                     <input class="row" id="cfpassword" type="password" placeholder="Retype the password"
                         v-model="cfpassword">
                     <input class="row" id="birthday" type="date" v-model="user.birthday">
-                    
+
                 </div>
+
             </div>
+
 
 
 
@@ -58,14 +64,14 @@ export default {
     data() {
         return {
             categories: [],
-            
 
-            full_name:'',
+
+            full_name: '',
             email: '',
             password: '',
             cfpassword: '',
             birthday: '',
-            
+
             errors: [],
         }
     },
@@ -74,19 +80,19 @@ export default {
     },
     computed: {
         ...mapGetters(['user']),
-        
+
     },
     mounted() {
         document.title = 'Edit profile'
         this.get_categories()
-        
+
     },
-    
+
 
     methods: {
-        
-            
-    
+
+
+
 
         passwor_check(password) {
             var expression = /^(?=.*[0-9]).{9,}/
@@ -133,7 +139,7 @@ export default {
                             dismissible: true,
                             pauseOnHover: true,
                         })
-                        
+
 
                     })
                     .catch(errors => {
