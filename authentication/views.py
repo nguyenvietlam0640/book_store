@@ -15,7 +15,7 @@ from django.conf import settings
 import jwt
 import datetime
 
-
+url = 'https://lamnv-bookstore.netlify.app'
 def passwordEncryption(password: str):
     encypted = hashlib.sha256(password.encode()).hexdigest()
     return encypted
@@ -36,7 +36,7 @@ def sendActivateEmail(request, user):
     }
 
     token = jwt.encode(payload, 'secret', algorithm='HS256')
-    link = f'http://localhost:8080/activate/{token}'
+    link = f'{url}/activate/{token}'
     # send email reset password
     subject = 'BookStore Activate'
     textContent = None
@@ -60,7 +60,7 @@ def sendResetPassEmail(request, user):
 
     token = jwt.encode(payload, 'secret', algorithm='HS256')
 
-    link = f'http://localhost:8080/change_password/{token}'
+    link = f'{url}/change_password/{token}'
     # send email reset password
     subject = 'BookStore forgot password'
     textContent = None
@@ -129,7 +129,7 @@ class LoginApi(APIView):
             if user.is_activated:
                 payload = {
                     'id': user.id,
-                    'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+                    'exp': datetime.datetime.utcnow() + datetime.timedelta(weeks=1),
                     'iat': datetime.datetime.utcnow()
                 }
 
@@ -141,13 +141,14 @@ class LoginApi(APIView):
 
                 return response
 
-            return Response({'message': 'Your account was not activated, please check your email for confirming'}, status=403)
+            return Response({'message': 'Your account was not activated, please check your email for confirming. In case there is notthing was sent'}, status=403)
 
         return Response({'message': 'Wrong email or password'}, status=403)
 
 
 class UserApi(APIView):
     def get(self, request):
+        
         token = request.headers.get('Authorization')
 
         if token:
@@ -157,9 +158,8 @@ class UserApi(APIView):
                 user = User.objects.filter(id=payload['id']).first()
 
                 userSerializer = UserSerializer(user)
-                print(userSerializer.data)
                 return Response(userSerializer.data)
-            except jwt.ExpiredSignatureError:
+            except:
                 pass
         return Response({'message': 'Unauthenticated'}, status=403)
 
@@ -172,7 +172,6 @@ class ResetPassApi(APIView):
             sendResetPassEmail(request, user)
         return Response(
             {'message': 'A confirm password link had sent to your email, please check your inbox'})
-        
 
 
 class ChangePassApi(APIView):

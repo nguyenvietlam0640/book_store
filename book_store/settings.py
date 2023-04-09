@@ -10,33 +10,43 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+import dj_database_url
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = ')@2v662*3evqvyl8suijtmg&(8w8+ws__wu*i^yk*%rvqb16xe'
 
+# django_heroku.settings(locals())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'bookstore.noreply25@gmail.com'
-EMAIL_HOST_PASSWORD = 'uvnwmcomezaooeyn'
+EMAIL_HOST_USER = 'bookstore.0325@gmail.com'
+EMAIL_HOST_PASSWORD = 'rhdwujooiuylfulc'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://lamnv-bookstore.netlify.app', 'http://localhost:8080','https://lamnv-bookstore-9c596.web.app']
+
+CORS_ALLOWED_ORIGINS = [
+    'https://lamnv-bookstore.netlify.app',
+    'http://localhost:8080','https://lamnv-bookstore-9c596.web.app'
+]
 
 
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -48,11 +58,14 @@ INSTALLED_APPS = [
     'rest_framework',
     'products',
     'authentication',
+    'payment',
     'corsheaders',
+
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -62,9 +75,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080',
-]
+
 
 ROOT_URLCONF = 'book_store.urls'
 
@@ -97,7 +108,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'vietlam',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
@@ -142,11 +153,13 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 CORS_ORIGIN_ALLOW_ALL: True
 CORS_ALLOW_CREDENTIALS: True
+prod_db = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)

@@ -1,50 +1,54 @@
 <template>
-    <Header2 :_current_category="'Category'" :_categories="categories" />
-    <div class="register-form-container">
-        <div class="form-header">
-            <h4 class="title"><strong>Register</strong></h4>
-            <p class="des">Fill the register and be part of our comunity.</p>
-        </div>
-        <form @submit.prevent="register_submit">
-            <div class="form-body">
-                <div class="column-1">
-                    <label class="row" for="fullname">Full Name</label>
-                    <label class="row" for="email">Email</label>
-                    <label class="row" for="password">Password</label>
-                    <label class="row" for="cfpassword">Confirm Password</label>
-                    <label class="row" for="birthday">Birthday</label>
-                    <label class="row" for="captcha-input">Captcha</label>
-                </div>
-                <div class="column-2">
-                    <input class="row" id="fullname" type="text" placeholder="Full name" v-model="full_name">
-                    <input class="row" id="email" type="email" placeholder="@" v-model="email">
-                    <input class="row" id="password" type="password" placeholder="minimum 8 characters and 1 number"
-                        v-model="password">
-                    <input class="row" id="cfpassword" type="password" placeholder="Retype the password"
-                        v-model="cfpassword">
-                    <input class="row" id="birthday" type="date" v-model="birthday">
-                    <div class="row">
-                        <div class="captcha">
-                            <div class="preview"></div>
-                            <input class="captcha-input" id="captcha-input" type="text" v-model="captcha">
+    <div v-if="!is_loading">
+        <Header2 :_current_category="'Category'" :_categories="categories" />
+        <div class="register-form-container">
+            <div class="form-header">
+                <h4 class="title"><strong>Register</strong></h4>
+                <p class="des">Fill the register and be part of our comunity.</p>
+            </div>
+            <form @submit.prevent="register_submit">
+                <div class="form-body">
+                    <div class="column-1">
+                        <label class="row" for="fullname">Full Name</label>
+                        <label class="row" for="email">Email</label>
+                        <label class="row" for="password">Password</label>
+                        <label class="row" for="cfpassword">Confirm Password</label>
+                        <label class="row" for="birthday">Birthday</label>
+                        <label class="row" for="captcha-input">Captcha</label>
+                    </div>
+                    <div class="column-2">
+                        <input class="row" id="fullname" type="text" placeholder="Full name" v-model="full_name">
+                        <input class="row" id="email" type="email" placeholder="@" v-model="email">
+                        <input class="row" id="password" type="password" placeholder="minimum 8 characters and 1 number"
+                            v-model="password">
+                        <input class="row" id="cfpassword" type="password" placeholder="Retype the password"
+                            v-model="cfpassword">
+                        <input class="row" id="birthday" type="date" v-model="birthday">
+                        <div class="row">
+                            <div class="captcha">
+                                <div class="preview" oncopy="return false" onpaste="return false" oncut="return false">
+                                </div>
+                                <input class="captcha-input" id="captcha-input" type="text" v-model="captcha">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
 
 
-            <div class="alert alert-danger" v-if="errors.length" v-for="error in errors" :key="error">
-                <strong>Register Fail!</strong> {{ error }}
-            </div>
-            <div class="form-footer">
-                <a href="/">Cancel</a>
+                <div class="alert alert-danger" v-if="errors.length" v-for="error in errors" :key="error">
+                    <strong>Register Fail!</strong> {{ error }}
+                </div>
+                <div class="form-footer">
+                    <a href="/">Cancel</a>
 
-                <button class="btn">
-                    <h6><strong>Send</strong></h6>
-                </button>
-            </div>
-        </form>
+                    <button class="btn">
+                        <h6 v-if="!button_loading"><strong>Send</strong></h6>
+                        <i v-if="button_loading" class="fa-solid fa-spinner fa-spin"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -53,11 +57,13 @@
 import axios from 'axios'
 import Header2 from '../components/Header-2.vue'
 import { toast } from 'bulma-toast'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'RegisterView',
     data() {
         return {
+            button_loading: false,
             categories: [],
             font_captcha: ['cursive', 'sans-serif', 'serif', 'monospace'],
             captcha_value: '',
@@ -76,14 +82,31 @@ export default {
     components: {
         Header2,
     },
-    mounted() {
+
+    computed: {
+        ...mapGetters(['user']),
+        ...mapGetters(['is_loading']),
+
+    },
+    async mounted() {
         document.title = 'Register'
-        this.get_categories()
-        this.generate_captcha()
-        this.set_captcha()
+        await this.get_categories()
+        this.redirect()
+
+        if (!this.user) {
+            await this.$store.dispatch('set_loading', false)
+            this.generate_captcha()
+            this.set_captcha()
+
+        }
     },
 
     methods: {
+        async redirect() {
+            if (this.user) {
+                return window.location.href = '/'
+            }
+        },
         generate_captcha() {
             let value = btoa(Math.random() * 1000000000)
             value = value.substring(0, 7)
@@ -113,7 +136,8 @@ export default {
 
 
 
-        register_submit() {
+        async register_submit() {
+            this.button_loading = true
             this.errors = []
             if (this.full_name === '') {
                 this.errors.push('Full name is empty')
@@ -132,15 +156,15 @@ export default {
             }
 
             if (!this.errors.length) {
-                const formData = {
+                const data = {
                     full_name: this.full_name,
                     email: this.email,
                     password: this.password,
                     birthday: this.birthday,
                 }
 
-                axios
-                    .post('api/register', formData)
+                await axios
+                    .post('api/register', data)
                     .then(response => {
 
                         toast({
@@ -150,7 +174,7 @@ export default {
                             dismissible: true,
                             pauseOnHover: true,
                         })
-                        this.$router.push({path : '/'})
+                        this.$router.push({ path: '/' })
 
                     })
                     .catch(errors => {
@@ -159,11 +183,13 @@ export default {
                             this.errors.push(`${key}: ${errors_message[key]}`)
                         }
                     })
+
             }
+            this.button_loading = false
 
         },
-        get_categories() {
-            axios
+        async get_categories() {
+            await axios
                 .get('/api/view_categories')
                 .then(response => {
                     this.categories = response.data

@@ -6,21 +6,36 @@
                     <h1><strong>bookstore<span>.com</span></strong></h1>
                 </a>
             </div>
+            <div v-if="!user" class="mobile-option" data-bs-toggle="dropdown">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+                <ul class="dropdown-menu">
+                    <li v-on:click="login()">login</li>
+                    <li v-on:click="register()">Register</li>
+                </ul>
+            </div>
+            <div v-if="user" class="mobile-logged-option" data-bs-toggle="dropdown">
+                <div class="title">{{ user.full_name }}</div>
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+                <ul class="dropdown-menu">
+                    <li v-on:click="edit_profile()">edit profile</li>
+                    <li v-on:click="logout()">log out</li>
+                </ul>
+            </div>
             <div v-if="user" class="logined-option">
                 <button class="btn" data-bs-toggle="dropdown">
                     {{ user.full_name }}
                     <img src="./assets/img/icon/black-dropdown.png">
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a v-bind:href="`/${user.get_absolute_url}`">edit profile</a></li>
+                    <li><a v-bind:href="`/profile`">edit profile</a></li>
                     <!-- <hr> -->
                     <li><a v-on:click="logout()">log out</a></li>
                 </ul>
                 <div class="icon">
                     <i class="fa-sharp fa-solid fa-comment"></i>
                 </div>
-
             </div>
+
             <div v-if="!user" class="option">
                 <button data-bs-toggle="dropdown" data-bs-auto-close="outside">
                     login
@@ -32,11 +47,15 @@
                         <div class="py-2"><input v-model="password" id="login-password" type="password"
                                 placeholder="Password"></div>
                         <div class="alert alert-danger" v-if="errors.length" v-for="error in errors" :key="error">
-                            <strong>Login fail!</strong> {{ error }}<a v-if="send_email_link" v-on:click="send_activate_email()">active now</a>
+                            <strong>Login fail!</strong> {{ error }} <a v-if="send_email_link"
+                                v-on:click="send_activate_email()">send now</a>
                         </div>
                         <div class="navigation">
                             <a href="/forgot_password">Forgot Password</a>
-                            <button class="btn">Send</button>
+                            <button class="btn">
+                                <div v-if="!button_loading">Send</div><i v-if="button_loading"
+                                    class="fa-solid fa-spinner fa-spin"></i>
+                            </button>
                         </div>
                         <hr>
                         <div class="login-via-fb-icon"><a href="https://www.facebook.com"><img
@@ -56,12 +75,15 @@
             </div>
         </div>
     </header>
+    <div class="all-but-footer">
+        <router-view />
+    </div>
 
-    <router-view />
 
 
     <footer>
         <div class="footer-1">
+
             <div>
                 <div>
                     <h4><strong>Do you want to sell your books?</strong></h4>
@@ -81,7 +103,7 @@
             </div>
         </div>
         <div class="footer-2">
-            <p>Copyright @2013 BookStore is a registered trademark of BookStore Pte Ltd</p>
+            <p>Copyright @2023 BookStore is a registered trademark of BookStore Pte Ltd</p>
         </div>
     </footer>
 </template>
@@ -98,14 +120,18 @@ export default {
     name: 'App',
     data() {
         return {
+            button_loading: false,
             email: '',
             password: '',
             errors: [],
             send_email_link: false,
         }
     },
+
     computed: {
-        ...mapGetters(['user'])
+        ...mapGetters(['user']),
+        ...mapGetters(['cart'])
+
     },
 
     async created() {
@@ -115,16 +141,26 @@ export default {
                 this.$store.dispatch('user', response.data)
             })
             .catch(error => {
-                console.log()
+
             })
 
     },
 
     methods: {
+        edit_profile() {
+            window.location.href = '/profile'
+        },
+        register() {
+            window.location.href = '/register'
+        },
+        login() {
+            window.location.href = '/login'
+        },
 
-        login_submit() {
+        async login_submit() {
+            this.button_loading = true 
             this.errors = []
-            axios
+            await axios
                 .post('api/login', {
                     email: this.email,
                     password: this.password
@@ -138,17 +174,19 @@ export default {
                         pauseOnHover: true,
                     })
                     localStorage.setItem('jwt', response.data.jwt)
-                    window.location.href = '/'
+                    window.location.href = this.$route.fullPath
                 })
                 .catch(error => {
                     this.send_email_link = false
                     this.errors.push(error.response.data['message'])
-                    if (error.response.data['message'] == 'Your account was not activated, please check your email for confirming') {
+                    if (error.response.data['message'] == 'Your account was not activated, please check your email for confirming. In case there is notthing was sent') {
                         this.send_email_link = true
                     }
                 })
+            this.button_loading = false
         },
         send_activate_email() {
+            this.send_email_link = false
             axios
                 .post('api/send_activate_email', { email: this.email })
                 .then(response => {
@@ -160,8 +198,6 @@ export default {
                         pauseOnHover: true,
 
                     })
-                    this.send_email_link = false
-
                 })
                 .catch(error => {
                     this.errors.push(error.response.data['message'])
@@ -169,7 +205,7 @@ export default {
         },
         logout() {
             localStorage.removeItem('jwt')
-            window.location.href = '/'
+            window.location.href = this.$route.fullPath
         },
 
     }

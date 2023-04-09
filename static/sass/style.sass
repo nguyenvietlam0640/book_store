@@ -8,12 +8,14 @@ $vertical-color: #aaa5a4cb
 $black-color: black
 $white-color: white
 $basket-color: #05a09A
+$dark-green: #18817e
 $notification-color: #60dd98
+$gray: #9e9a9a
+$red: #d81d1d
 $mobile: 600px
 $tablet: 1199px
 $large-device: 1200px
-$small-tablet: 900px
-
+$small-tablet: 979px
 
 @mixin mobile
     @media screen and ( max-width: $mobile)
@@ -22,16 +24,16 @@ $small-tablet: 900px
 @mixin tablet
     @media screen and ( max-width: $tablet)
         @content
+
 @mixin small-tablet
     @media screen and ( max-width: $small-tablet)
         @content
+
 @mixin large-device
     @media screen and ( min-width: $large-device)
         @content
 
-[v-cloak] 
-  display: none
-
+// application style 
 body
     hr
         border: 1px dashed
@@ -49,7 +51,8 @@ header
         justify-content: space-between
         box-shadow: 0 0 15px $black-color
         padding: 25px 5%
-        @include mobile
+
+        @include tablet
             padding: 25px 2%
     .label
         a
@@ -59,10 +62,37 @@ header
         span
             color: $white-color
 
+    .mobile-option, .mobile-logged-option
+        display: none
+
+        @include mobile
+            display: flex
+            align-items: center
+            margin-right: 20px
+        i
+            font-size: 20px
+            &:hover
+                cursor: pointer
+        .title
+            margin-right: 10px
+        ul
+            padding: 10px 0 20px 0
+            border-radius: 0
+
+        li
+            padding: 10px 0 0 20px
+            text-decoration: none
+            color: $black-color
+            &:hover
+                cursor: pointer
+                text-decoration: underline
+
     .logined-option
         margin-right: 5%
         display: flex
         align-items: center
+        @include mobile
+            display: none
         button
             border: none
         .dropdown-menu
@@ -82,6 +112,8 @@ header
             margin: 0 10px
             font-size: 30px
     .option
+        @include mobile
+            display: none
         button
             align-items: center
             background-color: inherit
@@ -96,7 +128,6 @@ header
             background-color: $white-color
             width: 300px
             height: fit-content
-
             border-radius: 0
 
         .upper-form
@@ -115,15 +146,23 @@ header
 
                 .btn
                     padding-inline: 15px
-                    display: flex
                     background-color: $yellow-color
                     color: $white-color
                     border-radius: 0
+                    width: 70px
+                    text-align: center
+                i
+                    font-size: 20px
 
             .login-via-fb-icon
                 display: flex
                 justify-content: center
-
+            .alert
+                a
+                    color: blue
+                    text-decoration-line: underline
+                    &:hover
+                        cursor: pointer
         .lower-form
             padding: 0 15px
             background: $light-gray-color
@@ -147,7 +186,8 @@ header
     justify-content: space-between
     padding: 0 5%
     padding-top: 100px
-
+    @include tablet
+        padding: 100px 2% 0 2%
     @include small-tablet
         display: block
         padding-left: 0
@@ -157,9 +197,11 @@ header
         padding: 15px 0
         width: 80%
         display: flex
+        @include tablet
+            width: 65%
         @include small-tablet
             width: 100%
-            padding: 15px 5%
+            padding: 15px 2%
         @include mobile
             display: block
             padding: 0
@@ -167,6 +209,9 @@ header
             display: flex
             width: 60%
             padding-right: 15px
+            @include tablet
+                width: 50%
+
             @include mobile
                 width: 100%
                 padding: 10px 2%
@@ -192,9 +237,13 @@ header
                     display: flex
                     align-items: center
                     border-radius: 0
-                    @include mobile
 
-                        font-size: 3.3vw
+                    @include tablet
+                        display: none
+
+                    @include mobile
+                        display: flex
+                        font-size: 15px
                 img
                     padding-left: 10px
                     padding-top: 3px
@@ -211,12 +260,11 @@ header
         .dropdown-menu
             border-radius: 0
             background-color: $white-color
-            margin-top: 210px
-            margin-left: 18%
             padding: 10px 25px
             list-style: none
             border: 1px solid $black-color
             width: 15%
+            z-index: inherit
             li
                 margin-bottom: 10px
                 &:hover
@@ -234,6 +282,8 @@ header
         .category-dropdown
             width: 40%
             background-color: $brown-color
+            @include tablet
+                width: 50%
             @include mobile
                 width: 100%
                 box-shadow: 0 0 15px $black-color
@@ -247,9 +297,9 @@ header
                 border: none
                 border-radius: 0
                 @include small-tablet
-                    font-size: 1.8vw
+                    font-size: 16px
                 @include mobile
-                    font-size: 4vw
+                    font-size: 16px
                     height: 60px
                     padding-left: 3%
                     img
@@ -269,8 +319,11 @@ header
                 list-style: none
                 border: 1px solid $black-color
                 width: 26%
+                z-index: inherit
+                @include tablet
+                    width: 30.8%
                 @include small-tablet
-                    width: 36%
+                    width: 48%
                     padding-left: 12px
                 @include mobile
                     position: relative
@@ -281,9 +334,7 @@ header
             li
                 padding-bottom: 10px
                 @include small-tablet
-                    font-size: 1.6vw
-                @include mobile
-                    font-size: 3.5vw
+                    font-size: 15px
         .menu-list
             a
                 text-decoration: none
@@ -298,6 +349,8 @@ header
         background-color: $basket-color
         width: 30%
         margin-left: 15px
+        @include tablet
+            width: 35%
         @include small-tablet
             margin-left: 0
             width: 100%
@@ -315,27 +368,176 @@ header
             .basket-content
                 display: flex
                 align-items: center
+                img
+                    width: 50px
+                    @include tablet
+                        width: 40px
+                h5
+                    margin-top: 5px
+                    font-size: 20px
+                    @include tablet
+                        font-size: 18px
+
                 @include small-tablet
-                    padding-left: 40%
+                    margin-left: 35%
                 @include mobile
-                    padding-left: 23%
+                    margin-left: 0
             .quantity
+                background: url(../img/icon/quantity-background.png)
+                margin-top: 5px
+                width: 38px
+                height: 38px
+
                 @include small-tablet
-                    padding-right: 30%
+                    margin-right: 20%
                 @include mobile
-                    padding-right: 22%
-                    padding-top: 2px
+                    margin-right: 22%
+                    margin-top: 2px
 
             &:hover
                 border: none
+        .dropdown-menu
+            border: none
+            background-color: $basket-color
+            color: $white-color
+            border-radius: 0
 
+            z-index: inherit
+            width: 24.3%
+            padding-top: 20px
+
+            @include tablet
+                width: 33.2%
+            @include small-tablet
+                padding: 20px 15%
+                width: 100%
+            @include mobile
+                padding: 20px 2%
+                width: 100%
+            .item-card
+                margin: 0 10px 10px 10px
+                display: flex
+                align-items: center
+                .book-title
+                    display: -webkit-inline-box
+                    -webkit-line-clamp: 1
+                    -webkit-box-orient: vertical
+                    overflow: hidden
+                    width: 55%
+                    @include tablet
+                        width: 45%
+
+                    @include mobile
+                        width: 50%
+                .quantity
+                    padding-left: 5px
+                .unit-price
+                    margin-left: 50px
+                    @include small-tablet
+                        margin-left: 80px
+                    @include mobile
+                        margin-left: 50px
+
+                .quantity-button
+                    display: flex
+                    margin-left: 10px
+                    @include small-tablet
+                        margin-left: 50px
+                    i
+                        padding-left: 15px
+                        color: $yellow-color
+
+            .total
+                padding: 0 10px 0 10px
+                background-color: $dark-green
+                color: $yellow-color
+                display: flex
+                height: 40px
+                align-items: center
+
+                .title
+                    width: 55%
+                    @include tablet
+                        width: 45%
+                    @include mobile
+                        width: 50%
+                .quantity
+                    padding-left: 5px
+                .price
+                    margin-left: 50px
+                    margin-right: 68px
+                    @include small-tablet
+                        margin-left: 80px
+                        margin-right: 108px
+                    @include mobile
+                        margin-left: 50px
+            .footer-container
+                float: right
+                margin: 20px 10px 10px 0
+                @include small-tablet
+                    margin: 20px 0 10px 0
+                .basket-button
+                    display: flex
+
+                button
+                    border: none
+                    background-color: $yellow-color
+                    color: $white-color
+                    font-weight: bold
+                    height: 40px
+                    width: 110px
+                    text-align: center
+                    margin-left: 10px
+
+                a
+                    margin-top: 40px
+                    color: $white-color
+                    float: right
+                    text-decoration: underline
+                    &:hover
+                        cursor: pointer
+                        color: $white-color
+                        text-decoration: none
+
+.all-but-footer
+    min-height: calc(100vh - 190px)
+footer
+    .footer-1
+        background-color: $gray-color
+        display: flex
+        align-items: center
+        justify-content: space-between
+        padding: 25px 5%
+        color: $white-color
+        @include small-tablet
+            padding: 25px 2%
+        .footer-social-icon
+            display: flex
+            font-size: 40px
+
+            a
+                text-decoration: none
+                color: $white-color
+
+    .footer-2
+        display: flex
+        align-items: center
+        padding: 0 5%
+        padding-top: 10px
+        background-color: $brown-color
+        color: $white-color
+        font-size: 12px
+        @include small-tablet
+            padding: 10px 2% 0 2%
+//browse for book style 
 .shelf-container
     padding: 0 5%
     padding-top: 20px
+    @include tablet
+        padding-right: 2%
+        padding-left: 2%
     @include mobile
         padding-top: 50px
-        padding-left: 2%
-        padding-right: 2%
 .shelf-header
     padding-top: 10px
     padding-bottom: 50px
@@ -391,16 +593,7 @@ header
             padding-left: 0
             border-left: none
             width: 30%
-    @include small-tablet
-        div:nth-child(3n+1)
-            width: 47%
-            border-left: 1px dashed $vertical-color
-            padding-left: 5%
-            padding-right: 0
-        div:nth-child(2n+1)
-            border-left: none
-            padding-left: 0
-            width: 46%
+
     @include mobile
         div:nth-child(3n+1)
             width: 100%
@@ -414,8 +607,6 @@ header
 
         @include tablet
             width: 35%
-        @include small-tablet
-            width: 54%
         @include mobile
             width: 100%
             display: flex
@@ -425,31 +616,46 @@ header
             border-bottom: 1px solid $black-color
             padding-left: 0
             border-left: none
-        img
-            width: 50%
-            height: auto
+        a
             @include mobile
-                width: 35%
+                width: 30%
+            img
+                width: 60%
+                height: auto
+                @include small-tablet
+                    width: 65%
+                @include mobile
+                    width: 100%
 
     .book-card-header
         margin-top: 20px
         @include mobile
-            width: 65%
+            width: 70%
             padding-left: 25px
             margin-top: 0
         .book-title
-            font-size: 1.2vw
-            color: $dark-yellow-color
-            @include tablet
-                font-size: 2.1vw
-            @include mobile
-                font-size: 5.2vw
+            font-size: 24px
+            display: -webkit-inline-box
+            -webkit-line-clamp: 1
+            -webkit-box-orient: vertical
+            overflow: hidden
+            margin-bottom: 0
+            @include small-tablet
+                font-size: 22px
+            a
+                text-decoration: none
+                color: $dark-yellow-color
+
         .book-autor
-            font-size: 1vw
-            @include tablet
-                font-size: 1.5vw
-            @include mobile
-                font-size: 3.5vw
+            display: -webkit-box
+            -webkit-line-clamp: 1
+            -webkit-box-orient: vertical
+            overflow: hidden
+            font-size: 18px
+        .evaluate
+            .rated-star
+                width: 25px
+                padding-right: 2px
         a
             color: $basket-color
 
@@ -460,89 +666,71 @@ header
             -webkit-box-orient: vertical
             overflow: hidden
             @include tablet
-                font-size: 15px
+                font-size: 14px
+        .detail-link
             @include mobile
-                font-size: 13px
+                display: none
 
     .book-card-footer
         display: flex
         justify-content: space-between
         align-items: center
-        padding-right: 15%
-        @include mobile
-            padding-left: calc(35% + 25px)
+        padding-right: 10%
+        @include small-tablet
             padding-right: 0
+        @include mobile
+            padding-left: calc(30% + 25px)
+            padding-right: 15px
             width: 100%
             padding-bottom: 20px
+
         .book-price
             color: $dark-yellow-color
+
         .btn
-            width: 6vw
+            width: 100px
+            height: 40px
             display: flex
             align-items: center
             border-radius: 0
             background-color: $yellow-color
             color: $white-color
-            @include tablet
-                width: 9vw
+
             @include mobile
                 margin-left: 40%
                 width: 100px
-                margin-top: -5%
 
             h5
-                font-size: 1.1vw
-                @include tablet
-                    font-size: 1.5vw
+                font-size: 20px
+                font-weight: bold
+                margin-top: 2px
                 @include mobile
-                    font-size: 4vw
+                    font-size: 18px
 
             img
                 padding-left: 3px
-                width: 50%
+                width: 40px
                 height: auto
-                @include tablet
-                    width: 60%
+                // @include tablet
+                //     width: 60%
 
-footer
-    .footer-1
-        background-color: $gray-color
-        display: flex
-        align-items: center
-        justify-content: space-between
-        padding: 25px 5%
-        color: $white-color
-
-        .footer-social-icon
-            display: flex
-            font-size: 40px
-
-            a
-                text-decoration: none
-                color: $white-color
-
-    .footer-2
-        display: flex
-        align-items: center
-        padding: 0 5%
-        padding-top: 10px
-        background-color: $brown-color
-        color: $white-color
-        font-size: 12px
+// register style
 
 .register-form-container
     padding-top: 35px
     padding-left: 5%
+
     width: 840px
     @include tablet
         width: 60%
+        padding-left: 2%
     @include small-tablet
         width: 75%
     @include mobile
         width: 100%
         padding-left: 2%
         padding-right: 2%
-
+// register style and generally style for active, change pass style 
 .form-header
     .title
         color: $dark-yellow-color
@@ -567,6 +755,8 @@ footer
                 justify-content: center
                 align-items: center
                 font-size: 23px
+                @include mobile
+                    font-size: 20px
             .captcha-input
                 margin-left: 20px
                 width: 55%
@@ -582,6 +772,22 @@ footer
     input
         width: 100%
         border: none
+.comming-soon
+    
+    position: absolute
+    width: 100%
+    height: 565px
+    text-align: center
+    padding-top: 250px
+    z-index: 99
+    background-color: rgba(0,0,0,.50)
+    color: $white-color
+    font-size: 30px
+    font-weight: bold
+    @include tablet
+        height: 530px
+    @include small-tablet
+        height: 560px
 
 .form-footer
     margin-top: 35px
@@ -593,9 +799,11 @@ footer
         color: $white-color
         border-radius: 0
         width: 100px
+    i
+        font-size: 20px
     h6
         margin-top: 5px
-
+// forgot password style 
 .forgot-form-container
     padding-top: 35px
     padding-left: 5%
@@ -612,11 +820,12 @@ footer
 .forgot-form-header
     .title
         color: $dark-yellow-color
-.forgot-form-body
-    padding: 5% 10% 2% 7%
-    display: flex
-    background: $light-gray-color
-    border: 1px solid $gray-color
+
+    .forgot-form-body
+        padding: 5% 10% 2% 7%
+        display: flex
+        background: $light-gray-color
+        border: 1px solid $gray-color
     .row
         width: 100%
         height: 40px
@@ -646,15 +855,266 @@ footer
         width: 100px
     h6
         margin-top: 5px
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+// book detail style
+
+.book-detail-container
+    margin: 0 5%
+    margin-top: 60px
+    padding-bottom: 60px
+    display: flex
+    box-shadow: 0px 5px $light-gray-color
+    @include tablet
+        margin: 60px 2% 0 2%
+
+    @include mobile
+        display: block
+        margin: 0 2%
+    .book-photo
+        width: 21%
+        height: fit-content
+        @include tablet
+            width: 25%
+        @include small-tablet
+            width: 28%
+        @include mobile
+            width: 35%
+            margin: 30px 28% 0 28%
+
+    .info-container
+        margin-left: 3%
+        width: 55%
+        height: auto
+        @include tablet
+            width: 52%
+            margin-left: 2%
+        @include small-tablet
+            width: 47%
+        @include mobile
+            margin-top: 20px
+            width: 96%
+        .title
+            color: $dark-yellow-color
+            font-size: 40px
+            @include tablet
+                font-size: 35px
+            @include small-tablet
+                font-size: 30px
+
+        .author
+            font-size: 25px
+            @include tablet
+                font-size: 20px
+            @include small-tablet
+                font-size: 20px
+
+        .Evaluate
+            margin-top: 5px
+            display: flex
+            align-items: center
+            .rated-star
+                width: 30px
+                margin-right: 3px
+                @include small-tablet
+                    width: 28px
+
+            .count-rate
+                margin-left: 10px
+                color: $yellow-color
+                font-size: 25px
+        .des
+            margin-top: 25px
+            font-size: 20px
+            @include tablet
+                font-size: 17px
+            @include small-tablet
+                font-size: 15px
+            @include mobile
+                margin-top: 10px
+
+        .publisher
+            color: $gray-color
+            margin-top: 10%
+            font-size: 20px
+            @include tablet
+                font-size: 17px
+            @include small-tablet
+                font-size: 15px
+
+        .published-date
+            color: $gray-color
+            font-size: 20px
+            @include tablet
+                font-size: 17px
+            @include small-tablet
+                font-size: 15px
+
+    .add-item-container
+        margin: 6% 0 0 3%
+        width: 15%
+        height: 100%
+        padding-bottom: 20px
+        border: 1px solid $light-gray-color
+        background-color: $light-gray-color
+        text-align: center
+        @include tablet
+            margin-left: 2%
+            width: 18%
+        @include small-tablet
+            width: 20%
+        @include mobile
+            display: flex
+            justify-content: space-around
+            align-items: center
+            width: 96%
+        .price-container
+            display: block
+            @include mobile
+                padding-left: 25px
+        .current-price
+            margin-top: 15%
+            color: $dark-yellow-color
+            font-size: 55px
+            font-weight: bold
+            @include tablet
+                font-size: 40px
+            @include small-tablet
+                font-size: 35px
+            @include mobile
+                font-size: 45px
+        .discount
+            color: $gray-color
+            font-size: 25px
+            @include tablet
+                font-size: 20px
+            @include small-tablet
+                font-size: 17px
+
+        .original-price
+            color: $gray-color
+            font-size: 25px
+            @include tablet
+                font-size: 20px
+            @include small-tablet
+                font-size: 17px
+
+        .btn
+            display: flex
+            justify-content: center
+
+            margin: 40px 0 0 15%
+            border: none
+            border-radius: 0
+            background-color: $yellow-color
+            color: $white-color
+            font-size: 25px
+            font-weight: bold
+            align-items: center
+            width: 70%
+            @include small-tablet
+                font-size: 18px
+            @include mobile
+                width: 120px
+                height: 50px
+                font-size: 23px
+                padding-right: 4%
+                margin: 20px 25px 0 0
+            .basket-img
+                width: 40px
+                margin-left: 10%
+                @include small-tablet
+                    width: 28px
+                @include mobile
+                    width: 35px
+
+.add-comment-container
+    margin: 0 5%
+    padding: 30px 0 30px 0
+    box-shadow: 0px 5px $light-gray-color
+    @include tablet
+        margin: 0 2%
+    .header
+        display: flex
+        justify-content: space-between
+        align-items: center
+        h4
+            color: $dark-yellow-color
+
+            font-weight: bold
+    h5
+        color: $gray-color
+        text-align: center
+        font-size: 25px
+        margin: 30px 0 10px 0
+
+    .rating
+        width: fit-content
+        display: flex
+        align-items: center
+        .alertt
+            margin-left: 10px
+            height: fit-content
+            color: red
+
+        &:hover
+            cursor: pointer
+        .rating-star1
+            padding-left: 2px
+            width: 30px
+        .rating-star2
+            padding-left: 2px
+            width: 30px
+        .rating-star3
+            padding-left: 2px
+            width: 30px
+        .rating-star4
+            padding-left: 2px
+            width: 30px
+        .rating-star5
+            padding-left: 2px
+            width: 30px
+
+    textarea
+        width: 100%
+        height: 140px
+        margin-top: 20px
+
+        resize: none
+    .footer
+        display: flex
+        justify-content: space-between
+        align-items: center
+        .btn
+            margin-top: 20px
+            border-radius: 0
+            background-color: $yellow-color
+            font-weight: bold
+            color: $white-color
+
+.comments-container
+    margin: 30px 5% 40px 5%
+    @include tablet
+        margin: 30px 2% 40px 2%
+    .title
+        color: $dark-yellow-color
+        font-weight: bold
+        padding-bottom: 20px
+    .no-comment-title
+        margin: 25px 0
+        color: $gray-color
+        text-align: center
+    .comment-card
+        .user-name
+            color: $dark-yellow-color
+        .rating
+            display: flex
+            align-items: center
+            img
+                padding-left: 3px
+        .day-post
+            padding-bottom: 20px
+            color: $gray-color
+
 .notification
     display: flex
     background-color: $notification-color
@@ -668,3 +1128,378 @@ footer
 
     .delete
         display: none
+
+//shopping cart style 
+.shopping-cart-container
+    margin: 0 5%
+    @include tablet
+        margin: 0 2%
+
+    .header
+        margin-top: 50px
+        margin-bottom: 40px
+        display: flex
+        justify-content: space-between
+        .title
+            color: $yellow-color
+        a
+            text-decoration: underline
+            color: $basket-color
+            &:hover
+                cursor: pointer
+                color: $basket-color
+    .cart-table
+        border: solid 1px gray
+
+        h2
+            @include mobile
+                font-size: 24px
+        h3
+            @include mobile
+                font-size: 22px
+        h4
+            @include mobile
+                font-size: 20px
+        h5
+            @include mobile
+                font-size: 18px
+
+        .empty-message
+            text-align: center
+            margin: 50px 0
+
+            color: $gray
+            hr
+                padding-bottom: 50px
+
+        .describle-row
+            display: flex
+            background-color: $gray
+            color: $white-color
+            height: 40px
+            align-items: center
+
+        .items-row
+            display: flex
+            height: 80px
+            background-color: $light-gray-color
+            .title
+                color: $dark-yellow-color
+                display: -webkit-inline-box
+                -webkit-line-clamp: 2
+                -webkit-box-orient: vertical
+                overflow: hidden
+            span
+                color: $black-color
+            .price
+                color: $basket-color
+
+        .subtotal-row
+            display: flex
+            height: 80px
+            .price
+                color: $dark-yellow-color
+        .delivery-row
+            display: flex
+            height: 50px
+            .price
+                color: $dark-yellow-color
+        .total-row
+            display: flex
+            height: 80px
+            margin-bottom: 40px
+            .price
+                color: $dark-yellow-color
+    .column-1
+        display: flex
+        align-items: center
+        padding-left: 30px
+        width: 50%
+        @include small-tablet
+            width: 40%
+            padding-left: 10px
+    .column-2
+        display: flex
+        align-items: center
+        width: 35%
+        @include small-tablet
+            width: 35%
+        .quantity
+            height: 40px
+            width: 80px
+            display: flex
+            justify-content: center
+            align-items: center
+            background-color: $white-color
+
+        .adjustable-arrow
+            margin-left: 15px
+            color: $yellow-color
+            i
+                font-size: 20px
+                &:hover
+                    cursor: pointer
+
+        .delete-icon
+            margin-left: 70px
+            @include small-tablet
+                margin-left: 15px
+            &:hover
+                cursor: pointer
+
+    .column-3
+        display: flex
+        align-items: center
+        width: 15%
+        @include small-tablet
+            width: 10%
+
+    .footer
+        margin-top: 20px
+        margin-bottom: 100px
+        display: flex
+        justify-content: space-between
+        .btn
+            margin-right: 160px
+            background-color: $yellow-color
+            font-weight: bold
+            color: $white-color
+            border-radius: 0
+            width: 100px
+            text-align: center
+            @include small-tablet
+                margin-right: 60px
+            @include mobile
+                margin-right: 0
+        i
+            font-size: 20px
+
+// success and cancel page style
+.success-container
+    width: 50%
+    height: 200px
+    margin: 170px 25% 0 25%
+    @include tablet
+        width: 60%
+        margin: 150px 20% 0 20%
+    @include small-tablet
+        width: 70%
+        margin: 130px 15% 0 15%
+    @include mobile
+        width: 96%
+        margin: 100px 2% 0 2%
+
+    .border
+        border: 1px $gray dashed
+
+    .success-icon
+        width: 100%
+        text-align: center
+        font-size: 100px
+        color: $notification-color
+    .success-title
+        width: 100%
+        text-align: center
+        color: $notification-color
+    .fail-icon
+        width: 100%
+        text-align: center
+        font-size: 100px
+        color: $red
+    .fail-title
+        width: 100%
+        text-align: center
+        color: $red
+    .past-orders
+        margin-top: 10px
+        float: right
+        a
+            text-decoration: underline
+            color: $basket-color
+            &:hover
+                cursor: pointer
+                color: $basket-color
+
+//past orders page
+.past-orders-container
+    margin: 40px 5% 50px 5%
+    @include tablet
+        margin: 40px 2% 50px 2%
+    .header
+        margin-bottom: 40px
+        .title
+            color: $dark-yellow-color
+    .no-order
+        text-align: center
+        width: 100%
+        color: $gray-color
+        margin: 50px 0
+    .order-card
+        border: 2px $light-gray-color solid
+        display: flex
+        margin-bottom: 30px
+        padding: 15px
+        @include mobile
+            display: block
+            padding: 0
+
+        .order-infomation
+            width: 30%
+            @include mobile
+                display: flex
+                width: 100%
+                justify-content: space-between
+                align-items: center
+                padding: 10px
+            .order-placed
+                font-size: 20px
+            .date
+                font-size: 22px
+                font-weight: bold
+            .recipient
+                margin-top: 10px
+                font-size: 18px
+                @include mobile
+                    margin-top: 0
+            .total
+                font-size: 18px
+                span
+                    color: $basket-color
+                    font-weight: bold
+        .order-lines
+            width: 70%
+            display: block
+            @include mobile
+                width: 100%
+            .order-line
+                display: flex
+                width: 100%
+                height: 50px
+                align-items: center
+                margin-bottom: 10px
+                padding-left: 15px
+                @include mobile
+                    height: 100px
+                    padding-left: 10px
+                .title
+                    width: 50%
+                    color: $dark-yellow-color
+                    font-size: 20px
+                    display: -webkit-inline-box
+                    -webkit-line-clamp: 1
+                    -webkit-box-orient: vertical
+                    overflow: hidden
+                    @include tablet
+                        width: 70%
+                    @include mobile
+                        display: block
+                        width: 65%
+                        font-size: 18px
+                    &:hover
+                        cursor: pointer
+                        text-decoration: underline
+                    span
+                        color: $gray-color
+                        font-size: 18px
+                        @include mobile
+                            &::before
+                                content: "\a"
+                                white-space: pre
+
+                .quantity
+                    width: 15%
+                    font-size: 18px
+                    @include mobile
+                        width: 20%
+                .total
+                    font-size: 18px
+                    color: $basket-color
+                    font-weight: bold
+            .order-line:nth-child(2n+1)
+                background-color: $light-gray-color
+
+//Page 404
+.page-404-container
+    width: 70%
+    margin: 170px 0 0 20%
+    display: flex
+    @include tablet
+        width: 90%
+        margin: 150px 0% 0 5%
+    @include small-tablet
+        display: block
+        text-align: center
+    i
+        font-size: 150px
+        color: $yellow-color
+        margin-right: 80px
+        @include small-tablet
+            margin-right: 0
+
+    .title
+        h1
+            color: $dark-yellow-color
+        h3
+            color: $gray-color
+
+        h2
+            color: $gray
+            @include small-tablet
+                display: none
+
+//login page
+.login-container
+    margin: 20px 2%
+    .title
+        color: $dark-yellow-color
+        margin-bottom: 20px
+    .form
+        border: 1px $black-color solid
+    .upper-form
+        padding: 25px 15px 10px 15px
+        input
+            border-radius: 0
+            border-width: 1px
+            outline: none
+            width: 100%
+            height: 4vh
+
+        .navigation
+            display: flex
+            justify-content: space-between
+            align-items: center
+
+            .btn
+                padding-inline: 15px
+                background-color: $yellow-color
+                color: $white-color
+                border-radius: 0
+                width: 70px
+                text-align: center
+            i
+                font-size: 20px
+
+        .login-via-fb-icon
+            display: flex
+            justify-content: center
+        .alert
+            a
+                color: blue
+                text-decoration-line: underline
+                &:hover
+                    cursor: pointer
+    .lower-form
+        padding: 0 5%
+        background: $light-gray-color
+        span
+            color: $yellow-color
+        p
+            padding-left: 10px
+        .register-link
+            text-align: end
+            padding-bottom: 15px
+            a
+                text-decoration: none
+                color: $yellow-color
+            img
+                transform: rotate(-0.25turn)
