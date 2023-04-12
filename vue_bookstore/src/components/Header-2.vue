@@ -54,9 +54,9 @@
                         <div>cart is empty</div>
                     </div>
                     <div class="footer-container">
-                        <a href="/past_orders">View part orders</a>
+                        <a v-on:click="view_past_orders">View part orders</a>
                     </div>
-
+                    
                 </div>
                 <div v-if="cart.items.length">
                     <div class="item-card" v-for="(item, index) in cart.items" :key="index">
