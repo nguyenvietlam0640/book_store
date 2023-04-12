@@ -1,3 +1,3 @@
-web: python manage.py runserver
+web: gunicorn book_store.wsgi --log-file -
 release: python manage.py migrate
 
