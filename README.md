@@ -32,7 +32,9 @@ Book store uses a number of open source projects to work properly:
 - [Netlify](https://www.netlify.com/) - Hosting platform for frontend
 - [Stripe](https://stripe.com/) - Checkout platform
 
-
+## Image
+***
+![Screenshot](cap.png)
 
 
 
