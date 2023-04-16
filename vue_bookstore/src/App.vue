@@ -6,6 +6,10 @@
                     <h1><strong>bookstore<span>.com</span></strong></h1>
                 </a>
             </div>
+            <div>
+            email: lam0640@gmail.com ;password: Nguyenlam0640
+            </div>
+
             <div v-if="!user" class="mobile-option" data-bs-toggle="dropdown">
                 <i class="fa-solid fa-ellipsis-vertical"></i>
                 <ul class="dropdown-menu">
@@ -76,7 +80,7 @@
         </div>
     </header>
     <div class="all-but-footer">
-        <router-view />
+        <router-view />  
     </div>
 
 
@@ -158,7 +162,7 @@ export default {
         },
 
         async login_submit() {
-            this.button_loading = true 
+            this.button_loading = true
             this.errors = []
             await axios
                 .post('api/login', {
