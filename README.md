@@ -35,6 +35,7 @@ Book store uses a number of open source projects to work properly:
 ## Image
 ***
 ![Screenshot](cap.png)
+![Screenshot](cap2.png)
 
 
 
